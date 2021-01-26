@@ -1,0 +1,42 @@
+2020-12-04T01:47:45,262 [http-nio-9090-exec-4] ERROR tools.controller.command.Impl.RegistrationCommand - User login unique exception!
+2020-12-19T23:58:51,652 [http-nio-9090-exec-16] ERROR by.gaponenko.tools.tag.ClientToolsPaginationTag - Unexpected constant!
+2020-12-19T23:58:51,775 [http-nio-9090-exec-16] ERROR by.gaponenko.tools.tag.ClientToolsPaginationTag - Unexpected constant!
+2020-12-19T23:58:51,776 [http-nio-9090-exec-16] ERROR by.gaponenko.tools.tag.ClientToolsPaginationTag - Unexpected constant!
+2020-12-19T23:59:06,723 [http-nio-9090-exec-9] ERROR by.gaponenko.tools.tag.ClientToolsPaginationTag - Unexpected constant!
+2020-12-19T23:59:06,724 [http-nio-9090-exec-9] ERROR by.gaponenko.tools.tag.ClientToolsPaginationTag - Unexpected constant!
+2020-12-19T23:59:06,726 [http-nio-9090-exec-9] ERROR by.gaponenko.tools.tag.ClientToolsPaginationTag - Unexpected constant!
+2020-12-20T00:02:48,935 [http-nio-9090-exec-18] ERROR by.gaponenko.tools.tag.ClientToolsPaginationTag - Unexpected constant!
+2020-12-20T00:02:48,946 [http-nio-9090-exec-18] ERROR by.gaponenko.tools.tag.ClientToolsPaginationTag - Unexpected constant!
+2020-12-20T00:02:48,947 [http-nio-9090-exec-18] ERROR by.gaponenko.tools.tag.ClientToolsPaginationTag - Unexpected constant!
+2020-12-20T00:02:58,068 [http-nio-9090-exec-28] ERROR by.gaponenko.tools.tag.ClientToolsPaginationTag - Unexpected constant!
+2020-12-20T00:02:58,071 [http-nio-9090-exec-28] ERROR by.gaponenko.tools.tag.ClientToolsPaginationTag - Unexpected constant!
+2020-12-20T00:02:58,071 [http-nio-9090-exec-28] ERROR by.gaponenko.tools.tag.ClientToolsPaginationTag - Unexpected constant!
+2020-12-20T00:03:22,914 [http-nio-9090-exec-33] ERROR by.gaponenko.tools.tag.ClientToolsPaginationTag - Unexpected constant!
+2020-12-20T00:03:22,915 [http-nio-9090-exec-33] ERROR by.gaponenko.tools.tag.ClientToolsPaginationTag - Unexpected constant!
+2020-12-20T00:03:22,915 [http-nio-9090-exec-33] ERROR by.gaponenko.tools.tag.ClientToolsPaginationTag - Unexpected constant!
+2020-12-20T00:03:46,914 [http-nio-9090-exec-36] ERROR by.gaponenko.tools.tag.ClientToolsPaginationTag - Unexpected constant!
+2020-12-20T00:03:46,915 [http-nio-9090-exec-36] ERROR by.gaponenko.tools.tag.ClientToolsPaginationTag - Unexpected constant!
+2020-12-20T00:03:46,915 [http-nio-9090-exec-36] ERROR by.gaponenko.tools.tag.ClientToolsPaginationTag - Unexpected constant!
+2020-12-30T17:41:58,331 [http-nio-9090-exec-5] ERROR gaponenko.tools.util.mail.MailSender - 534-5.7.14 <https://accounts.google.com/signin/continue?sarp=1&scc=1&plt=AKgnsbt
+534-5.7.14 2aJbQXpLs2O7RoOuiKKbw0QrBFyRcDlIQe2TL8F6A-XckqF-_cBC8WeOLYij1SpvDFkrg
+534-5.7.14 wzzpznVpOZkyOPTsvOG8yBFCyU8fN4FHZ0Z58zU1iPOBZwuG4HdArBkFheWxTdZ5>
+534-5.7.14 Please log in via your web browser and then try again.
+534-5.7.14  Learn more at
+534 5.7.14  https://support.google.com/mail/answer/78754 dh19sm29858076edb.78 - gsmtp
+
+2020-12-30T17:43:24,296 [http-nio-9090-exec-6] ERROR gaponenko.tools.util.mail.MailSender - 534-5.7.14 <https://accounts.google.com/signin/continue?sarp=1&scc=1&plt=AKgnsbu
+534-5.7.14 9rQa-bR-NvaHxxGYfxfLObOvgeee0YS-xdelPOOsngY1OzOV0sCbAtapxyGJfJpByN9gX
+534-5.7.14 3-mzddB568JfBgQSeWq6SmK-RvylcgYkjnlmB3vdHmrJqzF2681aMK2PZg7gQJBj>
+534-5.7.14 Please log in via your web browser and then try again.
+534-5.7.14  Learn more at
+534 5.7.14  https://support.google.com/mail/answer/78754 dd18sm19237445ejb.53 - gsmtp
+
+2020-12-30T17:51:31,908 [main] ERROR gaponenko.tools.util.mail.MailSender - Invalid Addresses
+2020-12-30T18:31:16,482 [main] ERROR gaponenko.tools.util.mail.MailSender - Invalid Addresses
+2020-12-30T18:31:42,627 [main] ERROR gaponenko.tools.util.mail.MailSender - Invalid Addresses
+2021-01-12T03:37:08,592 [http-nio-9090-exec-94] ERROR tools.controller.command.Impl.MakeOrderCommand - by.gaponenko.tools.exception.DaoException: java.sql.SQLSyntaxErrorException: Unknown column 'total_costorder_status_id' in 'field list'
+2021-01-27T00:57:51,250 [http-nio-9090-exec-125] ERROR tools.controller.command.impl.EditToolCommand - by.gaponenko.tools.exception.DaoException: java.sql.SQLException: No value specified for parameter 4
+2021-01-27T00:58:48,730 [http-nio-9090-exec-132] ERROR tools.controller.command.impl.EditToolCommand - by.gaponenko.tools.exception.DaoException: java.sql.SQLException: No value specified for parameter 4
+2021-01-27T01:13:00,011 [http-nio-9090-exec-142] ERROR tools.controller.command.impl.EditToolCommand - by.gaponenko.tools.exception.DaoException: java.sql.SQLException: No value specified for parameter 4
+2021-01-27T01:16:32,258 [http-nio-9090-exec-152] ERROR tools.controller.command.impl.EditToolCommand - by.gaponenko.tools.exception.DaoException: java.sql.SQLException: No value specified for parameter 1
+2021-01-27T01:39:35,287 [http-nio-9090-exec-189] ERROR tools.controller.command.impl.EditToolCommand - by.gaponenko.tools.exception.DaoException: java.sql.SQLException: Can not issue data manipulation statements with executeQuery().

@@ -1,0 +1,234 @@
+html,
+body {
+    height: 100%;
+    font-size: 22px;
+}
+
+.container {
+    font-family: Calibri, serif;
+}
+
+.wrapper {
+    background-color: #B6B6B6;
+    background-size: cover;
+}
+
+.footer {
+    height: 120px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #343A40;
+}
+
+.footer span {
+    color: #999DA0;
+}
+
+#pagination_block {
+    color: black;
+}
+
+#pagination_block a {
+    color: black;
+}
+
+#lang_switch a {
+    font-size: 18px;
+    color: #999DA0;
+}
+
+#tool_photo {
+    height: 450px;
+    width: 450px;
+}
+
+#tool_photo_list {
+    height: 70px;
+    width: 70px;
+}
+
+#tool_photo_card {
+    height: 180px;
+    width: 180px;
+}
+
+#avatar {
+    height: 300px;
+    width: 300px;
+}
+
+#avatar_mini {
+    height: 60px;
+    width: 60px;
+    border-radius: 100%;
+}
+
+.default-page {
+    min-height: calc(100vh - 185px);
+}
+
+.notification-page {
+    min-height: calc(100vh - 185px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+}
+
+#error-page-500 {
+    min-height: calc(100vh - 185px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    background: url('../images/500.jpg');
+}
+
+#error-page-500 h1 {
+    color: #f0f0f0;
+}
+
+#error-page-404 {
+    min-height: calc(100vh - 185px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    background: url('../images/404.jpg');
+}
+
+#error-page-404 h1 {
+    color: #f0f0f0;
+}
+
+.message-empty {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+}
+
+#main-info {
+    font-size: 24px;
+    font-weight: 500;
+}
+
+.info label {
+    font-size: 20px;
+}
+
+#select {
+    background-color: #999DA0;
+}
+
+.tool_select_form {
+    padding-top: 50px;
+}
+
+.tool_submit_form {
+    padding-top: 50px;
+}
+
+#payment-form {
+    background: #f0f0f0;
+    margin-top: 5%;
+}
+
+#but-tool-find {
+    margin-top: 10px;
+    padding-left: 30px;
+    padding-right: 30px;
+    background-color: #343A40;
+}
+
+#but-order-find {
+    margin-top: 10px;
+    padding-left: 30px;
+    padding-right: 30px;
+    background-color: #343A40;
+}
+
+#but-client-find {
+    margin-top: 10px;
+    padding-left: 30px;
+    padding-right: 30px;
+    background-color: #343A40;
+}
+
+#but-sort-up {
+    padding-left: 30px;
+    padding-right: 30px;
+    background-color: #343A40;
+}
+
+#but-sort-down {
+    padding-left: 30px;
+    padding-right: 30px;
+    background-color: #343A40;
+}
+
+#but-view-list {
+    padding-left: 30px;
+    padding-right: 30px;
+    background-color: #343A40;
+}
+
+#but-view-cards {
+    padding-left: 30px;
+    padding-right: 30px;
+    background-color: #343A40;
+}
+
+#but-submit {
+    padding-left: 30px;
+    padding-right: 30px;
+    background-color: #343A40;
+}
+
+#but-order {
+    padding-left: 30px;
+    padding-right: 30px;
+    background-color: #343A40;
+}
+
+#but-approve {
+    padding-left: 30px;
+    padding-right: 30px;
+    background-color: #343A40;
+}
+
+#but-reject {
+    padding-left: 30px;
+    padding-right: 30px;
+    background-color: #343A40;
+}
+
+#but-cancel {
+    padding-left: 30px;
+    padding-right: 30px;
+    background-color: #343A40;
+}
+
+#but-pay-pass {
+    padding-left: 30px;
+    padding-right: 30px;
+    background-color: #343A40;
+}
+
+#but-pay {
+    background-color: #343A40;
+    color: #f0f0f0;
+}
+
+#but-block {
+    padding-left: 30px;
+    padding-right: 30px;
+    background-color: #343A40;
+}
+
+#but-unblock {
+    padding-left: 30px;
+    padding-right: 30px;
+    background-color: #343A40;
+}

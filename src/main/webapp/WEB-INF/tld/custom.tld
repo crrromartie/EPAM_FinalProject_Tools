@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<taglib xmlns="http://java.sun.com/xml/ns/javaee"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-jsptaglibrary_2_1.xsd"
+        version="2.1">
+    <tlib-version>1.0</tlib-version>
+    <short-name>ctg</short-name>
+    <uri>custom_tags</uri>
+
+    <tag>
+        <name>usersPagination</name>
+        <tag-class>by.gaponenko.tools.tag.UsersPaginationTag</tag-class>
+        <body-content>empty</body-content>
+        <attribute>
+            <name>usersPageNumber</name>
+            <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>pageEntries</name>
+            <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+    </tag>
+
+    <tag>
+        <name>toolsPagination</name>
+        <tag-class>by.gaponenko.tools.tag.ToolsPaginationTag</tag-class>
+        <body-content>empty</body-content>
+        <attribute>
+            <name>toolsPageNumber</name>
+            <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>pageEntries</name>
+            <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+    </tag>
+
+    <tag>
+        <name>ordersPagination</name>
+        <tag-class>by.gaponenko.tools.tag.OrdersPaginationTag</tag-class>
+        <body-content>empty</body-content>
+        <attribute>
+            <name>ordersPageNumber</name>
+            <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>pageEntries</name>
+            <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+    </tag>
+
+</taglib>
