@@ -27,21 +27,23 @@ public class FilterOrdersCommand implements Command {
     public Router execute(HttpServletRequest request) {
         Router router = new Router(PagePath.ORDERS_PAGE);
         HttpSession session = request.getSession();
-        ServiceFactory factory = ServiceFactory.getINSTANCE();
-        OrderService orderService = factory.getOrderService();
         String orderStatus = request.getParameter(ParameterName.ORDER_STATUS);
         User user = (User) session.getAttribute(AttributeName.USER);
-        List<Order> orders;
+        OrderService orderService = ServiceFactory.getINSTANCE().getOrderService();
         try {
+            List<Order> orders;
             if (user.getRole().equals(User.Role.ADMIN)) {
                 orders = orderService.findByStatus(Order.Status.valueOf(orderStatus));
                 session.setAttribute(AttributeName.ORDERS, orders);
                 session.setAttribute(AttributeName.ORDERS_PAGE_NUMBER, FIRST_PAGE);
+                session.setAttribute(AttributeName.ORDERS_FILTER_STATUS, orderStatus);
             }
             if (user.getRole().equals(User.Role.CLIENT)) {
-                orders = orderService.findAllByUserIdAndOrderStatus(user.getUserId(), Order.Status.valueOf(orderStatus));
+                orders = orderService.findAllByUserIdAndOrderStatus(user.getUserId(),
+                        Order.Status.valueOf(orderStatus));
                 session.setAttribute(AttributeName.ORDERS, orders);
                 session.setAttribute(AttributeName.ORDERS_PAGE_NUMBER, FIRST_PAGE);
+                session.setAttribute(AttributeName.ORDERS_FILTER_STATUS, orderStatus);
             }
         } catch (ServiceException e) {
             logger.log(Level.ERROR, e.getMessage());

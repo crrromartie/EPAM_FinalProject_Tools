@@ -97,6 +97,19 @@
     }
 }
 
+#payment-form {
+    background: #f0f0f0;
+    margin-top: 5%;
+}
+
 #register {
     color: #00b4ef;
+}
+
+.tool_select_form {
+    padding-top: 50px;
+}
+
+.tool_submit_form {
+    padding-top: 50px;
 }

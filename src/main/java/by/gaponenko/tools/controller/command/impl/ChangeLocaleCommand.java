@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 public class ChangeLocaleCommand implements Command {
+
     @Override
     public Router execute(HttpServletRequest request) {
         HttpSession session = request.getSession();

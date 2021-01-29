@@ -19,14 +19,13 @@ import java.util.Map;
 public class AddToolCommand implements Command {
     static Logger logger = LogManager.getLogger();
 
-    private static final String NOTIFICATION_PASS_COMMAND = "/ToolRental?command=notification_pass&addTool=true";
+    private static final String NOTIFICATION_PASS_COMMAND = "/ToolRental?command=notification_pass&toolAdd=true";
 
     @Override
     public Router execute(HttpServletRequest request) {
         Router router = new Router();
-        ServiceFactory factory = ServiceFactory.getINSTANCE();
-        ToolService toolService = factory.getToolService();
         Map<String, String> toolParameters = fillToolParameters(request);
+        ToolService toolService = ServiceFactory.getINSTANCE().getToolService();
         try {
             if (toolService.isModelUnique(toolParameters.get(ParameterName.TOOL_MODEL))) {
                 if (toolService.add(toolParameters)) {

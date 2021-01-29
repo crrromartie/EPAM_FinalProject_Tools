@@ -8,6 +8,7 @@ import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.JspWriter;
 import javax.servlet.jsp.tagext.TagSupport;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ToolsPaginationTag extends TagSupport {
@@ -25,7 +26,7 @@ public class ToolsPaginationTag extends TagSupport {
     @Override
     public int doStartTag() throws JspException {
         HttpSession session = pageContext.getSession();
-        List<Tool> tools = (List<Tool>) session.getAttribute(AttributeName.TOOLS);
+        List<Tool> tools = (ArrayList<Tool>) session.getAttribute(AttributeName.TOOLS);
         JspWriter out = pageContext.getOut();
         try {
             int beginIndex = toolsPageNumber * pageEntries - pageEntries;

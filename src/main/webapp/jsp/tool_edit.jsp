@@ -20,18 +20,18 @@
     <div class="container default-page">
         <div class="row">
             <div class="col-6 offset-3">
-                <form name="ToolEdit" class="form-horizontal" action="${pageContext.request.contextPath}/ToolRental"
+                <form name="EditTool" class="form-horizontal" action="${pageContext.request.contextPath}/ToolRental"
                       method="post">
                     <input type="hidden" name="command" value="edit_tool"/>
                     <span class="heading"><fmt:message key="tool_s_page.edit_tool"/></span>
                     <div class="form-group">
-                        <img class="card-img-top" id="tool_photo_card"
-                             src="data:image/jpeg;base64,${tool.getPhoto()}"/>
+                        <img id="tool_photo" src="data:image/jpeg;base64,${tool.getPhoto()}" alt="..."/>
                     </div>
                     <div class="form-group">
                         <a href="${pageContext.request.contextPath}/ToolRental?command=tool_photo_pass&toolId=${tool.getToolId()}">
                             <fmt:message key="tool_s_page.update_photo"/></a>
                     </div>
+                    <h5>${tool.getModel()}</h5>
                     <div class="form-group">
                         <span><fmt:message key="tool_s_page.description_rus"/></span>
                         <textarea type="text" class="form-control" name="descriptionRus"

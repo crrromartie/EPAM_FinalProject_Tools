@@ -1,6 +1,7 @@
 package by.gaponenko.tools.exception;
 
 public class ServiceException extends Exception {
+
     public ServiceException() {
     }
 

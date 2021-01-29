@@ -6,11 +6,9 @@ import by.gaponenko.tools.controller.command.Command;
 import by.gaponenko.tools.controller.command.PagePath;
 import by.gaponenko.tools.entity.Order;
 import by.gaponenko.tools.entity.Tool;
-import by.gaponenko.tools.entity.User;
 import by.gaponenko.tools.exception.ServiceException;
 import by.gaponenko.tools.model.service.OrderService;
 import by.gaponenko.tools.model.service.ServiceFactory;
-import by.gaponenko.tools.model.service.ToolService;
 import by.gaponenko.tools.util.ParameterName;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
@@ -21,36 +19,33 @@ import javax.servlet.http.HttpSession;
 import java.util.List;
 import java.util.Optional;
 
-public class OrderCancelCommand implements Command {
+public class RejectOrderCommand implements Command {
     static Logger logger = LogManager.getLogger();
 
     @Override
     public Router execute(HttpServletRequest request) {
         Router router = new Router(PagePath.ORDERS_PAGE);
         HttpSession session = request.getSession();
-        ServiceFactory factory = ServiceFactory.getINSTANCE();
-        OrderService orderService = factory.getOrderService();
-        ToolService toolService = factory.getToolService();
         long orderId = Long.parseLong(request.getParameter(ParameterName.ORDER_ID));
-        User user = (User) session.getAttribute(AttributeName.USER);
-        long id = user.getUserId();
-        Optional<Order> optionalOrder;
-        Tool tool;
-        List<Order> orders;
+        String ordersFilterStatus = (String) session.getAttribute(AttributeName.ORDERS_FILTER_STATUS);
+        OrderService orderService = ServiceFactory.getINSTANCE().getOrderService();
         try {
-            optionalOrder = orderService.findById(orderId);
+            Optional<Order> optionalOrder = orderService.findById(orderId);
             if (optionalOrder.isPresent()) {
-                tool = optionalOrder.get().getTool();
-                long toolId = tool.getToolId();
-                if (toolService.activateTool(toolId)
-                        && orderService.updateStatus(orderId, Order.Status.CANCELED)) {
-                    orders = orderService.findAllByUserId(id);
+                Tool tool = optionalOrder.get().getTool();
+                if (orderService.rejectOrder(orderId, tool.getToolId())) {
+                    List<Order> orders;
+                    if (ordersFilterStatus != null) {
+                        orders = orderService.findByStatus(Order.Status.valueOf(ordersFilterStatus));
+                    } else {
+                        orders = orderService.findAll();
+                    }
                     session.setAttribute(AttributeName.ORDERS, orders);
                 } else {
-                    logger.log(Level.WARN, "Order was not canceled");
+                    logger.log(Level.WARN, "Order is not rejected");
                 }
             } else {
-                logger.log(Level.WARN, "Tool was not found");
+                logger.log(Level.WARN, "Tool is not exist");
             }
         } catch (ServiceException e) {
             logger.log(Level.ERROR, e.getMessage());

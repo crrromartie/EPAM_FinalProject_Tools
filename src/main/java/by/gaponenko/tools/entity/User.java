@@ -5,6 +5,7 @@ import java.util.Map;
 import java.util.StringJoiner;
 
 public class User extends Entity {
+
     public enum Role {
         ADMIN(1),
         CLIENT(2),

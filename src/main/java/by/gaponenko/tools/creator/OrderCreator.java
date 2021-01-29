@@ -10,6 +10,7 @@ import java.time.LocalDate;
 import java.util.Map;
 
 public class OrderCreator {
+
     public static Order createOrder(Map<String, String> orderParameters, User user, Tool tool) {
         Order order = new Order();
         order.setUser(user);

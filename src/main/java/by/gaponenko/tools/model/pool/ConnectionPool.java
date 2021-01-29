@@ -15,8 +15,8 @@ public enum ConnectionPool {
 
     static Logger logger = LogManager.getLogger();
 
-    private BlockingQueue<ProxyConnection> freeConnections;
-    private BlockingQueue<ProxyConnection> activeConnections;
+    private final BlockingQueue<ProxyConnection> freeConnections;
+    private final BlockingQueue<ProxyConnection> activeConnections;
 
     private final int DEFAULT_POOL_SIZE = Integer.parseInt(DBPropertiesManager.getPoolSize());
     private final String DATABASE_DRIVER = DBPropertiesManager.getDriver();
@@ -54,7 +54,7 @@ public enum ConnectionPool {
             }
             freeConnections.offer((ProxyConnection) connection);
         } else {
-            logger.log(Level.ERROR, "Received connection is not proxy connection!");
+            logger.log(Level.ERROR, "Received connection is not proxy connection");
         }
     }
 
@@ -76,8 +76,8 @@ public enum ConnectionPool {
         try {
             Class.forName(DATABASE_DRIVER);
         } catch (ClassNotFoundException e) {
-            logger.log(Level.FATAL, "Driver not registered!");
-            throw new RuntimeException("Driver not registered!", e);
+            logger.log(Level.FATAL, "Driver is not registered");
+            throw new RuntimeException("Driver is not registered", e);
         }
     }
 

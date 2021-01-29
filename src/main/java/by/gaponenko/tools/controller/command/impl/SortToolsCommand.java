@@ -15,6 +15,7 @@ import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.List;
 
 public class SortToolsCommand implements Command {
@@ -26,19 +27,17 @@ public class SortToolsCommand implements Command {
     public Router execute(HttpServletRequest request) {
         Router router = new Router(PagePath.TOOLS_PAGE);
         HttpSession session = request.getSession();
-        ServiceFactory factory = ServiceFactory.getINSTANCE();
-        ToolService toolService = factory.getToolService();
+        List<Tool> tools = (ArrayList<Tool>) session.getAttribute(AttributeName.TOOLS);
         String sortDirection = request.getParameter(ParameterName.TOOLS_SORT_CRITERIA);
-        List<Tool> tools = (List<Tool>) session.getAttribute(AttributeName.TOOLS);
-        List<Tool> sortedTools;
+        ToolService toolService = ServiceFactory.getINSTANCE().getToolService();
         try {
             if (ParameterName.PRICE_UP.equals(sortDirection)) {
-                sortedTools = toolService.sortByCriteria(tools, ParameterName.PRICE_UP);
+                List<Tool> sortedTools = toolService.sortByCriteria(tools, ParameterName.PRICE_UP);
                 session.setAttribute(AttributeName.TOOLS, sortedTools);
                 session.setAttribute(AttributeName.TOOLS_PAGE_NUMBER, FIRST_PAGE);
             }
             if (ParameterName.PRICE_DOWN.equals(sortDirection)) {
-                sortedTools = toolService.sortByCriteria(tools, ParameterName.PRICE_DOWN);
+                List<Tool> sortedTools = toolService.sortByCriteria(tools, ParameterName.PRICE_DOWN);
                 session.setAttribute(AttributeName.TOOLS, sortedTools);
                 session.setAttribute(AttributeName.TOOLS_PAGE_NUMBER, FIRST_PAGE);
             }

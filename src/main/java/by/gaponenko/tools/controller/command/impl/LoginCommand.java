@@ -4,11 +4,11 @@ import by.gaponenko.tools.controller.Router;
 import by.gaponenko.tools.controller.command.AttributeName;
 import by.gaponenko.tools.controller.command.Command;
 import by.gaponenko.tools.controller.command.PagePath;
-import by.gaponenko.tools.model.service.ServiceFactory;
-import by.gaponenko.tools.util.ParameterName;
 import by.gaponenko.tools.entity.User;
 import by.gaponenko.tools.exception.ServiceException;
+import by.gaponenko.tools.model.service.ServiceFactory;
 import by.gaponenko.tools.model.service.UserService;
+import by.gaponenko.tools.util.ParameterName;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -25,17 +25,14 @@ public class LoginCommand implements Command {
     @Override
     public Router execute(HttpServletRequest request) {
         Router router = new Router();
-        ServiceFactory factory = ServiceFactory.getINSTANCE();
-        UserService userService = factory.getUserService();
         HttpSession session = request.getSession();
         String login = request.getParameter(ParameterName.USER_LOGIN);
         String password = request.getParameter(ParameterName.USER_PASSWORD);
-        Optional<User> optionalUser;
-        User user;
+        UserService userService = ServiceFactory.getINSTANCE().getUserService();
         try {
-            optionalUser = userService.login(login, password);
+            Optional<User> optionalUser = userService.login(login, password);
             if (optionalUser.isPresent()) {
-                user = optionalUser.get();
+                User user = optionalUser.get();
                 session.setAttribute(AttributeName.USER, user);
                 session.setAttribute(AttributeName.ROLE, user.getRole());
                 router.setPage(request.getContextPath() + HOME_PASS_COMMAND);

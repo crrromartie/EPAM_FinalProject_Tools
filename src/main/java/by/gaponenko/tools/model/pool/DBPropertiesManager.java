@@ -28,18 +28,14 @@ class DBPropertiesManager {
         try {
             InputStream inputStream = DBPropertiesManager.class.getClassLoader().getResourceAsStream(PROPERTIES_FILE);
             if (inputStream == null) {
-                logger.log(Level.FATAL, "Properties file not found!");
-                throw new RuntimeException("Properties file not found!");
+                logger.log(Level.FATAL, "Properties file is not found!");
+                throw new RuntimeException("Properties file is not found!");
             }
             properties.load(inputStream);
         } catch (IOException e) {
             logger.log(Level.FATAL, e.getMessage());
             throw new RuntimeException(e);
         }
-    }
-
-    static Properties getProperties() {
-        return properties;
     }
 
     static String getDriver() {

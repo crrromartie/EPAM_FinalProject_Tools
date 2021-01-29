@@ -2,20 +2,25 @@ package by.gaponenko.tools.model.dao.impl;
 
 import by.gaponenko.tools.entity.User;
 import by.gaponenko.tools.exception.DaoException;
+import by.gaponenko.tools.model.dao.AbstractDao;
 import by.gaponenko.tools.model.dao.UserDao;
-import by.gaponenko.tools.model.pool.ConnectionPool;
-import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.io.*;
-import java.sql.*;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;
 import java.util.Optional;
 
-public class UserDaoImpl implements UserDao {
+public class UserDaoImpl extends AbstractDao implements UserDao {
     static Logger logger = LogManager.getLogger();
 
     private static final String DEFAULT_USER_AVATAR_PATH = "C:\\Users\\IGOR\\IdeaProjects" +
@@ -23,38 +28,37 @@ public class UserDaoImpl implements UserDao {
 
     private static final String EMPTY_STRING = "";
 
-    private static final String FIND_USER_BY_ID = "SELECT user_id, login, name, surname, email, phone, user_role_id, " +
-            "user_status_id, avatar FROM users WHERE user_id = ?";
-    private static final String FIND_ALL = "SELECT user_id, login, name, surname, email, phone, user_role_id, user_status_id, " +
-            "avatar FROM users";
-    private static final String FIND_USER_BY_LOGIN = "SELECT user_id, login, name, surname, email, phone, user_role_id, " +
-            "user_status_id, avatar FROM users WHERE login = ?";
-    private static final String FIND_USER_BY_EMAIL = "SELECT user_id, login, name, surname, email, phone, user_role_id, " +
-            "user_status_id, avatar FROM users WHERE email = ?";
-    private static final String FIND_USER_BY_PHONE = "SELECT user_id, login, name, surname, email, phone, user_role_id, " +
-            "user_status_id, avatar FROM users WHERE phone = ?";
+    private static final String FIND_USER_BY_ID = "SELECT user_id, login, name, surname, email, phone, " +
+            "user_role_id, user_status_id, avatar FROM users WHERE user_id = ?";
+    private static final String FIND_ALL = "SELECT user_id, login, name, surname, email, phone, user_role_id, " +
+            "user_status_id, avatar FROM users";
+    private static final String FIND_USER_BY_LOGIN = "SELECT user_id, login, name, surname, email, phone, " +
+            "user_role_id, user_status_id, avatar FROM users WHERE login = ?";
+    private static final String FIND_USER_BY_EMAIL = "SELECT user_id, login, name, surname, email, phone, " +
+            "user_role_id, user_status_id, avatar FROM users WHERE email = ?";
+    private static final String FIND_USER_BY_PHONE = "SELECT user_id, login, name, surname, email, phone, " +
+            "user_role_id, user_status_id, avatar FROM users WHERE phone = ?";
     private static final String FIND_PASSWORD_BY_LOGIN = "SELECT password FROM USERS WHERE login = ? ";
     private static final String FIND_STATUS = "SELECT user_status_id FROM USERS WHERE login = ?";
-    private static final String FIND_USERS_BY_STATUS = "SELECT user_id, login, name, surname, email, phone, user_role_id, " +
-            "user_status_id, avatar FROM users WHERE user_status_id = ?";
+    private static final String FIND_USERS_BY_STATUS = "SELECT user_id, login, name, surname, email, phone, " +
+            "user_role_id, user_status_id, avatar FROM users WHERE user_status_id = ?";
     private static final String ADD_USER = "INSERT INTO users (login, password, name, surname, email, phone, avatar) " +
             "VALUES (?, ?, ?, ?, ?, ?, ?)";
     private static final String UPDATE_STATUS = "UPDATE users SET user_status_id = ? WHERE login = ?";
-    private static final String UPDATE_PASSWORD = "UPDATE users SET password = ? WHERE login = ?";
-    private static final String UPDATE_PHONE = "UPDATE users SET phone = ? WHERE login = ?";
-    private static final String UPDATE_AVATAR = "UPDATE users SET avatar = ? WHERE login = ?";
+    private static final String UPDATE_PASSWORD = "UPDATE users SET password = ? WHERE user_id = ?";
+    private static final String UPDATE_USER_INFO = "UPDATE users SET name = ?, surname = ?, email = ?, " +
+            "phone = ? WHERE user_id = ?";
+    private static final String UPDATE_AVATAR = "UPDATE users SET avatar = ? WHERE user_id = ?";
 
     @Override
     public Optional<User> findById(long id) throws DaoException {
         Optional<User> optionalUser = Optional.empty();
-        User user = null;
         ResultSet resultSet = null;
-        try (Connection connection = ConnectionPool.INSTANCE.getConnection();
-             PreparedStatement statement = connection.prepareStatement(FIND_USER_BY_ID)) {
+        try (PreparedStatement statement = connection.prepareStatement(FIND_USER_BY_ID)) {
             statement.setLong(1, id);
             resultSet = statement.executeQuery();
             if (resultSet.next()) {
-                user = createFromResultSet(resultSet);
+                User user = createFromResultSet(resultSet);
                 optionalUser = Optional.of(user);
             }
         } catch (SQLException e) {
@@ -69,8 +73,7 @@ public class UserDaoImpl implements UserDao {
     public List<User> findAll() throws DaoException {
         List<User> users = new ArrayList<>();
         ResultSet resultSet = null;
-        try (Connection connection = ConnectionPool.INSTANCE.getConnection();
-             PreparedStatement statement = connection.prepareStatement(FIND_ALL)) {
+        try (PreparedStatement statement = connection.prepareStatement(FIND_ALL)) {
             resultSet = statement.executeQuery();
             while (resultSet.next()) {
                 User user = createFromResultSet(resultSet);
@@ -87,14 +90,12 @@ public class UserDaoImpl implements UserDao {
     @Override
     public Optional<User> findByLogin(String login) throws DaoException {
         Optional<User> optionalUser = Optional.empty();
-        User user = null;
         ResultSet resultSet = null;
-        try (Connection connection = ConnectionPool.INSTANCE.getConnection();
-             PreparedStatement statement = connection.prepareStatement(FIND_USER_BY_LOGIN)) {
+        try (PreparedStatement statement = connection.prepareStatement(FIND_USER_BY_LOGIN)) {
             statement.setString(1, login);
             resultSet = statement.executeQuery();
             if (resultSet.next()) {
-                user = createFromResultSet(resultSet);
+                User user = createFromResultSet(resultSet);
                 optionalUser = Optional.of(user);
             }
         } catch (SQLException e) {
@@ -108,14 +109,12 @@ public class UserDaoImpl implements UserDao {
     @Override
     public Optional<User> findByEmail(String email) throws DaoException {
         Optional<User> optionalUser = Optional.empty();
-        User user = null;
         ResultSet resultSet = null;
-        try (Connection connection = ConnectionPool.INSTANCE.getConnection();
-             PreparedStatement statement = connection.prepareStatement(FIND_USER_BY_EMAIL)) {
+        try (PreparedStatement statement = connection.prepareStatement(FIND_USER_BY_EMAIL)) {
             statement.setString(1, email);
             resultSet = statement.executeQuery();
             if (resultSet.next()) {
-                user = createFromResultSet(resultSet);
+                User user = createFromResultSet(resultSet);
                 optionalUser = Optional.of(user);
             }
         } catch (SQLException e) {
@@ -129,14 +128,12 @@ public class UserDaoImpl implements UserDao {
     @Override
     public Optional<User> findByPhone(String phone) throws DaoException {
         Optional<User> optionalUser = Optional.empty();
-        User user = null;
         ResultSet resultSet = null;
-        try (Connection connection = ConnectionPool.INSTANCE.getConnection();
-             PreparedStatement statement = connection.prepareStatement(FIND_USER_BY_PHONE)) {
+        try (PreparedStatement statement = connection.prepareStatement(FIND_USER_BY_PHONE)) {
             statement.setString(1, phone);
             resultSet = statement.executeQuery();
             if (resultSet.next()) {
-                user = createFromResultSet(resultSet);
+                User user = createFromResultSet(resultSet);
                 optionalUser = Optional.of(user);
             }
         } catch (SQLException e) {
@@ -151,8 +148,7 @@ public class UserDaoImpl implements UserDao {
     public String findPasswordByLogin(String login) throws DaoException {
         String password = EMPTY_STRING;
         ResultSet resultSet = null;
-        try (Connection connection = ConnectionPool.INSTANCE.getConnection();
-             PreparedStatement statement = connection.prepareStatement(FIND_PASSWORD_BY_LOGIN)) {
+        try (PreparedStatement statement = connection.prepareStatement(FIND_PASSWORD_BY_LOGIN)) {
             statement.setString(1, login);
             resultSet = statement.executeQuery();
             if (resultSet.next()) {
@@ -170,8 +166,7 @@ public class UserDaoImpl implements UserDao {
     public User.Status findStatus(String login) throws DaoException {
         User.Status status = null;
         ResultSet resultSet = null;
-        try (Connection connection = ConnectionPool.INSTANCE.getConnection();
-             PreparedStatement statement = connection.prepareStatement(FIND_STATUS)) {
+        try (PreparedStatement statement = connection.prepareStatement(FIND_STATUS)) {
             statement.setString(1, login);
             resultSet = statement.executeQuery();
             if (resultSet.next()) {
@@ -189,8 +184,7 @@ public class UserDaoImpl implements UserDao {
     public List<User> findByStatus(User.Status status) throws DaoException {
         List<User> users = new ArrayList<>();
         ResultSet resultSet = null;
-        try (Connection connection = ConnectionPool.INSTANCE.getConnection();
-             PreparedStatement statement = connection.prepareStatement(FIND_USERS_BY_STATUS)) {
+        try (PreparedStatement statement = connection.prepareStatement(FIND_USERS_BY_STATUS)) {
             statement.setInt(1, status.getStatusId());
             resultSet = statement.executeQuery();
             while (resultSet.next()) {
@@ -207,8 +201,8 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public boolean add(User user, String password) throws DaoException {
-        InputStream fileInputStream = null;
-        try (Connection connection = ConnectionPool.INSTANCE.getConnection();
+        File file = new File(DEFAULT_USER_AVATAR_PATH);
+        try (InputStream fileInputStream = new FileInputStream(file);
              PreparedStatement statement = connection.prepareStatement(ADD_USER)) {
             Statement statement1 = connection.createStatement();
             statement.setString(1, user.getLogin());
@@ -217,68 +211,70 @@ public class UserDaoImpl implements UserDao {
             statement.setString(4, user.getSurname());
             statement.setString(5, user.getEmail());
             statement.setString(6, user.getPhone());
-            File file = new File(DEFAULT_USER_AVATAR_PATH);
-            fileInputStream = new FileInputStream(file);
             statement.setBlob(7, fileInputStream);
-            return (statement.executeUpdate() > 0);
+            return (statement.executeUpdate() == 1);
         } catch (SQLException e) {
             throw new DaoException(e);
-        } catch (FileNotFoundException e) {
-            throw new DaoException("File not found!", e);
-        } finally {
-            try {
-                if (fileInputStream != null) {
-                    fileInputStream.close();
-                }
-            } catch (IOException e) {
-                logger.log(Level.WARN, e.getMessage());
-            }
+        } catch (IOException e) {
+            throw new DaoException(e);
         }
     }
 
     @Override
     public boolean updateStatus(String login, User.Status status) throws DaoException {
-        try (Connection connection = ConnectionPool.INSTANCE.getConnection();
-             PreparedStatement statement = connection.prepareStatement(UPDATE_STATUS)) {
+        try (PreparedStatement statement = connection.prepareStatement(UPDATE_STATUS)) {
             statement.setInt(1, status.getStatusId());
             statement.setString(2, login);
-            return (statement.executeUpdate() > 0);
+            return (statement.executeUpdate() == 1);
         } catch (SQLException e) {
             throw new DaoException(e);
         }
     }
 
     @Override
-    public boolean updatePassword(String login, String password) throws DaoException {
-        try (Connection connection = ConnectionPool.INSTANCE.getConnection();
-             PreparedStatement statement = connection.prepareStatement(UPDATE_PASSWORD)) {
+    public boolean updatePassword(long id, String password) throws DaoException {
+        try (PreparedStatement statement = connection.prepareStatement(UPDATE_PASSWORD)) {
             statement.setString(1, password);
-            statement.setString(2, login);
-            return (statement.executeUpdate() > 0);
+            statement.setLong(2, id);
+            return (statement.executeUpdate() == 1);
         } catch (SQLException e) {
             throw new DaoException(e);
         }
     }
 
     @Override
-    public boolean updatePhone(String login, String phone) throws DaoException {
-        try (Connection connection = ConnectionPool.INSTANCE.getConnection();
-             PreparedStatement statement = connection.prepareStatement(UPDATE_PHONE)) {
-            statement.setString(1, phone);
-            statement.setString(2, login);
-            return (statement.executeUpdate() > 0);
+    public Optional<User> updateUserInfo(User user) throws DaoException {
+        Optional<User> optionalUser = Optional.empty();
+        ResultSet resultSet = null;
+        try (PreparedStatement statement = connection.prepareStatement(UPDATE_USER_INFO);
+             PreparedStatement updateStatment = connection.prepareStatement(FIND_USER_BY_ID)) {
+            statement.setString(1, user.getName());
+            statement.setString(2, user.getSurname());
+            statement.setString(3, user.getEmail());
+            statement.setString(4, user.getPhone());
+            statement.setLong(5, user.getUserId());
+            statement.executeUpdate();
+
+            updateStatment.setLong(1, user.getUserId());
+            resultSet = updateStatment.executeQuery();
+            if (resultSet.next()) {
+                User updatedUser = createFromResultSet(resultSet);
+                optionalUser = Optional.of(updatedUser);
+            }
         } catch (SQLException e) {
             throw new DaoException(e);
+        } finally {
+            closeResultSet(resultSet);
         }
+        return optionalUser;
     }
 
     @Override
-    public boolean updateAvatar(String login, InputStream avatar) throws DaoException {
-        try (Connection connection = ConnectionPool.INSTANCE.getConnection();
-             PreparedStatement statement = connection.prepareStatement(UPDATE_AVATAR)) {
+    public boolean updateAvatar(long id, InputStream avatar) throws DaoException {
+        try (PreparedStatement statement = connection.prepareStatement(UPDATE_AVATAR)) {
             statement.setBlob(1, avatar);
-            statement.setString(2, login);
-            return (statement.executeUpdate() > 0);
+            statement.setLong(2, id);
+            return (statement.executeUpdate() == 1);
         } catch (SQLException e) {
             throw new DaoException(e);
         }

@@ -6,11 +6,18 @@ import java.util.Map;
 import java.util.StringJoiner;
 
 public class Tool extends Entity {
+
     public enum Type {
-        CHAINSAW(1), CONCRETE_SAW(2), JIGSAW(3),
-        PETROL_CUTTER(4), TILE_CUTTER(5),
-        BREAKER_HAMMER(6), SCREW(7), DRILL(8),
-        PERFORATOR(9), WELDER(10);
+        CHAINSAW(1),
+        CONCRETE_SAW(2),
+        JIGSAW(3),
+        PETROL_CUTTER(4),
+        TILE_CUTTER(5),
+        BREAKER_HAMMER(6),
+        SCREW(7),
+        DRILL(8),
+        PERFORATOR(9),
+        WELDER(10);
 
         private final int toolTypeId;
 

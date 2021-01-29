@@ -99,21 +99,21 @@
                         <c:if test="${sessionScope.role == 'ADMIN'}">
                             <td>
                                 <c:if test="${orders.get(i).getStatus() == 'NEW'}">
-                                    <form name="OrderApprove" action="${pageContext.request.contextPath}/ToolRental"
+                                    <form name="ApproveOrder" action="${pageContext.request.contextPath}/ToolRental"
                                           method="get">
-                                        <input type="hidden" name="command" value="order_approve">
+                                        <input type="hidden" name="command" value="approve_order">
                                         <input type="hidden" name="orderId" value="${orders.get(i).getOrderId()}">
-                                        <button type="submit" class="btn btn-primary" id="but-approve">
+                                        <button type="submit" class="submit-button" id="approveOrder">
                                             <fmt:message key="orders_page.approve"/>
                                         </button>
                                     </form>
                                 </c:if>
                                 <c:if test="${orders.get(i).getStatus() == 'NEW' || orders.get(i).getStatus() == 'APPROVED'}">
-                                    <form name="OrderReject" action="${pageContext.request.contextPath}/ToolRental"
+                                    <form name="RejectOrder" action="${pageContext.request.contextPath}/ToolRental"
                                           method="get">
-                                        <input type="hidden" name="command" value="order_reject">
+                                        <input type="hidden" name="command" value="reject_order">
                                         <input type="hidden" name="orderId" value="${orders.get(i).getOrderId()}">
-                                        <button type="submit" class="btn btn-primary" id="but-reject">
+                                        <button type="submit" class="submit-button" id="rejectOrder">
                                             <fmt:message key="orders_page.reject"/>
                                         </button>
                                     </form>
@@ -123,11 +123,11 @@
                         <c:if test="${sessionScope.role == 'CLIENT'}">
                             <td>
                                 <c:if test="${orders.get(i).getStatus() == 'NEW' || orders.get(i).getStatus() == 'APPROVED'}">
-                                    <form name="OrderCancel" action="${pageContext.request.contextPath}/ToolRental"
+                                    <form name="CancelOrder" action="${pageContext.request.contextPath}/ToolRental"
                                           method="get">
-                                        <input type="hidden" name="command" value="order_cancel">
+                                        <input type="hidden" name="command" value="cancel_order">
                                         <input type="hidden" name="orderId" value="${orders.get(i).getOrderId()}">
-                                        <button type="submit" class="btn btn-primary" id="but-cancel">
+                                        <button type="submit" class="submit-button" id="cancelOrder">
                                             <fmt:message key="orders_page.cancel"/>
                                         </button>
                                     </form>
@@ -137,7 +137,7 @@
                                           method="get">
                                         <input type="hidden" name="command" value="payment_pass">
                                         <input type="hidden" name="orderId" value="${orders.get(i).getOrderId()}">
-                                        <button type="submit" class="btn btn-primary" id="but-pay-pass">
+                                        <button type="submit" class="submit-button" id="payPass">
                                             <fmt:message key="orders_page.pay"/>
                                         </button>
                                     </form>

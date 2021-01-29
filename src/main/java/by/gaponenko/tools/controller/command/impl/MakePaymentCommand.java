@@ -18,10 +18,10 @@ import javax.servlet.http.HttpSession;
 import java.util.HashMap;
 import java.util.Map;
 
-public class PaymentCommand implements Command {
+public class MakePaymentCommand implements Command {
     static Logger logger = LogManager.getLogger();
 
-    private static final String NOTIFICATION_PASS_SUCCESS = "/ToolRental?command=notification_pass&orderPayed=true";
+    private static final String NOTIFICATION_PASS_COMMAND = "/ToolRental?command=notification_pass&orderPayed=true";
 
     @Override
     public Router execute(HttpServletRequest request) {
@@ -29,11 +29,10 @@ public class PaymentCommand implements Command {
         HttpSession session = request.getSession();
         Order order = (Order) session.getAttribute(AttributeName.ORDER);
         Map<String, String> paymentCardParameters = fillPaymentCardParameters(request);
-        ServiceFactory factory = ServiceFactory.getINSTANCE();
-        OrderService orderService = factory.getOrderService();
+        OrderService orderService = ServiceFactory.getINSTANCE().getOrderService();
         try {
             if (orderService.paymentOrder(order, paymentCardParameters)) {
-                router.setPage(request.getContextPath() + NOTIFICATION_PASS_SUCCESS);
+                router.setPage(request.getContextPath() + NOTIFICATION_PASS_COMMAND);
                 session.removeAttribute(AttributeName.ORDER);
             } else {
                 request.setAttribute(AttributeName.PAYMENT_INCORRECT_DATA, true);

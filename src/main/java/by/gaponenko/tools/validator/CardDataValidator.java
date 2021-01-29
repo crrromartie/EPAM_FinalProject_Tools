@@ -18,7 +18,7 @@ public class CardDataValidator {
         if (!isValidCardNumber(paymentCardParameters.get(ParameterName.CARD_NUMBER))) {
             isValid = false;
         }
-        if (!isValidMothCard(paymentCardParameters.get(ParameterName.CARD_MONTH))) {
+        if (!isValidMonthCard(paymentCardParameters.get(ParameterName.CARD_MONTH))) {
             isValid = false;
         }
         if (!isValidYearCard(paymentCardParameters.get(ParameterName.CARD_YEAR))) {
@@ -34,7 +34,7 @@ public class CardDataValidator {
         return (number != null && !number.isEmpty() && number.matches(CARD_NUMBER_REGEX));
     }
 
-    public static boolean isValidMothCard(String month) {
+    public static boolean isValidMonthCard(String month) {
         if (month == null || month.isEmpty() || !month.matches(MONTH_CARD_REGEX)) {
             return false;
         } else {

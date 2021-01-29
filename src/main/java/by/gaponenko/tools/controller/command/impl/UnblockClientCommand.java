@@ -17,7 +17,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.List;
 
-public class ClientUnblockCommand implements Command {
+public class UnblockClientCommand implements Command {
     static Logger logger = LogManager.getLogger();
 
     @Override
@@ -25,15 +25,19 @@ public class ClientUnblockCommand implements Command {
         Router router = new Router(PagePath.CLIENTS_PAGE);
         HttpSession session = request.getSession();
         String login = request.getParameter(ParameterName.USER_LOGIN);
-        ServiceFactory factory = ServiceFactory.getINSTANCE();
-        UserService userService = factory.getUserService();
-        List<User> users;
+        String clientFilterStatus = (String) session.getAttribute(AttributeName.USERS_FILTER_STATUS);
+        UserService userService = ServiceFactory.getINSTANCE().getUserService();
         try {
             if (userService.updateStatus(login, User.Status.ACTIVE)) {
-                users = userService.findAll();
+                List<User> users;
+                if (clientFilterStatus != null) {
+                    users = userService.findByStatus(User.Status.valueOf(clientFilterStatus));
+                } else {
+                    users = userService.findAll();
+                }
                 session.setAttribute(AttributeName.USERS, users);
             } else {
-                logger.log(Level.WARN, "Client was not unblocked");
+                logger.log(Level.WARN, "Client is not unblocked");
             }
         } catch (ServiceException e) {
             logger.log(Level.ERROR, e.getMessage());

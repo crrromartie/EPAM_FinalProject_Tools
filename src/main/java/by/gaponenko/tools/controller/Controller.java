@@ -1,10 +1,10 @@
 package by.gaponenko.tools.controller;
 
+import by.gaponenko.tools.controller.command.AttributeName;
 import by.gaponenko.tools.controller.command.Command;
 import by.gaponenko.tools.controller.command.CommandProvider;
-import by.gaponenko.tools.util.ParameterName;
 import by.gaponenko.tools.model.pool.ConnectionPool;
-import by.gaponenko.tools.controller.command.AttributeName;
+import by.gaponenko.tools.util.ParameterName;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
@@ -19,16 +19,20 @@ import java.io.IOException;
 @MultipartConfig(fileSizeThreshold = 1024 * 1024,
         maxFileSize = 1024 * 1024 * 10, maxRequestSize = 1024 * 1024 * 5 * 5)
 public class Controller extends HttpServlet {
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
         processRequest(request, response);
     }
 
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
         processRequest(request, response);
     }
 
-    private void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        Command command = CommandProvider.PROVIDER.takeCommand(request.getParameter(ParameterName.COMMAND));
+    private void processRequest(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        Command command = CommandProvider.takeCommand(request.getParameter(ParameterName.COMMAND));
         Router router = command.execute(request);
         String currentPage = router.getPage();
         HttpSession session = request.getSession();

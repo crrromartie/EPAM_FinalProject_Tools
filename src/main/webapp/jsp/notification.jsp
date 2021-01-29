@@ -30,6 +30,14 @@
             <fmt:message key="notification_page.update_tool_success"/>
         </c:if>
 
+        <c:if test="${updateUserInfoSuccess eq true}">
+            <fmt:message key="notification_page.update_user_info_success"/>
+        </c:if>
+
+        <c:if test="${updatePasswordSuccess eq true}">
+            <fmt:message key="notification_page.update_password_success"/>
+        </c:if>
+
         <c:if test="${confirmationSuccess eq true}">
             <fmt:message key="notification_page.confirm_registration_success"/>
         </c:if>

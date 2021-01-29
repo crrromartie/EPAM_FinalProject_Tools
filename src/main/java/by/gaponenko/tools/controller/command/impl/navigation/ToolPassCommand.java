@@ -24,17 +24,18 @@ public class ToolPassCommand implements Command {
     public Router execute(HttpServletRequest request) {
         Router router = new Router();
         HttpSession session = request.getSession();
-        ServiceFactory factory = ServiceFactory.getINSTANCE();
-        ToolService toolService = factory.getToolService();
         long toolId = Long.parseLong(request.getParameter(ParameterName.TOOL_ID));
-        Optional<Tool> optionalTool;
+        ToolService toolService = ServiceFactory.getINSTANCE().getToolService();
         try {
-            optionalTool = toolService.findById(toolId);
+            Optional<Tool> optionalTool = toolService.findById(toolId);
             if (optionalTool.isPresent()) {
                 session.setAttribute(AttributeName.TOOL, optionalTool.get());
+                session.removeAttribute(AttributeName.ORDER_DATE);
+                session.removeAttribute(AttributeName.ORDER_RETURN_DATE);
+                session.removeAttribute(AttributeName.ORDER_TOTAL_COST);
                 router.setPage(PagePath.TOOL_PAGE);
             } else {
-                logger.log(Level.ERROR, "Tool was not found!");
+                logger.log(Level.ERROR, "Tool is not exist!");
             }
         } catch (ServiceException e) {
             logger.log(Level.ERROR, e.getMessage());

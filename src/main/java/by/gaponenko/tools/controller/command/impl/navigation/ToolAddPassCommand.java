@@ -6,7 +6,7 @@ import by.gaponenko.tools.controller.command.PagePath;
 
 import javax.servlet.http.HttpServletRequest;
 
-public class AddToolPassCommand implements Command {
+public class ToolAddPassCommand implements Command {
 
     @Override
     public Router execute(HttpServletRequest request) {

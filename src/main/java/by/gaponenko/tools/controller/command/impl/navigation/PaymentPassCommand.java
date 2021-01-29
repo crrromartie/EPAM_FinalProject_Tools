@@ -25,12 +25,14 @@ public class PaymentPassCommand implements Command {
         Router router = new Router(PagePath.PAYMENT_PAGE);
         HttpSession session = request.getSession();
         long orderId = Long.parseLong(request.getParameter(ParameterName.ORDER_ID));
-        ServiceFactory factory = ServiceFactory.getINSTANCE();
-        OrderService service = factory.getOrderService();
-        Optional<Order> optionalOrder;
+        OrderService service = ServiceFactory.getINSTANCE().getOrderService();
         try {
-            optionalOrder = service.findById(orderId);
-            optionalOrder.ifPresent(order -> session.setAttribute(AttributeName.ORDER, order));
+            Optional<Order> optionalOrder = service.findById(orderId);
+            if (optionalOrder.isPresent()) {
+                session.setAttribute(AttributeName.ORDER, optionalOrder.get());
+            } else {
+                logger.log(Level.WARN, "Order is not exist");
+            }
         } catch (ServiceException e) {
             logger.log(Level.ERROR, e.getMessage());
             router.setPage(PagePath.ERROR_500);

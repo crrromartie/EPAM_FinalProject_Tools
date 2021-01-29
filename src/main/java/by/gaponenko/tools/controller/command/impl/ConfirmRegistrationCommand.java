@@ -3,10 +3,10 @@ package by.gaponenko.tools.controller.command.impl;
 import by.gaponenko.tools.controller.Router;
 import by.gaponenko.tools.controller.command.Command;
 import by.gaponenko.tools.controller.command.PagePath;
-import by.gaponenko.tools.model.service.ServiceFactory;
-import by.gaponenko.tools.util.ParameterName;
 import by.gaponenko.tools.exception.ServiceException;
+import by.gaponenko.tools.model.service.ServiceFactory;
 import by.gaponenko.tools.model.service.UserService;
+import by.gaponenko.tools.util.ParameterName;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -22,9 +22,8 @@ public class ConfirmRegistrationCommand implements Command {
     @Override
     public Router execute(HttpServletRequest request) {
         Router router = new Router();
-        ServiceFactory factory = ServiceFactory.getINSTANCE();
-        UserService userService = factory.getUserService();
         String login = request.getParameter(ParameterName.USER_LOGIN);
+        UserService userService = ServiceFactory.getINSTANCE().getUserService();
         try {
             if (userService.activate(login)) {
                 router.setPage(request.getContextPath() + NOTIFICATION_PASS_SUCCESS);

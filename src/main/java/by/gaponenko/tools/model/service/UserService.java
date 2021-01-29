@@ -3,11 +3,13 @@ package by.gaponenko.tools.model.service;
 import by.gaponenko.tools.entity.User;
 import by.gaponenko.tools.exception.ServiceException;
 
+import java.io.InputStream;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
 public interface UserService {
+
     Optional<User> findById(long id) throws ServiceException;
 
     List<User> findAll() throws ServiceException;
@@ -22,7 +24,11 @@ public interface UserService {
 
     boolean updateStatus(String login, User.Status status) throws ServiceException;
 
-    boolean updateUser(Map<String, String> userParameters) throws ServiceException;
+    boolean updatePassword(long id, String password) throws ServiceException;
+
+    Optional<User> updateUserInfo(Map<String, String> editUserParameters, long id) throws ServiceException;
+
+    boolean updateAvatar(long id, InputStream avatar) throws ServiceException;
 
     boolean isLoginUnique(String login) throws ServiceException;
 

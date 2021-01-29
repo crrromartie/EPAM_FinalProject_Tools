@@ -9,6 +9,7 @@ import java.util.Map;
 import java.util.Optional;
 
 public interface ToolService {
+
     Optional<Tool> findById(long id) throws ServiceException;
 
     List<Tool> findAll() throws ServiceException;
@@ -17,15 +18,11 @@ public interface ToolService {
 
     boolean add(Map<String, String> toolParameters) throws ServiceException;
 
-    boolean activateTool(long id) throws ServiceException;
-
-    boolean inactivateTool(long id) throws ServiceException;
-
     Optional<Tool> updateTool(Map<String, String> toolEditParameters, boolean isAvailable, long id) throws ServiceException;
 
     boolean updateToolPhoto(long id, InputStream toolPhoto) throws ServiceException;
 
-    List<Tool> sortByCriteria(List<Tool> tools, String criteria) throws ServiceException;
-
     boolean isModelUnique(String model) throws ServiceException;
+
+    List<Tool> sortByCriteria(List<Tool> tools, String criteria) throws ServiceException;
 }

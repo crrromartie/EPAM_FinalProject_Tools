@@ -6,9 +6,11 @@ import by.gaponenko.tools.entity.Tool;
 import by.gaponenko.tools.entity.User;
 import by.gaponenko.tools.exception.DaoException;
 import by.gaponenko.tools.exception.ServiceException;
-import by.gaponenko.tools.model.dao.DaoFactory;
 import by.gaponenko.tools.model.dao.OrderDao;
 import by.gaponenko.tools.model.dao.ToolDao;
+import by.gaponenko.tools.model.dao.impl.OrderDaoImpl;
+import by.gaponenko.tools.model.dao.impl.ToolDaoImpl;
+import by.gaponenko.tools.model.service.EntityTransaction;
 import by.gaponenko.tools.model.service.OrderService;
 import by.gaponenko.tools.util.DateConverter;
 import by.gaponenko.tools.validator.CardDataValidator;
@@ -27,139 +29,186 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public Optional<Order> findById(long id) throws ServiceException {
-        Optional<Order> optionalOrder;
-        DaoFactory factory = DaoFactory.getINSTANCE();
-        OrderDao orderDao = factory.getOrderDao();
+        OrderDao orderDao = new OrderDaoImpl();
+        EntityTransaction transaction = new EntityTransaction();
+        transaction.initSingleQuery(orderDao);
         try {
-            optionalOrder = orderDao.findById(id);
+            return orderDao.findById(id);
         } catch (DaoException e) {
             throw new ServiceException(e);
+        } finally {
+            transaction.endSingleQuery();
         }
-        return optionalOrder;
     }
 
     @Override
     public List<Order> findAll() throws ServiceException {
-        List<Order> orders;
-        DaoFactory factory = DaoFactory.getINSTANCE();
-        OrderDao orderDao = factory.getOrderDao();
+        OrderDao orderDao = new OrderDaoImpl();
+        EntityTransaction transaction = new EntityTransaction();
+        transaction.initSingleQuery(orderDao);
         try {
-            orders = orderDao.findAll();
+            return orderDao.findAll();
         } catch (DaoException e) {
             throw new ServiceException(e);
+        } finally {
+            transaction.endSingleQuery();
         }
-        return orders;
     }
 
     @Override
     public boolean add(Map<String, String> orderParameters, User user, Tool tool) throws ServiceException {
-        boolean isAdd = false;
-        DaoFactory factory = DaoFactory.getINSTANCE();
-        OrderDao orderDao = factory.getOrderDao();
-        if (OrderDataValidator.isValidOrderParameters(orderParameters)) {
-            Order order = OrderCreator.createOrder(orderParameters, user, tool);
-            try {
-                isAdd = orderDao.add(order);
-            } catch (DaoException e) {
-                throw new ServiceException(e);
-            }
+        if (!OrderDataValidator.isValidOrderParameters(orderParameters)) {
+            return false;
+        }
+        OrderDao orderDao = new OrderDaoImpl();
+        ToolDao toolDao = new ToolDaoImpl();
+        EntityTransaction transaction = new EntityTransaction();
+        transaction.initTransaction(orderDao, toolDao);
+        Order order = OrderCreator.createOrder(orderParameters, user, tool);
+        boolean isAdd;
+        try {
+            isAdd = orderDao.add(order) && toolDao.inactivateTool(tool.getToolId());
+            transaction.commitTransaction();
+        } catch (DaoException e) {
+            transaction.rollbackTransaction();
+            throw new ServiceException(e);
+        } finally {
+            transaction.endTransaction();
         }
         return isAdd;
     }
 
     @Override
     public boolean updateStatus(long id, Order.Status status) throws ServiceException {
-        boolean isUpdate = false;
-        DaoFactory factory = DaoFactory.getINSTANCE();
-        OrderDao orderDao = factory.getOrderDao();
-        if (OrderDataValidator.isValidOrderStatus(status)) {
-            try {
-                isUpdate = orderDao.updateStatus(id, status);
-            } catch (DaoException e) {
-                throw new ServiceException(e);
-            }
+        if (!OrderDataValidator.isValidOrderStatus(status)) {
+            return false;
         }
-        return isUpdate;
+        OrderDao orderDao = new OrderDaoImpl();
+        EntityTransaction transaction = new EntityTransaction();
+        transaction.initSingleQuery(orderDao);
+        try {
+            return orderDao.updateStatus(id, status);
+        } catch (DaoException e) {
+            throw new ServiceException(e);
+        } finally {
+            transaction.endSingleQuery();
+        }
     }
 
     @Override
     public List<Order> findByStatus(Order.Status status) throws ServiceException {
-        List<Order> orders = Collections.EMPTY_LIST;
-        DaoFactory factory = DaoFactory.getINSTANCE();
-        OrderDao orderDao = factory.getOrderDao();
-        if (OrderDataValidator.isValidOrderStatus(status)) {
-            try {
-                orders = orderDao.findByStatus(status);
-            } catch (DaoException e) {
-                throw new ServiceException(e);
-            }
+        if (!OrderDataValidator.isValidOrderStatus(status)) {
+            return Collections.EMPTY_LIST;
         }
-        return orders;
+        OrderDao orderDao = new OrderDaoImpl();
+        EntityTransaction transaction = new EntityTransaction();
+        transaction.initSingleQuery(orderDao);
+        try {
+            return orderDao.findByStatus(status);
+        } catch (DaoException e) {
+            throw new ServiceException(e);
+        } finally {
+            transaction.endSingleQuery();
+        }
     }
 
     @Override
     public List<Order> findAllByUserId(long id) throws ServiceException {
-        List<Order> orders;
-        DaoFactory factory = DaoFactory.getINSTANCE();
-        OrderDao orderDao = factory.getOrderDao();
+        OrderDao orderDao = new OrderDaoImpl();
+        EntityTransaction transaction = new EntityTransaction();
+        transaction.initSingleQuery(orderDao);
         try {
-            orders = orderDao.findAllByUserId(id);
+            return orderDao.findAllByUserId(id);
         } catch (DaoException e) {
             throw new ServiceException(e);
+        } finally {
+            transaction.endSingleQuery();
         }
-        return orders;
     }
 
     @Override
     public List<Order> findAllByUserIdAndOrderStatus(long id, Order.Status status) throws ServiceException {
-        List<Order> orders = Collections.EMPTY_LIST;
-        DaoFactory factory = DaoFactory.getINSTANCE();
-        OrderDao orderDao = factory.getOrderDao();
-        if (OrderDataValidator.isValidOrderStatus(status)) {
-            try {
-                orders = orderDao.findAllByUserIdAndOrderStatus(id, status);
-            } catch (DaoException e) {
-                throw new ServiceException(e);
-            }
+        if (!OrderDataValidator.isValidOrderStatus(status)) {
+            return Collections.EMPTY_LIST;
         }
-        return orders;
-    }
-
-    @Override
-    public BigDecimal calculateTotalCost(BigDecimal rentPrice, String orderDate, String returnDay) throws ServiceException {
-        BigDecimal totalCost = new BigDecimal(-1);
-        if (OrderDataValidator.isValidDate(orderDate) && OrderDataValidator.isValidDate(returnDay)) {
-            LocalDate oDate = LocalDate.parse(orderDate);
-            LocalDate rDate = LocalDate.parse(returnDay);
-            Period period = Period.between(oDate, rDate);
-            int rentDays = period.getDays() + CURRENT_DAY;
-            totalCost = (rentDays > 0) ? rentPrice.multiply(BigDecimal.valueOf(rentDays)) : new BigDecimal(-1);
+        OrderDao orderDao = new OrderDaoImpl();
+        EntityTransaction transaction = new EntityTransaction();
+        transaction.initSingleQuery(orderDao);
+        try {
+            return orderDao.findAllByUserIdAndOrderStatus(id, status);
+        } catch (DaoException e) {
+            throw new ServiceException(e);
+        } finally {
+            transaction.endSingleQuery();
         }
-        return totalCost;
     }
 
     @Override
     public boolean paymentOrder(Order order, Map<String, String> paymentCardParameters) throws ServiceException {
-        boolean isPaymentComplete = false;
-        DaoFactory factory = DaoFactory.getINSTANCE();
-        OrderDao orderDao = factory.getOrderDao();
-        if (CardDataValidator.isValidPaymentCardParameters(paymentCardParameters)) {
-            try {
-                isPaymentComplete = orderDao.updateStatus(order.getOrderId(), Order.Status.ACTIVE);
-            } catch (DaoException e) {
-                throw new ServiceException(e);
-            }
+        if (!CardDataValidator.isValidPaymentCardParameters(paymentCardParameters)) {
+            return false;
         }
-        return isPaymentComplete;
+        OrderDao orderDao = new OrderDaoImpl();
+        EntityTransaction transaction = new EntityTransaction();
+        transaction.initSingleQuery(orderDao);
+        try {
+            return orderDao.updateStatus(order.getOrderId(), Order.Status.ACTIVE);
+        } catch (DaoException e) {
+            throw new ServiceException(e);
+        } finally {
+            transaction.endSingleQuery();
+        }
+    }
+
+    @Override
+    public boolean cancelOrder(long orderId, long toolId) throws ServiceException {
+        OrderDao orderDao = new OrderDaoImpl();
+        ToolDao toolDao = new ToolDaoImpl();
+        EntityTransaction transaction = new EntityTransaction();
+        transaction.initTransaction(orderDao, toolDao);
+        boolean isCanceled;
+        try {
+            isCanceled = orderDao.updateStatus(orderId, Order.Status.CANCELED)
+                    && toolDao.activateTool(toolId);
+            transaction.commitTransaction();
+        } catch (DaoException e) {
+            transaction.rollbackTransaction();
+            throw new ServiceException(e);
+        } finally {
+            transaction.endTransaction();
+        }
+        return isCanceled;
+    }
+
+    @Override
+    public boolean rejectOrder(long orderId, long toolId) throws ServiceException {
+        OrderDao orderDao = new OrderDaoImpl();
+        ToolDao toolDao = new ToolDaoImpl();
+        EntityTransaction transaction = new EntityTransaction();
+        transaction.initTransaction(orderDao, toolDao);
+        boolean isRejected;
+        try {
+            isRejected = orderDao.updateStatus(orderId, Order.Status.REJECTED)
+                    && toolDao.activateTool(toolId);
+            transaction.commitTransaction();
+        } catch (DaoException e) {
+            transaction.rollbackTransaction();
+            throw new ServiceException(e);
+        } finally {
+            transaction.endTransaction();
+        }
+        return isRejected;
     }
 
     @Override
     public void updateOrdersStatuses() throws ServiceException {
-        DaoFactory factory = DaoFactory.getINSTANCE();
-        ToolDao toolDao = factory.getToolDao();
-        List<Order> orders = findAll();
+        OrderDao orderDao = new OrderDaoImpl();
+        ToolDao toolDao = new ToolDaoImpl();
+        EntityTransaction transaction = new EntityTransaction();
+        transaction.initTransaction(orderDao, toolDao);
         long currentDay = DateConverter.convertToLong(LocalDate.now());
         try {
+            List<Order> orders = orderDao.findAll();
             for (Order order : orders) {
                 if (order.getStatus().equals(Order.Status.ACTIVE)
                         && currentDay > DateConverter.convertToLong(order.getReturnDate())) {
@@ -173,8 +222,24 @@ public class OrderServiceImpl implements OrderService {
                     toolDao.activateTool(order.getTool().getToolId());
                 }
             }
+            transaction.commitTransaction();
         } catch (DaoException e) {
+            transaction.rollbackTransaction();
             throw new ServiceException(e);
+        } finally {
+            transaction.endTransaction();
         }
+    }
+
+    public BigDecimal calculateTotalCost(BigDecimal rentPrice, String orderDate, String returnDay) {
+        BigDecimal totalCost = new BigDecimal(-1);
+        if (OrderDataValidator.isValidDate(orderDate) && OrderDataValidator.isValidDate(returnDay)) {
+            LocalDate oDate = LocalDate.parse(orderDate);
+            LocalDate rDate = LocalDate.parse(returnDay);
+            Period period = Period.between(oDate, rDate);
+            int rentDays = period.getDays() + CURRENT_DAY;
+            totalCost = (rentDays > 0) ? rentPrice.multiply(BigDecimal.valueOf(rentDays)) : new BigDecimal(-1);
+        }
+        return totalCost;
     }
 }

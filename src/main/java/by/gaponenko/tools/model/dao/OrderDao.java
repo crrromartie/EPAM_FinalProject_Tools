@@ -6,6 +6,7 @@ import by.gaponenko.tools.exception.DaoException;
 import java.util.List;
 
 public interface OrderDao extends Dao<Order> {
+
     boolean add(Order order) throws DaoException;
 
     boolean updateStatus(long id, Order.Status status) throws DaoException;

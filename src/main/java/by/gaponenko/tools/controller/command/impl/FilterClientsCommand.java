@@ -26,14 +26,13 @@ public class FilterClientsCommand implements Command {
     public Router execute(HttpServletRequest request) {
         Router router = new Router(PagePath.CLIENTS_PAGE);
         HttpSession session = request.getSession();
-        ServiceFactory factory = ServiceFactory.getINSTANCE();
-        UserService userService = factory.getUserService();
         String clientStatus = request.getParameter(ParameterName.CLIENT_STATUS);
-        List<User> users;
+        UserService userService = ServiceFactory.getINSTANCE().getUserService();
         try {
-            users = userService.findByStatus(User.Status.valueOf(clientStatus));
+            List<User> users = userService.findByStatus(User.Status.valueOf(clientStatus));
             session.setAttribute(AttributeName.USERS, users);
             session.setAttribute(AttributeName.USERS_PAGE_NUMBER, FIRST_PAGE);
+            session.setAttribute(AttributeName.USERS_FILTER_STATUS, clientStatus);
         } catch (ServiceException e) {
             logger.log(Level.ERROR, e.getMessage());
             router.setPage(PagePath.ERROR_500);

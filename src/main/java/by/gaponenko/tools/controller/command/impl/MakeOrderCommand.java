@@ -9,7 +9,6 @@ import by.gaponenko.tools.entity.User;
 import by.gaponenko.tools.exception.ServiceException;
 import by.gaponenko.tools.model.service.OrderService;
 import by.gaponenko.tools.model.service.ServiceFactory;
-import by.gaponenko.tools.model.service.ToolService;
 import by.gaponenko.tools.util.ParameterName;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
@@ -32,15 +31,12 @@ public class MakeOrderCommand implements Command {
     public Router execute(HttpServletRequest request) {
         Router router = new Router();
         HttpSession session = request.getSession();
-        Map<String, String> orderParameters = fillOrderParameters(request);
         User user = (User) session.getAttribute(AttributeName.USER);
         Tool tool = (Tool) session.getAttribute(AttributeName.TOOL);
-        ServiceFactory factory = ServiceFactory.getINSTANCE();
-        OrderService orderService = factory.getOrderService();
-        ToolService toolService = factory.getToolService();
+        Map<String, String> orderParameters = fillOrderParameters(request);
+        OrderService orderService = ServiceFactory.getINSTANCE().getOrderService();
         try {
-            if (orderService.add(orderParameters, user, tool)
-                    && toolService.inactivateTool(tool.getToolId())) {
+            if (orderService.add(orderParameters, user, tool)) {
                 router.setPage(request.getContextPath() + NOTIFICATION_PASS_SUCCESS);
             } else {
                 router.setPage(request.getContextPath() + NOTIFICATION_PASS_FAIL);
@@ -48,7 +44,7 @@ public class MakeOrderCommand implements Command {
             router.setRedirect();
             session.removeAttribute(AttributeName.ORDER_DATE);
             session.removeAttribute(AttributeName.ORDER_RETURN_DATE);
-            request.removeAttribute(AttributeName.ORDER_TOTAL_COST);
+            session.removeAttribute(AttributeName.ORDER_TOTAL_COST);
         } catch (ServiceException e) {
             logger.log(Level.ERROR, e.getMessage());
             router.setPage(PagePath.ERROR_500);

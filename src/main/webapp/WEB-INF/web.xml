@@ -15,16 +15,6 @@
         </taglib>
     </jsp-config>
 
-<!--    <error-page>-->
-<!--        <error-code>404</error-code>-->
-<!--        <location>/jsp/error/error404.jsp</location>-->
-<!--    </error-page>-->
-
-    <error-page>
-        <error-code>500</error-code>
-        <location>/jsp/error/error500.jsp</location>
-    </error-page>
-
     <session-config>
         <session-timeout>30</session-timeout>
     </session-config>
@@ -37,6 +27,10 @@
         <servlet-name>mainServlet</servlet-name>
         <url-pattern>/ToolRental</url-pattern>
     </servlet-mapping>
+
+    <listener>
+        <listener-class>by.gaponenko.tools.controller.listener.SessionListenerImpl</listener-class>
+    </listener>
 
     <filter>
         <filter-name>encodingFilter</filter-name>
@@ -61,6 +55,15 @@
     </filter-mapping>
 
     <filter>
+        <filter-name>jspSafetyFilter</filter-name>
+        <filter-class>by.gaponenko.tools.controller.filter.JspSafetyFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>jspSafetyFilter</filter-name>
+        <url-pattern>/jsp/*</url-pattern>
+    </filter-mapping>
+
+    <filter>
         <filter-name>rolePermission</filter-name>
         <filter-class>by.gaponenko.tools.controller.filter.RolePermissionFilter</filter-class>
     </filter>
@@ -78,17 +81,14 @@
         <url-pattern>/ToolRental</url-pattern>
     </filter-mapping>
 
-    <filter>
-        <filter-name>jspSafetyFilter</filter-name>
-        <filter-class>by.gaponenko.tools.controller.filter.JspSafetyFilter</filter-class>
-    </filter>
-    <filter-mapping>
-        <filter-name>jspSafetyFilter</filter-name>
-        <url-pattern>/jsp/*</url-pattern>
-    </filter-mapping>
+    <error-page>
+        <error-code>404</error-code>
+        <location>/jsp/error/error404.jsp</location>
+    </error-page>
 
-    <listener>
-        <listener-class>by.gaponenko.tools.controller.listener.SessionListenerImpl</listener-class>
-    </listener>
+    <error-page>
+        <error-code>500</error-code>
+        <location>/jsp/error/error500.jsp</location>
+    </error-page>
 
 </web-app>

@@ -25,11 +25,9 @@ public class ToolsPassCommand implements Command {
     public Router execute(HttpServletRequest request) {
         Router router = new Router(PagePath.TOOLS_PAGE);
         HttpSession session = request.getSession();
-        ServiceFactory factory = ServiceFactory.getINSTANCE();
-        ToolService toolService = factory.getToolService();
-        List<Tool> tools;
+        ToolService toolService = ServiceFactory.getINSTANCE().getToolService();
         try {
-            tools = toolService.findAll();
+            List<Tool> tools = toolService.findAll();
             session.setAttribute(AttributeName.TOOLS, tools);
             session.setAttribute(AttributeName.TOOLS_PAGE_NUMBER, FIRST_PAGE);
         } catch (ServiceException e) {

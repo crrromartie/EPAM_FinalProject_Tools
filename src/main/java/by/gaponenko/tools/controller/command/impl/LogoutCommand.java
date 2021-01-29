@@ -7,6 +7,7 @@ import by.gaponenko.tools.controller.command.PagePath;
 import javax.servlet.http.HttpServletRequest;
 
 public class LogoutCommand implements Command {
+
     @Override
     public Router execute(HttpServletRequest request) {
         Router router = new Router(PagePath.INDEX_PAGE);

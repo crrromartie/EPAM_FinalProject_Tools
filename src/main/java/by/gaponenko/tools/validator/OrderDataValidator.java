@@ -72,7 +72,7 @@ public class OrderDataValidator {
                 counter++;
             }
         }
-        return (counter > 0);
+        return (counter == 1);
     }
 
     public static boolean isValidTotalCost(String cost) {

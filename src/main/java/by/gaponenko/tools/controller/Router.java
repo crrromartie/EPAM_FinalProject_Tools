@@ -3,6 +3,7 @@ package by.gaponenko.tools.controller;
 import by.gaponenko.tools.controller.command.PagePath;
 
 public final class Router {
+
     enum Type {
         FORWARD,
         REDIRECT

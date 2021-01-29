@@ -28,7 +28,8 @@ public class ImageCompressor {
         InputStream newImage = null;
         try {
             BufferedImage img = ImageIO.read(image);
-            BufferedImage compressedImg = Scalr.resize(img, Scalr.Method.QUALITY, IMAGE_WIDTH_AVATAR, IMAGE_HEIGHT_AVATAR);
+            BufferedImage compressedImg = Scalr.resize(img, Scalr.Method.QUALITY,
+                    IMAGE_WIDTH_AVATAR, IMAGE_HEIGHT_AVATAR);
             ByteArrayOutputStream imgByte = new ByteArrayOutputStream();
             ImageIO.write(compressedImg, IMAGE_TYPE, imgByte);
             newImage = new ByteArrayInputStream(imgByte.toByteArray());
@@ -42,7 +43,8 @@ public class ImageCompressor {
         InputStream newImage = null;
         try {
             BufferedImage img = ImageIO.read(image);
-            BufferedImage compressedImg = Scalr.resize(img, Scalr.Method.QUALITY, IMAGE_WIDTH_PHOTO, IMAGE_HEIGHT_PHOTO);
+            BufferedImage compressedImg = Scalr.resize(img, Scalr.Method.QUALITY,
+                    IMAGE_WIDTH_PHOTO, IMAGE_HEIGHT_PHOTO);
             ByteArrayOutputStream imgByte = new ByteArrayOutputStream();
             ImageIO.write(compressedImg, IMAGE_TYPE, imgByte);
             newImage = new ByteArrayInputStream(imgByte.toByteArray());

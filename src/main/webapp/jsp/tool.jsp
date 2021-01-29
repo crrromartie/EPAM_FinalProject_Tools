@@ -21,8 +21,7 @@
         <div class="row">
             <div class="col-6">
                 <div class="card" style="width: 100%;">
-                    <img src="data:image/jpeg;base64,${tool.getPhoto()}" class="card-img-top" id="tool_photo"
-                         alt="...">
+                    <img src="data:image/jpeg;base64,${tool.getPhoto()}" class="card-img-top" alt="...">
                     <div class="card-body">
                         <h5 class="card-title">
                             <c:choose>
@@ -68,9 +67,9 @@
                 </div>
             </div>
             <div class="col-6">
-                <form name="ToolSelect" action="${pageContext.request.contextPath}/ToolRental"
+                <form name="SelectTool" action="${pageContext.request.contextPath}/ToolRental"
                       method="post" class="tool_select_form">
-                    <input type="hidden" name="command" value="calculate_total">
+                    <input type="hidden" name="command" value="calculate_order_total">
                     <div class="form-row form-group">
                         <div class="col-4 label-column">
                             <label class="col-form-label"><fmt:message key="tool_s_page.order_day"/></label>
@@ -103,7 +102,7 @@
                     </div>
                 </form>
                 <c:if test="${totalCost > 0}">
-                    <form name="ToolSubmit" action="${pageContext.request.contextPath}/ToolRental"
+                    <form name="SubmitTool" action="${pageContext.request.contextPath}/ToolRental"
                           method="post" class="tool_submit_form">
                         <input type="hidden" name="command" value="make_order">
                         <input type="hidden" name="totalCost" value="${totalCost}">

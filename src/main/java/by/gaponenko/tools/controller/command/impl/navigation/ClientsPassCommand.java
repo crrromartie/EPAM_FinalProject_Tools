@@ -25,13 +25,12 @@ public class ClientsPassCommand implements Command {
     public Router execute(HttpServletRequest request) {
         Router router = new Router(PagePath.CLIENTS_PAGE);
         HttpSession session = request.getSession();
-        ServiceFactory factory = ServiceFactory.getINSTANCE();
-        UserService userService = factory.getUserService();
-        List<User> users;
+        UserService userService = ServiceFactory.getINSTANCE().getUserService();
         try {
-            users = userService.findAll();
+            List<User> users = userService.findAll();
             session.setAttribute(AttributeName.USERS, users);
             session.setAttribute(AttributeName.USERS_PAGE_NUMBER, FIRST_PAGE);
+            session.removeAttribute(AttributeName.USERS_FILTER_STATUS);
         } catch (ServiceException e) {
             logger.log(Level.ERROR, e.getMessage());
             router.setPage(PagePath.ERROR_500);

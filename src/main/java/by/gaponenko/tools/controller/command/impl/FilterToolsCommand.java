@@ -26,12 +26,10 @@ public class FilterToolsCommand implements Command {
     public Router execute(HttpServletRequest request) {
         Router router = new Router(PagePath.TOOLS_PAGE);
         HttpSession session = request.getSession();
-        ServiceFactory factory = ServiceFactory.getINSTANCE();
-        ToolService toolService = factory.getToolService();
         String toolType = request.getParameter(ParameterName.TOOL_TYPE);
-        List<Tool> tools;
+        ToolService toolService = ServiceFactory.getINSTANCE().getToolService();
         try {
-            tools = toolService.findByType(Tool.Type.valueOf(toolType));
+            List<Tool> tools = toolService.findByType(Tool.Type.valueOf(toolType));
             session.setAttribute(AttributeName.TOOLS, tools);
             session.setAttribute(AttributeName.TOOLS_PAGE_NUMBER, FIRST_PAGE);
         } catch (ServiceException e) {

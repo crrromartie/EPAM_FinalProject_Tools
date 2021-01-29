@@ -5,7 +5,6 @@ import by.gaponenko.tools.controller.command.AttributeName;
 import by.gaponenko.tools.controller.command.Command;
 import by.gaponenko.tools.controller.command.PagePath;
 import by.gaponenko.tools.entity.Order;
-import by.gaponenko.tools.entity.User;
 import by.gaponenko.tools.exception.ServiceException;
 import by.gaponenko.tools.model.service.OrderService;
 import by.gaponenko.tools.model.service.ServiceFactory;
@@ -17,7 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.List;
 
-public class OrdersPassClientCommand implements Command {
+public class OrdersAdminPassCommand implements Command {
     static Logger logger = LogManager.getLogger();
 
     private static final int FIRST_PAGE = 1;
@@ -26,15 +25,12 @@ public class OrdersPassClientCommand implements Command {
     public Router execute(HttpServletRequest request) {
         Router router = new Router(PagePath.ORDERS_PAGE);
         HttpSession session = request.getSession();
-        ServiceFactory factory = ServiceFactory.getINSTANCE();
-        OrderService orderService = factory.getOrderService();
-        User user = (User) session.getAttribute(AttributeName.USER);
-        long userId = user.getUserId();
-        List<Order> orders;
+        OrderService orderService = ServiceFactory.getINSTANCE().getOrderService();
         try {
-            orders = orderService.findAllByUserId(userId);
+            List<Order> orders = orderService.findAll();
             session.setAttribute(AttributeName.ORDERS, orders);
             session.setAttribute(AttributeName.ORDERS_PAGE_NUMBER, FIRST_PAGE);
+            session.removeAttribute(AttributeName.USERS_FILTER_STATUS);
         } catch (ServiceException e) {
             logger.log(Level.ERROR, e.getMessage());
             router.setPage(PagePath.ERROR_500);

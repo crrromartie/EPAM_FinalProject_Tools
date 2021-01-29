@@ -1,7 +1,9 @@
 package by.gaponenko.tools.controller.command.impl;
 
 import by.gaponenko.tools.controller.Router;
-import by.gaponenko.tools.controller.command.*;
+import by.gaponenko.tools.controller.command.AttributeName;
+import by.gaponenko.tools.controller.command.Command;
+import by.gaponenko.tools.controller.command.PagePath;
 import by.gaponenko.tools.exception.ServiceException;
 import by.gaponenko.tools.model.service.ServiceFactory;
 import by.gaponenko.tools.model.service.UserService;
@@ -26,15 +28,14 @@ public class RegistrationCommand implements Command {
     public Router execute(HttpServletRequest request) {
         Router router = new Router();
         Map<String, String> registrationParameters = fillRegistrationParameters(request);
-        ServiceFactory factory = ServiceFactory.getINSTANCE();
-        UserService userService = factory.getUserService();
+        UserService userService = ServiceFactory.getINSTANCE().getUserService();
         try {
             if (userService.isLoginUnique(registrationParameters.get(ParameterName.USER_LOGIN))
                     && userService.isEmailUnique(registrationParameters.get(ParameterName.USER_EMAIL))
                     && userService.isPhoneUnique(registrationParameters.get(ParameterName.USER_PHONE))) {
                 if (userService.registration(registrationParameters)) {
-                    String mailText = MailConstructor.newUserMail(request.getParameter(ParameterName.USER_LOGIN));
-                    MailSender.sendMessage(EMAIL_SUBJECT, mailText, request.getParameter(ParameterName.USER_EMAIL));
+//                    String mailText = MailConstructor.newUserMail(request.getParameter(ParameterName.USER_LOGIN));
+//                    MailSender.sendMessage(EMAIL_SUBJECT, mailText, request.getParameter(ParameterName.USER_EMAIL));
                     router.setPage(request.getContextPath() + NOTIFICATION_PASS_COMMAND);
                     router.setRedirect();
                 } else {

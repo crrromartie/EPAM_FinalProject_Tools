@@ -7,10 +7,14 @@ import java.util.Map;
 import java.util.StringJoiner;
 
 public class Order extends Entity {
+
     public enum Status {
-        NEW(1), APPROVED(2),
-        CANCELED(3), REJECTED(4),
-        ACTIVE(5), COMPLETE(6);
+        NEW(1),
+        APPROVED(2),
+        CANCELED(3),
+        REJECTED(4),
+        ACTIVE(5),
+        COMPLETE(6);
 
         private final int orderStatusId;
 

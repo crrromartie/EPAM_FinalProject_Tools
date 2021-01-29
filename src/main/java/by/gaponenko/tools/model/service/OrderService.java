@@ -11,6 +11,7 @@ import java.util.Map;
 import java.util.Optional;
 
 public interface OrderService {
+
     Optional<Order> findById(long id) throws ServiceException;
 
     List<Order> findAll() throws ServiceException;
@@ -23,11 +24,15 @@ public interface OrderService {
 
     List<Order> findAllByUserId(long id) throws ServiceException;
 
-    public List<Order> findAllByUserIdAndOrderStatus(long id, Order.Status status) throws ServiceException;
-
-    BigDecimal calculateTotalCost(BigDecimal rentPrice, String orderDate, String returnDay) throws ServiceException;
+    List<Order> findAllByUserIdAndOrderStatus(long id, Order.Status status) throws ServiceException;
 
     boolean paymentOrder(Order order, Map<String, String> paymentCardParameters) throws ServiceException;
 
+    boolean cancelOrder(long orderId, long toolId) throws ServiceException;
+
+    boolean rejectOrder(long orderId, long toolId) throws ServiceException;
+
     void updateOrdersStatuses() throws ServiceException;
+
+    BigDecimal calculateTotalCost(BigDecimal rentPrice, String orderDate, String returnDay);
 }

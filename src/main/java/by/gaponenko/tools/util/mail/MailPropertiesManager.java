@@ -25,7 +25,7 @@ class MailPropertiesManager {
         try {
             InputStream inputStream = MailPropertiesManager.class.getClassLoader().getResourceAsStream(PROPERTIES_FILE);
             if (inputStream == null) {
-                logger.log(Level.ERROR, "Properties file not found!");
+                logger.log(Level.ERROR, "Properties file is not found!");
             }
             properties.load(inputStream);
         } catch (IOException e) {

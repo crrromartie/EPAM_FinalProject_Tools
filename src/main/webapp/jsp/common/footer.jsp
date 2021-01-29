@@ -17,11 +17,9 @@
 <body>
 <div class="wrapper">
     <div class="container">
-        <footer>
-            <div class="footer">
-                <span><fmt:message key="footer.copyright"/></span>
-            </div>
-        </footer>
+        <div class="footer">
+            <span><fmt:message key="footer.copyright"/></span>
+        </div>
     </div>
 </div>
 </body>

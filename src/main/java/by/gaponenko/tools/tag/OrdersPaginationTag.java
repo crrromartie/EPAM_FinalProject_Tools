@@ -8,6 +8,7 @@ import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.JspWriter;
 import javax.servlet.jsp.tagext.TagSupport;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class OrdersPaginationTag extends TagSupport {
@@ -25,7 +26,7 @@ public class OrdersPaginationTag extends TagSupport {
     @Override
     public int doStartTag() throws JspException {
         HttpSession session = pageContext.getSession();
-        List<Order> orders = (List<Order>) session.getAttribute(AttributeName.ORDERS);
+        List<Order> orders = (ArrayList<Order>) session.getAttribute(AttributeName.ORDERS);
         JspWriter out = pageContext.getOut();
         try {
             int beginIndex = ordersPageNumber * pageEntries - pageEntries;

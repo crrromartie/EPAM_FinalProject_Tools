@@ -56,7 +56,7 @@ public class ToolDataValidator {
                 counter++;
             }
         }
-        return (counter > 0);
+        return (counter == 1);
     }
 
     public static boolean isValidModel(String model) {

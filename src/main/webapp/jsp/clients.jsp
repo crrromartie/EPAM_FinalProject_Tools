@@ -82,21 +82,21 @@
                             </c:choose>
                             <td>
                                 <c:if test="${users.get(i).getStatus() == 'ACTIVE' || users.get(i).getStatus() == 'UNCONFIRMED'}">
-                                    <form name="UserBlock" action="${pageContext.request.contextPath}/ToolRental"
+                                    <form name="BlockUser" action="${pageContext.request.contextPath}/ToolRental"
                                           method="get">
-                                        <input type="hidden" name="command" value="client_block">
+                                        <input type="hidden" name="command" value="block_client">
                                         <input type="hidden" name="login" value="${users.get(i).getLogin()}">
-                                        <button type="submit" class="btn btn-primary" id="but-block">
+                                        <button type="submit" class="submit-button" id="blockUser">
                                             <fmt:message key="clients_page.block"/>
                                         </button>
                                     </form>
                                 </c:if>
                                 <c:if test="${users.get(i).getStatus() == 'BLOCKED'}">
-                                    <form name="UserUnblock" action="${pageContext.request.contextPath}/ToolRental"
+                                    <form name="UnblockUser" action="${pageContext.request.contextPath}/ToolRental"
                                           method="get">
-                                        <input type="hidden" name="command" value="client_unblock">
+                                        <input type="hidden" name="command" value="unblock_client">
                                         <input type="hidden" name="login" value="${users.get(i).getLogin()}">
-                                        <button type="submit" class="btn btn-primary" id="but-unblock">
+                                        <button type="submit" class="submit-button" id="unblockUser">
                                             <fmt:message key="clients_page.unblock"/>
                                         </button>
                                     </form>

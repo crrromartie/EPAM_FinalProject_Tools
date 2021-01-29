@@ -25,17 +25,13 @@ public class ToolPhotoPassCommand implements Command {
         Router router = new Router(PagePath.TOOL_PHOTO_PAGE);
         HttpSession session = request.getSession();
         long toolId = Long.parseLong(request.getParameter(ParameterName.TOOL_ID));
-        ServiceFactory factory = ServiceFactory.getINSTANCE();
-        ToolService toolService = factory.getToolService();
-        Optional<Tool> optionalTool;
-        Tool tool;
+        ToolService toolService = ServiceFactory.getINSTANCE().getToolService();
         try {
-            optionalTool = toolService.findById(toolId);
+            Optional<Tool> optionalTool = toolService.findById(toolId);
             if (optionalTool.isPresent()) {
-                tool = optionalTool.get();
-                session.setAttribute(AttributeName.TOOL, tool);
+                session.setAttribute(AttributeName.TOOL, optionalTool.get());
             } else {
-                logger.log(Level.WARN, "Tool has not found");
+                logger.log(Level.WARN, "Tool is not exist");
             }
         } catch (ServiceException e) {
             logger.log(Level.ERROR, e.getMessage());

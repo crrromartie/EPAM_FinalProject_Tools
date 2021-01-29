@@ -20,16 +20,15 @@
     <div class="container default-page">
         <div class="row">
             <div class="col-6 offset-3">
-                <form name="UpdateImage" class="form-horizontal" enctype="multipart/form-data"
+                <form name="UpdateToolPhoto" class="form-horizontal" enctype="multipart/form-data"
                       action="${pageContext.request.contextPath}/ToolRental"
                       method="post">
                     <span class="heading"><fmt:message key="tool_photo_page.update_photo"/></span>
                     <div class="form-group">
-                        <img class="card-img-top" id="tool_photo_card"
-                             src="data:image/jpeg;base64,${tool.getPhoto()}"/>
+                        <img id="tool_photo" src="data:image/jpeg;base64,${tool.getPhoto()}" alt="..."/>
                     </div>
                     <input type="hidden" name="command" value="update_tool_photo"/>
-                    <input id="photo" type="file" name="toolPhoto"
+                    <input type="file" name="toolPhoto"
                            accept="image/jpg" required/>
                     <input type="hidden" name="toolId" value="${tool.getToolId()}"/>
                     <div class="form-group">

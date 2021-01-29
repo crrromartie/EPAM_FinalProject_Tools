@@ -22,7 +22,7 @@ import java.util.Optional;
 public class EditToolCommand implements Command {
     static Logger logger = LogManager.getLogger();
 
-    private static final String NOTIFICATION_PASS_COMMAND = "/ToolRental?command=notification_pass&updateTool=true";
+    private static final String NOTIFICATION_PASS_COMMAND = "/ToolRental?command=notification_pass&toolUpdated=true";
 
     @Override
     public Router execute(HttpServletRequest request) {
@@ -31,18 +31,16 @@ public class EditToolCommand implements Command {
         Tool tool = (Tool) session.getAttribute(AttributeName.TOOL);
         Map<String, String> toolEditParameters = fillEditToolParameters(request);
         boolean isAvailable = Boolean.parseBoolean(request.getParameter(ParameterName.TOOL_AVAILABILITY));
-        ServiceFactory factory = ServiceFactory.getINSTANCE();
-        ToolService toolService = factory.getToolService();
-        Optional<Tool> optionalTool;
+        ToolService toolService = ServiceFactory.getINSTANCE().getToolService();
         try {
-            optionalTool = toolService.updateTool(toolEditParameters, isAvailable, tool.getToolId());
+            Optional<Tool> optionalTool = toolService.updateTool(toolEditParameters, isAvailable, tool.getToolId());
             if (optionalTool.isPresent()) {
                 session.setAttribute(AttributeName.TOOL, optionalTool.get());
                 router.setPage(request.getContextPath() + NOTIFICATION_PASS_COMMAND);
                 router.setRedirect();
             } else {
-                router.setPage(PagePath.TOOL_EDIT_PAGE);
                 request.setAttribute(AttributeName.TOOL_EDIT_INCORRECT_DATA, true);
+                router.setPage(PagePath.TOOL_EDIT_PAGE);
             }
         } catch (ServiceException e) {
             logger.log(Level.ERROR, e.getMessage());

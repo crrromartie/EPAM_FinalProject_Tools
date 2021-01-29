@@ -13,7 +13,7 @@
 <fmt:setBundle basename="properties.pagecontent"/>
 <html>
 <head>
-    <title><fmt:message key="tool_page.new_tool_title"/></title>
+    <title><fmt:message key="tool_page.new_tool.title"/></title>
 </head>
 <body>
 <jsp:include page="${pageContext.request.contextPath}/jsp/common/header.jsp"/>
@@ -21,7 +21,7 @@
     <div class="container default-page">
         <div class="row">
             <div class="col-6 offset-3">
-                <form name="ToolAdd" class="form-horizontal" action="${pageContext.request.contextPath}/ToolRental"
+                <form name="AddTool" class="form-horizontal" action="${pageContext.request.contextPath}/ToolRental"
                       method="post">
                     <input type="hidden" name="command" value="add_tool"/>
                     <span class="heading"><fmt:message key="tool_s_page.add_new"/></span>

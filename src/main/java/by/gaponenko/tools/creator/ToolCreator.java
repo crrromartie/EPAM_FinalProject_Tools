@@ -7,6 +7,7 @@ import java.math.BigDecimal;
 import java.util.Map;
 
 public class ToolCreator {
+
     public static Tool createTool(Map<String, String> toolParameters) {
         Tool tool = new Tool();
         tool.setType(Tool.Type.valueOf(toolParameters.get(ParameterName.TOOL_TYPE).toUpperCase()));

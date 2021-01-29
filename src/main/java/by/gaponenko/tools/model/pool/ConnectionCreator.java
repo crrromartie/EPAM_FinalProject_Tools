@@ -26,7 +26,7 @@ class ConnectionCreator {
             proxyConnection = new ProxyConnection(connection);
         } catch (SQLException e) {
             logger.log(Level.FATAL, e.getMessage());
-            throw new RuntimeException("Connection not created!", e);
+            throw new RuntimeException("Connection is not created", e);
         }
         return proxyConnection;
     }

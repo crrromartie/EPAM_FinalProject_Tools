@@ -20,7 +20,7 @@
     <div class="container default-page">
         <div class="row">
             <div class="col-6 offset-3">
-                <form name="LoginForm" class="form-horizontal" method="post"
+                <form name="Login" class="form-horizontal" method="post"
                       action="${pageContext.request.contextPath}/ToolRental">
                     <input type="hidden" name="command" value="login"/>
                     <span class="heading">

@@ -71,7 +71,7 @@
             </div>
             <div class="col-2">
                 <label><fmt:message key="tool_s_page.display"/></label>
-                <form name="toolsDisplay" action="${pageContext.request.contextPath}/ToolRental" method="get">
+                <form name="ToolsDisplay" action="${pageContext.request.contextPath}/ToolRental" method="get">
                     <input type="hidden" name="command" value="change_tools_display">
                     <input type="hidden" name="toolsDisplay" value="toolsList">
                     <button type="submit" class="btn btn-primary" id="but-view-list">
@@ -83,7 +83,7 @@
                         </svg>
                     </button>
                 </form>
-                <form name="toolsDisplay" action="${pageContext.request.contextPath}/ToolRental" method="get">
+                <form name="ToolsDisplay" action="${pageContext.request.contextPath}/ToolRental" method="get">
                     <input type="hidden" name="command" value="change_tools_display">
                     <input type="hidden" name="toolsDisplay" value="toolsCards">
                     <button type="submit" class="btn btn-primary" id="but-view-cards">
@@ -96,7 +96,7 @@
             </div>
             <div class="col-2">
                 <c:if test="${sessionScope.role == 'ADMIN'}">
-                    <a href="${pageContext.request.contextPath}/ToolRental?command=add_tool_pass">
+                    <a href="${pageContext.request.contextPath}/ToolRental?command=tool_add_pass">
                         <fmt:message key="tool_s_page.add_new"/></a>
                 </c:if>
             </div>
@@ -107,14 +107,17 @@
             </div>
         </c:if>
         <c:if test="${tools.size() != 0}">
+
+            <%--            Tool cards display--%>
+
             <c:if test="${toolsDisplay eq 'toolsCards'}">
                 <div class="row">
                     <c:forEach var="i" begin="${(toolsPageNumber * pageEntries - pageEntries)}"
                                end="${(tools.size() < (toolsPageNumber * pageEntries) ? tools.size() : (toolsPageNumber * pageEntries)) - 1}">
                         <div class="col-sm-12 col-md-6 col-lg-4 col-xl-3">
                             <div class="card h-100">
-                                <img class="card-img-top" id="tool_photo_card"
-                                     src="data:image/jpeg;base64,${tools.get(i).getPhoto()}"/>
+                                <img class="card-img-top" src="data:image/jpeg;base64,${tools.get(i).getPhoto()}"
+                                     alt="..."/>
                                 <div class="card-body">
                                     <p class="card-text">
                                         <c:choose>
@@ -150,7 +153,7 @@
                                             </c:when>
                                         </c:choose>
                                     </p>
-                                    <h5 class="card-title">
+                                    <p class="card-text">
                                         <c:if test="${sessionScope.role == 'CLIENT'}">
                                             <c:if test="${tools.get(i).isAvailable() eq true}">
                                                 <a href="${pageContext.request.contextPath}/ToolRental?command=tool_pass&toolId=${tools.get(i).getToolId()}"/>
@@ -169,7 +172,7 @@
                                             ${tools.get(i).getModel()}
                                             </a>
                                         </c:if>
-                                    </h5>
+                                    </p>
                                     <p class="card-text">${tools.get(i).getRentPrice()}</p>
                                     <p class="card-text">
                                         <c:if test="${tools.get(i).isAvailable() eq true}">
@@ -179,6 +182,7 @@
                                             <label><fmt:message key="tool_s_page.availability.not_available"/></label>
                                         </c:if>
                                     </p>
+
                                 </div>
                             </div>
                         </div>
@@ -186,6 +190,9 @@
                 </div>
                 <ctg:toolsPagination toolsPageNumber="${toolsPageNumber}" pageEntries="${pageEntries}"/>
             </c:if>
+
+            <%--            Tool list display--%>
+
             <c:if test="${toolsDisplay eq 'toolsList'}">
                 <div class="container" id="tools_table">
                     <table class="table" id="listTable">
@@ -264,8 +271,8 @@
                                     </c:if>
                                 </td>
                                 <td>
-                                    <img class="card-img-top" id="tool_photo_list"
-                                         src="data:image/jpeg;base64,${tools.get(i).getPhoto()}"/>
+                                    <img id="tool_photo_list" src="data:image/jpeg;base64,${tools.get(i).getPhoto()}"
+                                         alt="..."/>
                                 </td>
                             </tr>
                         </c:forEach>
@@ -274,6 +281,7 @@
                 </div>
                 <ctg:toolsPagination toolsPageNumber="${toolsPageNumber}" pageEntries="${pageEntries}"/>
             </c:if>
+
         </c:if>
     </div>
 </div>

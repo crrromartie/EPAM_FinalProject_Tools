@@ -39,6 +39,23 @@ public class UserDataValidator {
         return isValid;
     }
 
+    public static boolean isValidEditUserParameters(Map<String, String> editUserParameters) {
+        boolean isValid = true;
+        if (!isValidName(editUserParameters.get(ParameterName.USER_NAME))) {
+            isValid = false;
+        }
+        if (!isValidSurname(editUserParameters.get(ParameterName.USER_SURNAME))) {
+            isValid = false;
+        }
+        if (!isValidEmail(editUserParameters.get(ParameterName.USER_EMAIL))) {
+            isValid = false;
+        }
+        if (!isValidPhone(editUserParameters.get(ParameterName.USER_PHONE))) {
+            isValid = false;
+        }
+        return isValid;
+    }
+
     public static boolean isValidLogin(String login) {
         return (login != null && !login.isEmpty() && login.matches(LOGIN_REGEX));
     }
@@ -71,6 +88,6 @@ public class UserDataValidator {
                 counter++;
             }
         }
-        return (counter > 0);
+        return (counter == 1);
     }
 }

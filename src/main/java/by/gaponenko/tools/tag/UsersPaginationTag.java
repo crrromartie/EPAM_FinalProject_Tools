@@ -8,6 +8,7 @@ import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.JspWriter;
 import javax.servlet.jsp.tagext.TagSupport;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class UsersPaginationTag extends TagSupport {
@@ -25,7 +26,7 @@ public class UsersPaginationTag extends TagSupport {
     @Override
     public int doStartTag() throws JspException {
         HttpSession session = pageContext.getSession();
-        List<User> users = (List<User>) session.getAttribute(AttributeName.USERS);
+        List<User> users = (ArrayList<User>) session.getAttribute(AttributeName.USERS);
         JspWriter out = pageContext.getOut();
         try {
             int beginIndex = usersPageNumber * pageEntries - pageEntries;

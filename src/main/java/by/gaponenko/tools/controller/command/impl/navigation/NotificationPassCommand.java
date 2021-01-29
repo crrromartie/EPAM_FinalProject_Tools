@@ -27,11 +27,17 @@ public class NotificationPassCommand implements Command {
         if (request.getParameter(ParameterName.ORDER_PAYED) != null) {
             request.setAttribute(AttributeName.PAYED_ORDER_SUCCESS, true);
         }
-        if (request.getParameter(ParameterName.TOOL_ADD) != null) {
+        if (request.getParameter(ParameterName.TOOL_ADDED) != null) {
             request.setAttribute(AttributeName.ADD_TOOL_SUCCESS, true);
         }
-        if (request.getParameter(ParameterName.TOOL_UPDATE) != null) {
+        if (request.getParameter(ParameterName.TOOL_UPDATED) != null) {
             request.setAttribute(AttributeName.UPDATE_TOOL_SUCCESS, true);
+        }
+        if (request.getParameter(ParameterName.USER_INFO_UPDATED) != null) {
+            request.setAttribute(AttributeName.UPDATE_USER_INFO_SUCCESS, true);
+        }
+        if (request.getParameter(ParameterName.PASSWORD_UPDATED) != null) {
+            request.setAttribute(AttributeName.UPDATE_PASSWORD_SUCCESS, true);
         }
         return new Router(PagePath.NOTIFICATION_PAGE);
     }
