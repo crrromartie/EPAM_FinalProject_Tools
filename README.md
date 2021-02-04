@@ -98,21 +98,27 @@ ___
 Заказу присваивается один из шести статусов:
 
 * **Новый**
+  
   Присваивается новому заказу после его оформления клиентом.
   
 * **Одобрен**
+  
   Присваивается заказу после его одобрения администратором.
   
 * **Отменен**
+  
   Присваивается заказу в случае, если клиент отменил заказ.
   
 * **Отклонен**
+  
   Присваивается заказу в случае, если администратор отклонил заказ.
   
 * **Активный**
+  
   Присвивается после оплаты заказа.
   
 * **Выполненный**
+  
   По окончанию срока аренды статус заказа с **Активный** меняется на **Выполненный**.
 
 В случаях, когда:
@@ -225,21 +231,27 @@ amount.
 An order is assigned one of six statuses:
 
 * **New**
+  
   Assigned to a new order after the client has placed it.
   
 * **Approved**
+  
   Assigned to an order after the administrator approves it.
   
 * **Canceled**
+  
   Assigned to an order if the client canceled the order.
   
 * **Rejected**
+  
   Assigned to an order if the administrator rejects the order.
   
 * **Active**
+  
   Assigned after payment of the order.
   
 * **Complete**
+  
   At the end of the lease, the order status from **Active** changes to **Complete**.
 
 In cases when:
