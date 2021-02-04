@@ -1,14 +1,11 @@
 package by.gaponenko.tools.controller.command.impl;
 
 import by.gaponenko.tools.controller.Router;
-import by.gaponenko.tools.controller.command.AttributeName;
-import by.gaponenko.tools.controller.command.Command;
-import by.gaponenko.tools.controller.command.PagePath;
+import by.gaponenko.tools.controller.command.*;
 import by.gaponenko.tools.entity.User;
 import by.gaponenko.tools.exception.ServiceException;
 import by.gaponenko.tools.model.service.ServiceFactory;
 import by.gaponenko.tools.model.service.UserService;
-import by.gaponenko.tools.util.ParameterName;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -17,6 +14,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.List;
 
+/**
+ * The Unblock client command.
+ * <p>
+ * This command allows admin to unblock client.
+ *
+ * @author Haponenka Ihar
+ * @version 1.0
+ */
 public class UnblockClientCommand implements Command {
     static Logger logger = LogManager.getLogger();
 
@@ -30,10 +35,11 @@ public class UnblockClientCommand implements Command {
         try {
             if (userService.updateStatus(login, User.Status.ACTIVE)) {
                 List<User> users;
-                if (clientFilterStatus != null) {
-                    users = userService.findByStatus(User.Status.valueOf(clientFilterStatus));
+                if (clientFilterStatus != null
+                        && !clientFilterStatus.equals(CommandConstant.ALL)) {
+                    users = userService.findClientsByStatus(User.Status.valueOf(clientFilterStatus));
                 } else {
-                    users = userService.findAll();
+                    users = userService.findClients();
                 }
                 session.setAttribute(AttributeName.USERS, users);
             } else {

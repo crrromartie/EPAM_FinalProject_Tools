@@ -1,5 +1,13 @@
 package by.gaponenko.tools.controller.command;
 
+/**
+ * The Page path.
+ * <p>
+ * The class is used for work with the page path.
+ *
+ * @author Haponenka Ihar
+ * @version 1.0
+ */
 public class PagePath {
     public static final String INDEX_PAGE = "/index.jsp";
     public static final String HOME_PAGE = "/jsp/home.jsp";

@@ -3,7 +3,6 @@ package by.gaponenko.tools.controller.filter;
 import by.gaponenko.tools.controller.command.*;
 import by.gaponenko.tools.controller.command.impl.NoSuchCommand;
 import by.gaponenko.tools.entity.User;
-import by.gaponenko.tools.util.ParameterName;
 
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
@@ -13,6 +12,21 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.Set;
 
+/**
+ * The Role permission filter.
+ * <p>
+ * Filter of the user's access level to the command sent to the
+ * controller based on the current role. The filter intercepts
+ * the request sent to {@code Controller}.
+ * The user's role and command name are retrieved from the {@code HttpServletRequest}.
+ * The role is retrieved from the {@code HttpSession}, and based on it, a set of commands available
+ * for processing by the user with this role is obtained. The command, received from
+ * the request is searched for in the received set, if such a command is found, control
+ * is passed to the next filter, if not, it is redirected to the notification page.
+ *
+ * @author Haponenka Ihar
+ * @version 1.0
+ */
 @WebFilter(urlPatterns = "/ToolRental")
 public class RolePermissionFilter implements Filter {
 

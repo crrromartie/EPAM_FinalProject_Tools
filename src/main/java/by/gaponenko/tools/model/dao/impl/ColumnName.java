@@ -1,5 +1,11 @@
 package by.gaponenko.tools.model.dao.impl;
 
+/**
+ * The class is used to store the names of the tables columns in the database.
+ *
+ * @author Haponenka Ihar
+ * @version 1.0
+ */
 class ColumnName {
     // table 'users'
     public static final String USER_ID = "user_id";

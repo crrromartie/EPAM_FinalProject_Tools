@@ -5,9 +5,21 @@ import java.util.Map;
 import java.util.Properties;
 import java.util.concurrent.Executor;
 
+/**
+ * The type Proxy connection.
+ * It helps to protect connections from wrong using.
+ *
+ * @author Haponenka Ihar
+ * @version 1.0
+ */
 class ProxyConnection implements Connection {
     private final Connection connection;
 
+    /**
+     * Instantiates a new Proxy connection.
+     *
+     * @param connection the connection
+     */
     ProxyConnection(Connection connection) {
         this.connection = connection;
     }
@@ -53,10 +65,15 @@ class ProxyConnection implements Connection {
     }
 
     @Override
-    public void close() throws SQLException {
+    public void close() {
         ConnectionPool.INSTANCE.releaseConnection(this);
     }
 
+    /**
+     * Really close.
+     *
+     * @throws SQLException the sql exception
+     */
     void reallyClose() throws SQLException {
         connection.close();
     }

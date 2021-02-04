@@ -1,10 +1,3 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: IHOR
-  Date: 24.01.2021
-  Time: 21:59
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
@@ -93,12 +86,12 @@
                         </button>
                     </div>
                 </form>
-                <c:if test="${uniqueModelError eq true}">
+                <c:if test="${uniqueModelError}">
                     <div class="form-group">
                         <label class="text"><fmt:message key="tool_s_page.message.model_not_unique"/></label>
                     </div>
                 </c:if>
-                <c:if test="${toolIncorrectData eq true}">
+                <c:if test="${toolIncorrectData}">
                     <div class="form-group">
                         <label class="text"><fmt:message key="tool_s_page.message.incorrect_data"/></label>
                     </div>

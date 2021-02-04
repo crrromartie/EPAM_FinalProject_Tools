@@ -8,6 +8,12 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
+/**
+ * Mail properties manager.
+ *
+ * @author Haponenka Ihar.
+ * @version 1.0
+ */
 class MailPropertiesManager {
     static Logger logger = LogManager.getLogger();
 
@@ -44,4 +50,5 @@ class MailPropertiesManager {
     public static String getUserPassword() {
         return properties.getProperty(USER_PASSWORD);
     }
+
 }

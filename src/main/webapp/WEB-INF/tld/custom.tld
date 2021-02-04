@@ -9,51 +9,21 @@
     <uri>custom_tags</uri>
 
     <tag>
-        <name>usersPagination</name>
+        <name>usersPaginationTag</name>
         <tag-class>by.gaponenko.tools.tag.UsersPaginationTag</tag-class>
         <body-content>empty</body-content>
-        <attribute>
-            <name>usersPageNumber</name>
-            <required>true</required>
-            <rtexprvalue>true</rtexprvalue>
-        </attribute>
-        <attribute>
-            <name>pageEntries</name>
-            <required>true</required>
-            <rtexprvalue>true</rtexprvalue>
-        </attribute>
     </tag>
 
     <tag>
-        <name>toolsPagination</name>
+        <name>toolsPaginationTag</name>
         <tag-class>by.gaponenko.tools.tag.ToolsPaginationTag</tag-class>
         <body-content>empty</body-content>
-        <attribute>
-            <name>toolsPageNumber</name>
-            <required>true</required>
-            <rtexprvalue>true</rtexprvalue>
-        </attribute>
-        <attribute>
-            <name>pageEntries</name>
-            <required>true</required>
-            <rtexprvalue>true</rtexprvalue>
-        </attribute>
     </tag>
 
     <tag>
-        <name>ordersPagination</name>
+        <name>ordersPaginationTag</name>
         <tag-class>by.gaponenko.tools.tag.OrdersPaginationTag</tag-class>
         <body-content>empty</body-content>
-        <attribute>
-            <name>ordersPageNumber</name>
-            <required>true</required>
-            <rtexprvalue>true</rtexprvalue>
-        </attribute>
-        <attribute>
-            <name>pageEntries</name>
-            <required>true</required>
-            <rtexprvalue>true</rtexprvalue>
-        </attribute>
     </tag>
 
 </taglib>

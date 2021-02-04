@@ -6,6 +6,14 @@ import by.gaponenko.tools.controller.command.PagePath;
 
 import javax.servlet.http.HttpServletRequest;
 
+/**
+ * The Registration pass command.
+ * <p>
+ * Forwarding a user to the registration page.
+ *
+ * @author Haponenka Ihar
+ * @version 1.0
+ */
 public class RegistrationPassCommand implements Command {
 
     @Override

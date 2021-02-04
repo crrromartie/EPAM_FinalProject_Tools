@@ -1,6 +1,7 @@
 package by.gaponenko.tools.model.service.impl;
 
-import by.gaponenko.tools.creator.UserCreator;
+import by.gaponenko.tools.builder.UserBuilder;
+import by.gaponenko.tools.controller.command.ParameterName;
 import by.gaponenko.tools.entity.User;
 import by.gaponenko.tools.exception.DaoException;
 import by.gaponenko.tools.exception.ServiceException;
@@ -9,16 +10,23 @@ import by.gaponenko.tools.model.dao.impl.UserDaoImpl;
 import by.gaponenko.tools.model.service.EntityTransaction;
 import by.gaponenko.tools.model.service.UserService;
 import by.gaponenko.tools.util.ImageCompressor;
-import by.gaponenko.tools.util.ParameterName;
-import by.gaponenko.tools.util.PasswordEncrypt;
+import by.gaponenko.tools.util.PasswordEncryptor;
 import by.gaponenko.tools.validator.UserDataValidator;
 
 import java.io.InputStream;
-import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+/**
+ * The User service.
+ * <p>
+ * Implements an interface UserService for processing user-related data.
+ *
+ * @author Haponenka Ihar
+ * @version 1.0
+ * @see UserService
+ */
 public class UserServiceImpl implements UserService {
 
     @Override
@@ -36,12 +44,26 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<User> findAll() throws ServiceException {
+    public List<User> findClients() throws ServiceException {
         UserDao userDao = new UserDaoImpl();
         EntityTransaction transaction = new EntityTransaction();
         transaction.initSingleQuery(userDao);
         try {
-            return userDao.findAll();
+            return userDao.findClients();
+        } catch (DaoException e) {
+            throw new ServiceException(e);
+        } finally {
+            transaction.endSingleQuery();
+        }
+    }
+
+    @Override
+    public List<User> findClientsByStatus(User.Status status) throws ServiceException {
+        UserDao userDao = new UserDaoImpl();
+        EntityTransaction transaction = new EntityTransaction();
+        transaction.initSingleQuery(userDao);
+        try {
+            return userDao.findClientsByStatus(status);
         } catch (DaoException e) {
             throw new ServiceException(e);
         } finally {
@@ -61,7 +83,7 @@ public class UserServiceImpl implements UserService {
             Optional<User> optionalUser = userDao.findByLogin(login);
             String userPassword = userDao.findPasswordByLogin(login);
             if (optionalUser.isEmpty()
-                    || !PasswordEncrypt.encrypt(password).equals(userPassword)) {
+                    || !PasswordEncryptor.encrypt(password).equals(userPassword)) {
                 optionalUser = Optional.empty();
             }
             return optionalUser;
@@ -80,8 +102,14 @@ public class UserServiceImpl implements UserService {
         UserDao userDao = new UserDaoImpl();
         EntityTransaction transaction = new EntityTransaction();
         transaction.initSingleQuery(userDao);
-        User user = UserCreator.createUser(registrationParameters);
-        String encryptedPassword = PasswordEncrypt.encrypt(registrationParameters.get(ParameterName.USER_PASSWORD));
+        UserBuilder userBuilder = new UserBuilder()
+                .setLogin(registrationParameters.get(ParameterName.USER_LOGIN))
+                .setName(registrationParameters.get(ParameterName.USER_NAME))
+                .setSurname(registrationParameters.get(ParameterName.USER_SURNAME))
+                .setPhone(registrationParameters.get(ParameterName.USER_PHONE))
+                .setEmail(registrationParameters.get(ParameterName.USER_EMAIL));
+        User user = new User(userBuilder);
+        String encryptedPassword = PasswordEncryptor.encrypt(registrationParameters.get(ParameterName.USER_PASSWORD));
         try {
             return userDao.add(user, encryptedPassword);
         } catch (DaoException e) {
@@ -113,23 +141,6 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<User> findByStatus(User.Status status) throws ServiceException {
-        if (!UserDataValidator.isValidUserStatus(status)) {
-            return Collections.EMPTY_LIST;
-        }
-        UserDao userDao = new UserDaoImpl();
-        EntityTransaction transaction = new EntityTransaction();
-        transaction.initSingleQuery(userDao);
-        try {
-            return userDao.findByStatus(status);
-        } catch (DaoException e) {
-            throw new ServiceException(e);
-        } finally {
-            transaction.endSingleQuery();
-        }
-    }
-
-    @Override
     public boolean updateStatus(String login, User.Status status) throws ServiceException {
         if (!UserDataValidator.isValidLogin(login) || !UserDataValidator.isValidUserStatus(status)) {
             return false;
@@ -154,7 +165,13 @@ public class UserServiceImpl implements UserService {
         UserDao userDao = new UserDaoImpl();
         EntityTransaction transaction = new EntityTransaction();
         transaction.initSingleQuery(userDao);
-        User user = UserCreator.createUser(editUserParameters, id);
+        UserBuilder userBuilder = new UserBuilder()
+                .setName(editUserParameters.get(ParameterName.USER_NAME))
+                .setSurname(editUserParameters.get(ParameterName.USER_SURNAME))
+                .setPhone(editUserParameters.get(ParameterName.USER_PHONE))
+                .setEmail(editUserParameters.get(ParameterName.USER_EMAIL))
+                .setUserId(id);
+        User user = new User(userBuilder);
         try {
             return userDao.updateUserInfo(user);
         } catch (DaoException e) {
@@ -172,7 +189,7 @@ public class UserServiceImpl implements UserService {
         UserDao userDao = new UserDaoImpl();
         EntityTransaction transaction = new EntityTransaction();
         transaction.initSingleQuery(userDao);
-        String encryptedPassword = PasswordEncrypt.encrypt(password);
+        String encryptedPassword = PasswordEncryptor.encrypt(password);
         try {
             return userDao.updatePassword(id, encryptedPassword);
         } catch (DaoException e) {

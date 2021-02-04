@@ -1,12 +1,25 @@
 package by.gaponenko.tools.entity;
 
+import by.gaponenko.tools.builder.ToolBuilder;
+
 import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.StringJoiner;
 
+/**
+ * The Tool.
+ * <p>
+ * Is the subject area of the service.
+ * Describes the tools rented by clients.
+ *
+ * @author Haponenka Ihar
+ * @version 1.0
+ */
 public class Tool extends Entity {
-
+    /**
+     * The enum type.
+     */
     public enum Type {
         CHAINSAW(1),
         CONCRETE_SAW(2),
@@ -51,68 +64,50 @@ public class Tool extends Entity {
     private BigDecimal rentPrice;
     private String photo;
 
-    public long getToolId() {
-        return toolId;
+    public Tool() {
     }
 
-    public void setToolId(long toolId) {
-        this.toolId = toolId;
+    public Tool(ToolBuilder builder) {
+        this.toolId = builder.getToolId();
+        this.type = builder.getType();
+        this.model = builder.getModel();
+        this.descriptionEng = builder.getDescriptionEng();
+        this.descriptionRus = builder.getDescriptionRus();
+        this.isAvailable = builder.isAvailable();
+        this.rentPrice = builder.getRentPrice();
+        this.photo = builder.getPhoto();
+    }
+
+    public long getToolId() {
+        return toolId;
     }
 
     public Type getType() {
         return type;
     }
 
-    public void setType(Type type) {
-        this.type = type;
-    }
-
     public String getModel() {
         return model;
-    }
-
-    public void setModel(String model) {
-        this.model = model;
     }
 
     public String getDescriptionEng() {
         return descriptionEng;
     }
 
-    public void setDescriptionEng(String descriptionEng) {
-        this.descriptionEng = descriptionEng;
-    }
-
     public String getDescriptionRus() {
         return descriptionRus;
-    }
-
-    public void setDescriptionRus(String descriptionRus) {
-        this.descriptionRus = descriptionRus;
     }
 
     public boolean isAvailable() {
         return isAvailable;
     }
 
-    public void setAvailable(boolean available) {
-        isAvailable = available;
-    }
-
     public BigDecimal getRentPrice() {
         return rentPrice;
     }
 
-    public void setRentPrice(BigDecimal rentPrice) {
-        this.rentPrice = rentPrice;
-    }
-
     public String getPhoto() {
         return photo;
-    }
-
-    public void setPhoto(String photo) {
-        this.photo = photo;
     }
 
     @Override

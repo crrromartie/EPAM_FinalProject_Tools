@@ -1,8 +1,10 @@
 package by.gaponenko.tools.model.dao.impl;
 
+import by.gaponenko.tools.builder.ToolBuilder;
 import by.gaponenko.tools.entity.Tool;
 import by.gaponenko.tools.exception.DaoException;
 import by.gaponenko.tools.model.dao.AbstractDao;
+import by.gaponenko.tools.model.dao.OrderDao;
 import by.gaponenko.tools.model.dao.ToolDao;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -19,6 +21,14 @@ import java.util.Base64;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * The Tool dao.
+ * {@code ToolDao} interface implementation
+ *
+ * @author Haponenka Ihar
+ * @version 1.0
+ * @see ToolDao
+ */
 public class ToolDaoImpl extends AbstractDao implements ToolDao {
     static Logger logger = LogManager.getLogger();
 
@@ -194,21 +204,21 @@ public class ToolDaoImpl extends AbstractDao implements ToolDao {
     }
 
     private Tool createFromResultSet(ResultSet resultSet) throws DaoException {
-        Tool tool = new Tool();
         try {
-            tool.setToolId(resultSet.getLong(ColumnName.TOOL_ID));
-            tool.setType(Tool.Type.getToolTypeById(resultSet.getInt(ColumnName.TOOL_TYPE_ID)));
-            tool.setModel(resultSet.getString(ColumnName.TOOL_MODEL));
-            tool.setDescriptionEng(resultSet.getString(ColumnName.TOOL_DESCRIPTION_ENG));
-            tool.setDescriptionRus(resultSet.getString(ColumnName.TOOL_DESCRIPTION_RUS));
-            tool.setAvailable(resultSet.getBoolean(ColumnName.TOOL_IS_AVAILABLE));
-            tool.setRentPrice(resultSet.getBigDecimal(ColumnName.TOOL_RENT_PRICE));
             byte[] photoBytes = resultSet.getBytes(ColumnName.TOOL_PHOTO);
             String photoBase64 = Base64.getEncoder().encodeToString(photoBytes);
-            tool.setPhoto(photoBase64);
+            ToolBuilder toolBuilder = new ToolBuilder()
+                    .setToolId(resultSet.getLong(ColumnName.TOOL_ID))
+                    .setType(Tool.Type.getToolTypeById(resultSet.getInt(ColumnName.TOOL_TYPE_ID)))
+                    .setModel(resultSet.getString(ColumnName.TOOL_MODEL))
+                    .setDescriptionEng(resultSet.getString(ColumnName.TOOL_DESCRIPTION_ENG))
+                    .setDescriptionRus(resultSet.getString(ColumnName.TOOL_DESCRIPTION_RUS))
+                    .setAvailable(resultSet.getBoolean(ColumnName.TOOL_IS_AVAILABLE))
+                    .setRentPrice(resultSet.getBigDecimal(ColumnName.TOOL_RENT_PRICE))
+                    .setPhoto(photoBase64);
+            return new Tool(toolBuilder);
         } catch (SQLException e) {
             throw new DaoException(e);
         }
-        return tool;
     }
 }

@@ -1,9 +1,15 @@
 package by.gaponenko.tools.validator;
 
-import by.gaponenko.tools.util.ParameterName;
+import by.gaponenko.tools.controller.command.ParameterName;
 
 import java.util.Map;
 
+/**
+ * Card data validator.
+ *
+ * @author Haponenka Ihar
+ * @version 1.0
+ */
 public class CardDataValidator {
     private static final String CARD_NUMBER_REGEX = "^[\\d]{4}\\s[\\d]{4}\\s[\\d]{4}\\s[\\d]{4}$";
     private static final String MONTH_CARD_REGEX = "\\d{1,2}";
@@ -13,6 +19,12 @@ public class CardDataValidator {
     private CardDataValidator() {
     }
 
+    /**
+     * Validates payment card parameters.
+     *
+     * @param paymentCardParameters the paymentCardParameters
+     * @return the boolean
+     */
     public static boolean isValidPaymentCardParameters(Map<String, String> paymentCardParameters) {
         boolean isValid = true;
         if (!isValidCardNumber(paymentCardParameters.get(ParameterName.CARD_NUMBER))) {
@@ -30,10 +42,22 @@ public class CardDataValidator {
         return isValid;
     }
 
+    /**
+     * Validates card number.
+     *
+     * @param number the number
+     * @return the boolean
+     */
     public static boolean isValidCardNumber(String number) {
         return (number != null && !number.isEmpty() && number.matches(CARD_NUMBER_REGEX));
     }
 
+    /**
+     * Validates month card.
+     *
+     * @param month
+     * @return
+     */
     public static boolean isValidMonthCard(String month) {
         if (month == null || month.isEmpty() || !month.matches(MONTH_CARD_REGEX)) {
             return false;
@@ -43,6 +67,12 @@ public class CardDataValidator {
         }
     }
 
+    /**
+     * Validates year card.
+     *
+     * @param year the year
+     * @return the boolean
+     */
     public static boolean isValidYearCard(String year) {
         if (year == null || year.isEmpty() || !year.matches(YEAR_CARD_REGEX)) {
             return false;
@@ -52,6 +82,12 @@ public class CardDataValidator {
         }
     }
 
+    /**
+     * Validates card CVV.
+     *
+     * @param cvv the cvv
+     * @return the boolean
+     */
     public static boolean isValidCardCvv(String cvv) {
         return (cvv != null && !cvv.isEmpty() && cvv.matches(CVV_CARD_CODE_REGEX));
     }

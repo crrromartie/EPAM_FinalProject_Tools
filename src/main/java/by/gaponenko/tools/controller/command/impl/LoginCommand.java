@@ -1,14 +1,11 @@
 package by.gaponenko.tools.controller.command.impl;
 
 import by.gaponenko.tools.controller.Router;
-import by.gaponenko.tools.controller.command.AttributeName;
-import by.gaponenko.tools.controller.command.Command;
-import by.gaponenko.tools.controller.command.PagePath;
+import by.gaponenko.tools.controller.command.*;
 import by.gaponenko.tools.entity.User;
 import by.gaponenko.tools.exception.ServiceException;
 import by.gaponenko.tools.model.service.ServiceFactory;
 import by.gaponenko.tools.model.service.UserService;
-import by.gaponenko.tools.util.ParameterName;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -17,10 +14,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.Optional;
 
+/**
+ * The Login command.
+ * <p>
+ * This command allows to pass the authorisation.
+ *
+ * @author Haponenka Ihar
+ * @version 1.0
+ */
 public class LoginCommand implements Command {
     static Logger logger = LogManager.getLogger();
-
-    private static final String HOME_PASS_COMMAND = "/ToolRental?command=home_pass";
 
     @Override
     public Router execute(HttpServletRequest request) {
@@ -35,7 +38,7 @@ public class LoginCommand implements Command {
                 User user = optionalUser.get();
                 session.setAttribute(AttributeName.USER, user);
                 session.setAttribute(AttributeName.ROLE, user.getRole());
-                router.setPage(request.getContextPath() + HOME_PASS_COMMAND);
+                router.setPage(request.getContextPath() + CommandPath.HOME_PASS);
                 router.setRedirect();
             } else {
                 request.setAttribute(AttributeName.LOGIN, login);

@@ -8,6 +8,12 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
+/**
+ * Creates a connection to the database.
+ *
+ * @author Haponenka Ihar
+ * @version 1.0
+ */
 class ConnectionCreator {
     static Logger logger = LogManager.getLogger();
 
@@ -19,10 +25,9 @@ class ConnectionCreator {
     }
 
     static ProxyConnection createConnection() {
-        Connection connection;
         ProxyConnection proxyConnection;
         try {
-            connection = DriverManager.getConnection(DATABASE_URL, DATABASE_USER, DATABASE_PASSWORD);
+            Connection connection = DriverManager.getConnection(DATABASE_URL, DATABASE_USER, DATABASE_PASSWORD);
             proxyConnection = new ProxyConnection(connection);
         } catch (SQLException e) {
             logger.log(Level.FATAL, e.getMessage());

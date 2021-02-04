@@ -1,5 +1,13 @@
 package by.gaponenko.tools.controller.command;
 
+/**
+ * The Attribute name.
+ * <p>
+ * The class is used for work with the {@code HttpSession}.
+ *
+ * @author Haponenka Ihar
+ * @version 1.0
+ */
 public class AttributeName {
     //general
     public static final String CURRENT_PAGE = "currentPage";
@@ -15,7 +23,6 @@ public class AttributeName {
     //tool
     public static final String TOOL = "tool";
     public static final String TOOLS = "tools";
-    public static final String TOOLS_DISPLAY = "toolsDisplay";
     public static final String TOOL_PARAMETERS = "toolParameters";
     //order
     public static final String ORDER = "order";
@@ -26,7 +33,6 @@ public class AttributeName {
     public static final String ORDERS_FILTER_STATUS = "ordersFilterStatus";
     public static final String PAYMENT_PARAMETERS = "paymentParameters";
     //pagination
-    public static final String PAGE_ENTRIES = "pageEntries";
     public static final String USERS_PAGE_NUMBER = "usersPageNumber";
     public static final String TOOLS_PAGE_NUMBER = "toolsPageNumber";
     public static final String ORDERS_PAGE_NUMBER = "ordersPageNumber";

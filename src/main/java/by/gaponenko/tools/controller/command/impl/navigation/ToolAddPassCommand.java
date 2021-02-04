@@ -6,6 +6,14 @@ import by.gaponenko.tools.controller.command.PagePath;
 
 import javax.servlet.http.HttpServletRequest;
 
+/**
+ * The Tool add pass command.
+ * <p>
+ * Forwarding admin to the new tool page.
+ *
+ * @author Haponenka Ihar
+ * @version 1.0
+ */
 public class ToolAddPassCommand implements Command {
 
     @Override

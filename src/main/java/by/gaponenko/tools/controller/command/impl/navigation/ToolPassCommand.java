@@ -8,7 +8,7 @@ import by.gaponenko.tools.entity.Tool;
 import by.gaponenko.tools.exception.ServiceException;
 import by.gaponenko.tools.model.service.ServiceFactory;
 import by.gaponenko.tools.model.service.ToolService;
-import by.gaponenko.tools.util.ParameterName;
+import by.gaponenko.tools.controller.command.ParameterName;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -17,6 +17,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.Optional;
 
+/**
+ * The Tool pass command.
+ * <p>
+ * Forwarding a client to the tool page.
+ *
+ * @author Haponenka Ihar
+ * @version 1.0
+ */
 public class ToolPassCommand implements Command {
     static Logger logger = LogManager.getLogger();
 

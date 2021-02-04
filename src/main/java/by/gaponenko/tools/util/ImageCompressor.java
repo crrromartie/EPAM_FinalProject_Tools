@@ -12,6 +12,14 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
+/**
+ * The Image compressor.
+ * <p>
+ * Compresses the image.
+ *
+ * @author Haponenka Ihar.
+ * @version 1.0
+ */
 public class ImageCompressor {
     static Logger logger = LogManager.getLogger();
 
@@ -24,6 +32,12 @@ public class ImageCompressor {
     private ImageCompressor() {
     }
 
+    /**
+     * Compresses the avatar.
+     *
+     * @param image the image
+     * @return the inputStream
+     */
     public static InputStream compressAvatar(InputStream image) {
         InputStream newImage = null;
         try {
@@ -39,6 +53,12 @@ public class ImageCompressor {
         return newImage;
     }
 
+    /**
+     * Compresses the photo.
+     *
+     * @param image the image
+     * @return the inputStream
+     */
     public static InputStream compressPhoto(InputStream image) {
         InputStream newImage = null;
         try {

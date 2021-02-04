@@ -1,5 +1,13 @@
-package by.gaponenko.tools.util;
+package by.gaponenko.tools.controller.command;
 
+/**
+ * The Parameter name.
+ * <p>
+ * The class is used for work with the {@code HttpServletRequest} when processing the request.
+ *
+ * @author Haponenka Ihar
+ * @version 1.0
+ */
 public class ParameterName {
     //general
     public static final String COMMAND = "command";
@@ -22,9 +30,6 @@ public class ParameterName {
     public static final String TOOL_AVAILABILITY = "availability";
     public static final String TOOL_PHOTO = "toolPhoto";
     public static final String TOOLS_SORT_CRITERIA = "toolsSortCriteria";
-    public static final String TOOLS_DISPLAY = "toolsDisplay";
-    public static final String TOOLS_CARDS = "toolsCards";
-    public static final String TOOLS_LIST = "toolsList";
     public static final String PRICE_UP = "price_up";
     public static final String PRICE_DOWN = "price_down";
     //order
@@ -48,7 +53,7 @@ public class ParameterName {
     public static final String CONFIRMED = "confirmed";
     public static final String ORDER_CREATED = "orderCreated";
     public static final String ORDER_PAYED = "orderPayed";
-    public static final String TOOL_ADDED = "toolAdd";
+    public static final String TOOL_ADDED = "toolAdded";
     public static final String TOOL_UPDATED = "toolUpdated";
     public static final String USER_INFO_UPDATED = "userInfoUpdated";
     public static final String PASSWORD_UPDATED = "passwordUpdated";

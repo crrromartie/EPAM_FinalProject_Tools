@@ -1,10 +1,3 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: IHOR
-  Date: 26.01.2021
-  Time: 18:12
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
@@ -28,12 +21,12 @@
                         <img id="tool_photo" src="data:image/jpeg;base64,${tool.getPhoto()}" alt="..."/>
                     </div>
                     <div class="form-group">
-                        <a href="${pageContext.request.contextPath}/ToolRental?command=tool_photo_pass&toolId=${tool.getToolId()}">
+                        <a class="form-link"
+                           href="${pageContext.request.contextPath}/ToolRental?command=tool_photo_pass&toolId=${tool.getToolId()}">
                             <fmt:message key="tool_s_page.update_photo"/></a>
                     </div>
                     <h5>${tool.getModel()}</h5>
                     <div class="form-group">
-                        <span><fmt:message key="tool_s_page.description_rus"/></span>
                         <textarea type="text" class="form-control" name="descriptionRus"
                                   title="<fmt:message key="tool_s_page.description_rus"/>"
                                   pattern=".{1,250}"
@@ -45,7 +38,6 @@
                                   onchange="this.setCustomValidity('')">${tool.getDescriptionRus()}</textarea>
                     </div>
                     <div class="form-group">
-                        <span><fmt:message key="tool_s_page.description_eng"/></span>
                         <textarea type="text" class="form-control" name="descriptionEng"
                                   title="<fmt:message key="tool_s_page.description_eng"/>"
                                   pattern=".{1,250}"
@@ -57,7 +49,6 @@
                                   onchange="this.setCustomValidity('')">${tool.getDescriptionEng()}</textarea>
                     </div>
                     <div class="form-group">
-                        <span><fmt:message key="tool_s_page.rent_price"/></span>
                         <input type="number" class="form-control" name="rentPrice"
                                title="<fmt:message key="tool_s_page.rent_price"/>"
                                min="1"
@@ -84,7 +75,7 @@
                         </button>
                     </div>
                 </form>
-                <c:if test="${toolEditIncorrectData eq true}">
+                <c:if test="${toolEditIncorrectData}">
                     <div class="form-group">
                         <label class="text"><fmt:message key="tool_s_page.message.incorrect_data"/></label>
                     </div>

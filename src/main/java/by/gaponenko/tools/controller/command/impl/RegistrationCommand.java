@@ -1,13 +1,10 @@
 package by.gaponenko.tools.controller.command.impl;
 
 import by.gaponenko.tools.controller.Router;
-import by.gaponenko.tools.controller.command.AttributeName;
-import by.gaponenko.tools.controller.command.Command;
-import by.gaponenko.tools.controller.command.PagePath;
+import by.gaponenko.tools.controller.command.*;
 import by.gaponenko.tools.exception.ServiceException;
 import by.gaponenko.tools.model.service.ServiceFactory;
 import by.gaponenko.tools.model.service.UserService;
-import by.gaponenko.tools.util.ParameterName;
 import by.gaponenko.tools.util.mail.MailConstructor;
 import by.gaponenko.tools.util.mail.MailSender;
 import org.apache.logging.log4j.Level;
@@ -18,11 +15,16 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * The Registration command.
+ * <p>
+ * This command allows to register on the site.
+ *
+ * @author Haponenka Ihar
+ * @version 1.0
+ */
 public class RegistrationCommand implements Command {
     static Logger logger = LogManager.getLogger();
-
-    private static final String EMAIL_SUBJECT = "Email address confirmation";
-    private static final String NOTIFICATION_PASS_COMMAND = "/ToolRental?command=notification_pass&registered=true";
 
     @Override
     public Router execute(HttpServletRequest request) {
@@ -34,9 +36,10 @@ public class RegistrationCommand implements Command {
                     && userService.isEmailUnique(registrationParameters.get(ParameterName.USER_EMAIL))
                     && userService.isPhoneUnique(registrationParameters.get(ParameterName.USER_PHONE))) {
                 if (userService.registration(registrationParameters)) {
-//                    String mailText = MailConstructor.newUserMail(request.getParameter(ParameterName.USER_LOGIN));
-//                    MailSender.sendMessage(EMAIL_SUBJECT, mailText, request.getParameter(ParameterName.USER_EMAIL));
-                    router.setPage(request.getContextPath() + NOTIFICATION_PASS_COMMAND);
+                    String mailText = MailConstructor.newUserMail(request.getParameter(ParameterName.USER_LOGIN));
+                    MailSender.sendMessage(CommandConstant.EMAIL_SUBJECT, mailText,
+                            request.getParameter(ParameterName.USER_EMAIL));
+                    router.setPage(request.getContextPath() + CommandPath.NOTIFICATION_REGISTERED);
                     router.setRedirect();
                 } else {
                     request.setAttribute(AttributeName.REGISTRATION_PARAMETERS, registrationParameters);

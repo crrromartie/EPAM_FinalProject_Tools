@@ -1,11 +1,25 @@
 package by.gaponenko.tools.entity;
 
+import by.gaponenko.tools.builder.UserBuilder;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.StringJoiner;
 
+/**
+ * The User.
+ * <p>
+ * Describes the basic characteristics of a user who interacts directly with the application.
+ *
+ * @author Haponenka Ihar
+ * @version 1.0
+ */
 public class User extends Entity {
-
+    /**
+     * The enum Role.
+     * Depending on the role assigned to the user, the level of access
+     * to service elements is determined.
+     */
     public enum Role {
         ADMIN(1),
         CLIENT(2),
@@ -34,6 +48,11 @@ public class User extends Entity {
         }
     }
 
+    /**
+     * The enum Role.
+     * Depending on the role assigned to the user, the level of access
+     * to service elements is determined.
+     */
     public enum Status {
         ACTIVE(1),
         UNCONFIRMED(2),
@@ -72,76 +91,55 @@ public class User extends Entity {
     private Status status;
     private String avatar;
 
-    public long getUserId() {
-        return userId;
+    public User() {
     }
 
-    public void setUserId(long userId) {
-        this.userId = userId;
+    public User(UserBuilder builder) {
+        this.userId = builder.getUserId();
+        this.login = builder.getLogin();
+        this.role = builder.getRole();
+        this.name = builder.getName();
+        this.surname = builder.getSurname();
+        this.email = builder.getEmail();
+        this.phone = builder.getPhone();
+        this.status = builder.getStatus();
+        this.avatar = builder.getAvatar();
+    }
+
+    public long getUserId() {
+        return userId;
     }
 
     public String getLogin() {
         return login;
     }
 
-    public void setLogin(String login) {
-        this.login = login;
-    }
-
     public String getName() {
         return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public String getSurname() {
         return surname;
     }
 
-    public void setSurname(String surname) {
-        this.surname = surname;
-    }
-
     public String getEmail() {
         return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
     }
 
     public String getPhone() {
         return phone;
     }
 
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
-
     public Role getRole() {
         return role;
-    }
-
-    public void setRole(Role role) {
-        this.role = role;
     }
 
     public Status getStatus() {
         return status;
     }
 
-    public void setStatus(Status status) {
-        this.status = status;
-    }
-
     public String getAvatar() {
         return avatar;
-    }
-
-    public void setAvatar(String avatar) {
-        this.avatar = avatar;
     }
 
     @Override

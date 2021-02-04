@@ -1,15 +1,19 @@
 package by.gaponenko.tools.controller.command.impl.navigation;
 
 import by.gaponenko.tools.controller.Router;
-import by.gaponenko.tools.controller.command.AttributeName;
-import by.gaponenko.tools.controller.command.Command;
-import by.gaponenko.tools.controller.command.PagePath;
-import by.gaponenko.tools.util.ParameterName;
+import by.gaponenko.tools.controller.command.*;
 
 import javax.servlet.http.HttpServletRequest;
 
+/**
+ * The Notification pass command.
+ * <p>
+ * Forwarding a user to the notification page.
+ *
+ * @author Haponenka Ihar
+ * @version 1.0
+ */
 public class NotificationPassCommand implements Command {
-    private static final String TRUE = "true";
 
     @Override
     public Router execute(HttpServletRequest request) {
@@ -18,11 +22,11 @@ public class NotificationPassCommand implements Command {
         }
         if (request.getParameter(ParameterName.CONFIRMED) != null) {
             request.setAttribute(AttributeName.CONFIRMATION_SUCCESS,
-                    request.getParameter(ParameterName.CONFIRMED).equals(TRUE));
+                    request.getParameter(ParameterName.CONFIRMED).equals(CommandConstant.TRUE));
         }
         if (request.getParameter(ParameterName.ORDER_CREATED) != null) {
             request.setAttribute(AttributeName.MAKE_ORDER_SUCCESS,
-                    request.getParameter(ParameterName.ORDER_CREATED).equals(TRUE));
+                    request.getParameter(ParameterName.ORDER_CREATED).equals(CommandConstant.TRUE));
         }
         if (request.getParameter(ParameterName.ORDER_PAYED) != null) {
             request.setAttribute(AttributeName.PAYED_ORDER_SUCCESS, true);

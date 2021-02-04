@@ -11,6 +11,15 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+/**
+ * The Jsp safety filter.
+ * <p>
+ * The filter's task is to redirect direct calls to jsp pages located in the package
+ * 'jsp' of webapp to the index page.
+ *
+ * @author Haponenka Ihar
+ * @version 1.0
+ */
 @WebFilter(urlPatterns = "/jsp/*")
 public class JspSafetyFilter implements Filter {
 

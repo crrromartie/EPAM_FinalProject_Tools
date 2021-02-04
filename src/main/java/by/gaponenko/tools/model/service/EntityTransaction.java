@@ -9,11 +9,23 @@ import org.apache.logging.log4j.Logger;
 import java.sql.Connection;
 import java.sql.SQLException;
 
+/**
+ * Transaction management.
+ *
+ * @author Haponenka Ihar
+ * @version 1.0
+ */
 public class EntityTransaction {
     static Logger logger = LogManager.getLogger();
 
     private Connection connection;
 
+    /**
+     * Initialize transaction one or more Dao with one connection.
+     *
+     * @param dao  the dao
+     * @param daos the daos
+     */
     public void initTransaction(Dao dao, Dao... daos) {
         if (connection == null) {
             connection = ConnectionPool.INSTANCE.getConnection();
@@ -29,6 +41,9 @@ public class EntityTransaction {
         }
     }
 
+    /**
+     * Commit transaction.
+     */
     public void commitTransaction() {
         if (connection != null) {
             try {
@@ -39,6 +54,9 @@ public class EntityTransaction {
         }
     }
 
+    /**
+     * Rollback transaction.
+     */
     public void rollbackTransaction() {
         if (connection != null) {
             try {
@@ -49,6 +67,9 @@ public class EntityTransaction {
         }
     }
 
+    /**
+     * End transaction.
+     */
     public void endTransaction() {
         if (connection != null) {
             try {
@@ -61,11 +82,11 @@ public class EntityTransaction {
         }
     }
 
-
     /**
-     * For single query
+     * Initialize one dao with one connection.
+     *
+     * @param dao the dao
      */
-
     public void initSingleQuery(Dao dao) {
         if (connection == null) {
             connection = ConnectionPool.INSTANCE.getConnection();
@@ -73,6 +94,9 @@ public class EntityTransaction {
         }
     }
 
+    /**
+     * End single query.
+     */
     public void endSingleQuery() {
         if (connection != null) {
             ConnectionPool.INSTANCE.releaseConnection(connection);

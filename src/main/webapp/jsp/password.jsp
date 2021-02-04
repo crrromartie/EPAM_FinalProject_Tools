@@ -1,10 +1,3 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: IHOR
-  Date: 27.01.2021
-  Time: 19:14
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -42,7 +35,7 @@
                         </button>
                     </div>
                 </form>
-                <c:if test="${passwordIncorrectData eq true}">
+                <c:if test="${passwordIncorrectData}">
                     <div class="form-group">
                         <label class="text"><fmt:message key="password_page.incorrect_data"/></label>
                     </div>

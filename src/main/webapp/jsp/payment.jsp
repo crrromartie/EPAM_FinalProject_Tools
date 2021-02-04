@@ -1,10 +1,3 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: IHOR
-  Date: 23.01.2021
-  Time: 21:05
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
@@ -100,11 +93,11 @@
                                     <input type="hidden" name="command" value="make_payment">
                                     <button type="submit" class="submit-button btn btn-block shadow-sm"
                                             id="but-pay">
-                                        <fmt:message key="payment_page.submit"/> ${sessionScope.order.totalCost}
+                                        <fmt:message key="payment_page.submit"/>${sessionScope.order.totalCost}
                                     </button>
                                 </div>
                             </form>
-                            <c:if test="${paymentIncorrectData eq true}">
+                            <c:if test="${paymentIncorrectData}">
                                 <div class="form-group">
                                     <label class="text"><fmt:message key="payment_page.message.incorrect_data"/></label>
                                 </div>

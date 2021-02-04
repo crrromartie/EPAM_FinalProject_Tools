@@ -8,6 +8,12 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
+/**
+ * Uses for reading properties for creating connection with database.
+ *
+ * @author Haponenka Ihar
+ * @version 1.0
+ */
 class DBPropertiesManager {
     static Logger logger = LogManager.getLogger();
 

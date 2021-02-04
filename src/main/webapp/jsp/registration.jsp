@@ -1,10 +1,3 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: IHOR
-  Date: 04.11.2020
-  Time: 19:00
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
@@ -104,22 +97,22 @@
                         </button>
                     </div>
                 </form>
-                <c:if test="${uniqueLoginError eq true}">
+                <c:if test="${uniqueLoginError}">
                     <div class="form-group">
                         <label class="text"><fmt:message key="registration_page.message.login_not_unique"/></label>
                     </div>
                 </c:if>
-                <c:if test="${uniqueEmailError eq true}">
+                <c:if test="${uniqueEmailError}">
                     <div class="form-group">
                         <label class="text"><fmt:message key="registration_page.message.email_not_unique"/></label>
                     </div>
                 </c:if>
-                <c:if test="${uniquePhoneError eq true}">
+                <c:if test="${uniquePhoneError}">
                     <div class="form-group">
                         <label class="text"> <fmt:message key="registration_page.message.phone_not_unique"/></label>
                     </div>
                 </c:if>
-                <c:if test="${registrationIncorrectData eq true}">
+                <c:if test="${registrationIncorrectData}">
                     <div class="form-group">
                         <label class="text"><fmt:message key="registration_page.message.incorrect_data"/></label>
                     </div>

@@ -7,6 +7,15 @@ import by.gaponenko.tools.controller.command.AttributeName;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+/**
+ * The Change locale command.
+ * <p>
+ * Processes a request to change the site locale. After changing the locale,
+ * a forwarding to the current page occurs.
+ *
+ * @author Haponenka Ihar
+ * @version 1.0
+ */
 public class ChangeLocaleCommand implements Command {
 
     @Override

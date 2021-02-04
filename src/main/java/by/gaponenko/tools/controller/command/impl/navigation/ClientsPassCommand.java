@@ -3,6 +3,7 @@ package by.gaponenko.tools.controller.command.impl.navigation;
 import by.gaponenko.tools.controller.Router;
 import by.gaponenko.tools.controller.command.AttributeName;
 import by.gaponenko.tools.controller.command.Command;
+import by.gaponenko.tools.controller.command.CommandConstant;
 import by.gaponenko.tools.controller.command.PagePath;
 import by.gaponenko.tools.entity.User;
 import by.gaponenko.tools.exception.ServiceException;
@@ -16,10 +17,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.List;
 
+/**
+ * The Clients pass command.
+ * <p>
+ * Forwarding admin to the clients page.
+ *
+ * @author Haponenka Ihar
+ * @version 1.0
+ */
 public class ClientsPassCommand implements Command {
     static Logger logger = LogManager.getLogger();
-
-    private static final int FIRST_PAGE = 1;
 
     @Override
     public Router execute(HttpServletRequest request) {
@@ -27,9 +34,9 @@ public class ClientsPassCommand implements Command {
         HttpSession session = request.getSession();
         UserService userService = ServiceFactory.getINSTANCE().getUserService();
         try {
-            List<User> users = userService.findAll();
+            List<User> users = userService.findClients();
             session.setAttribute(AttributeName.USERS, users);
-            session.setAttribute(AttributeName.USERS_PAGE_NUMBER, FIRST_PAGE);
+            session.setAttribute(AttributeName.USERS_PAGE_NUMBER, CommandConstant.FIRST_PAGE);
             session.removeAttribute(AttributeName.USERS_FILTER_STATUS);
         } catch (ServiceException e) {
             logger.log(Level.ERROR, e.getMessage());

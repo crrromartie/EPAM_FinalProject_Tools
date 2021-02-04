@@ -1,10 +1,16 @@
 package by.gaponenko.tools.validator;
 
+import by.gaponenko.tools.controller.command.ParameterName;
 import by.gaponenko.tools.entity.Order;
-import by.gaponenko.tools.util.ParameterName;
 
 import java.util.Map;
 
+/**
+ * Order data validator.
+ *
+ * @author Haponenka Ihar
+ * @version 1.0
+ */
 public class OrderDataValidator {
     private static final String DATE_PATTERN = "(\\d{4})-(\\d{2})-(\\d{2})";
     private static final String DATE_DELIMITER = "-";
@@ -14,6 +20,12 @@ public class OrderDataValidator {
     private OrderDataValidator() {
     }
 
+    /**
+     * Validates order parameters.
+     *
+     * @param orderParameters the orderParameters
+     * @return the boolean
+     */
     public static boolean isValidOrderParameters(Map<String, String> orderParameters) {
         boolean isValid = true;
         if (!isValidDate(orderParameters.get(ParameterName.ORDER_DATE))) {
@@ -28,6 +40,12 @@ public class OrderDataValidator {
         return isValid;
     }
 
+    /**
+     * Validates order date.
+     *
+     * @param date the date
+     * @return the boolean
+     */
     public static boolean isValidDate(String date) {
         if (date == null || date.isEmpty() || !date.matches(DATE_PATTERN)) {
             return false;
@@ -43,6 +61,12 @@ public class OrderDataValidator {
         }
     }
 
+    /**
+     * Validates order year.
+     *
+     * @param year the year
+     * @return the boolean
+     */
     public static boolean isValidYear(int year) {
         boolean isValid = true;
         if (year < 2020 || year > 2022) {
@@ -51,6 +75,13 @@ public class OrderDataValidator {
         return isValid;
     }
 
+    /**
+     * Validates order month and day.
+     *
+     * @param day   the day
+     * @param month the month
+     * @return the boolean
+     */
     public static boolean isValidMonthAndDay(int day, int month) {
         boolean isValid = false;
         if (month > 0 && month <= 12) {
@@ -64,6 +95,12 @@ public class OrderDataValidator {
         return isValid;
     }
 
+    /**
+     * Validates order status.
+     *
+     * @param status the status
+     * @return the boolean
+     */
     public static boolean isValidOrderStatus(Order.Status status) {
         int counter = 0;
         Order.Status[] statuses = Order.Status.values();
@@ -75,6 +112,12 @@ public class OrderDataValidator {
         return (counter == 1);
     }
 
+    /**
+     * Validates total cost.
+     *
+     * @param cost the cost
+     * @return the boolean
+     */
     public static boolean isValidTotalCost(String cost) {
         boolean isValid = false;
         if (cost != null && !cost.isEmpty()) {

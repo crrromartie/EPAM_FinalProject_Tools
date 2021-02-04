@@ -10,7 +10,17 @@ import java.sql.SQLException;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 
+/**
+ * The enum Connection pool.
+ * Creates, gives and monitors connections with database.
+ *
+ * @author Haponenka Ihar
+ * @version 1.0
+ */
 public enum ConnectionPool {
+    /**
+     * Instance connection pool.
+     */
     INSTANCE;
 
     static Logger logger = LogManager.getLogger();
@@ -30,6 +40,11 @@ public enum ConnectionPool {
         }
     }
 
+    /**
+     * Gets connection.
+     *
+     * @return the connection
+     */
     public Connection getConnection() {
         ProxyConnection connection = null;
         try {
@@ -42,6 +57,11 @@ public enum ConnectionPool {
         return connection;
     }
 
+    /**
+     * Release connection.
+     *
+     * @param connection the connection
+     */
     public void releaseConnection(Connection connection) {
         if (connection instanceof ProxyConnection
                 && activeConnections.remove(connection)) {
@@ -58,6 +78,9 @@ public enum ConnectionPool {
         }
     }
 
+    /**
+     * Destroy pool.
+     */
     public void destroyPool() {
         for (int i = 0; i < DEFAULT_POOL_SIZE; i++) {
             try {
@@ -72,6 +95,9 @@ public enum ConnectionPool {
         deregisterDrivers();
     }
 
+    /**
+     * Register driver.
+     */
     private void registerDriver() {
         try {
             Class.forName(DATABASE_DRIVER);
@@ -81,6 +107,9 @@ public enum ConnectionPool {
         }
     }
 
+    /**
+     * Deregister drivers.
+     */
     private void deregisterDrivers() {
         DriverManager.getDrivers().asIterator().forEachRemaining(driver -> {
             try {

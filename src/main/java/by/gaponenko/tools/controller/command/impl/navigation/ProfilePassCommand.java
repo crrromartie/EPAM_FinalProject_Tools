@@ -6,6 +6,14 @@ import by.gaponenko.tools.controller.command.PagePath;
 
 import javax.servlet.http.HttpServletRequest;
 
+/**
+ * The Profile pass command.
+ * <p>
+ * Forwarding a user to the profile page.
+ *
+ * @author Haponenka Ihar
+ * @version 1.0
+ */
 public class ProfilePassCommand implements Command {
 
     @Override

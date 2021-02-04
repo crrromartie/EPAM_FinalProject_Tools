@@ -1,14 +1,11 @@
 package by.gaponenko.tools.controller.command.impl;
 
 import by.gaponenko.tools.controller.Router;
-import by.gaponenko.tools.controller.command.AttributeName;
-import by.gaponenko.tools.controller.command.Command;
-import by.gaponenko.tools.controller.command.PagePath;
+import by.gaponenko.tools.controller.command.*;
 import by.gaponenko.tools.entity.User;
 import by.gaponenko.tools.exception.ServiceException;
 import by.gaponenko.tools.model.service.ServiceFactory;
 import by.gaponenko.tools.model.service.UserService;
-import by.gaponenko.tools.util.ParameterName;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -20,10 +17,16 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Optional;
 
+/**
+ * The Update avatar command.
+ * <p>
+ * This command allows admin or client to update his photo.
+ *
+ * @author Haponenka Ihar
+ * @version 1.0
+ */
 public class UpdateAvatarCommand implements Command {
     static Logger logger = LogManager.getLogger();
-
-    private static final String USER_AVATAR_PASS_COMMAND = "/ToolRental?command=avatar_pass";
 
     @Override
     public Router execute(HttpServletRequest request) {
@@ -37,7 +40,7 @@ public class UpdateAvatarCommand implements Command {
                 Optional<User> optionalUser = userService.findById(user.getUserId());
                 if (optionalUser.isPresent()) {
                     session.setAttribute(AttributeName.USER, optionalUser.get());
-                    router.setPage(request.getContextPath() + USER_AVATAR_PASS_COMMAND);
+                    router.setPage(request.getContextPath() + CommandPath.USER_AVATAR_PASS);
                     router.setRedirect();
                 } else {
                     logger.log(Level.WARN, "User is not exist");

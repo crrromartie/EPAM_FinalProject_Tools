@@ -6,6 +6,14 @@ import by.gaponenko.tools.controller.command.PagePath;
 
 import javax.servlet.http.HttpServletRequest;
 
+/**
+ * The Home pass command.
+ * <p>
+ * Forwarding a user to the home page.
+ *
+ * @author Haponenka Ihar
+ * @version 1.0
+ */
 public class HomePassCommand implements Command {
 
     @Override

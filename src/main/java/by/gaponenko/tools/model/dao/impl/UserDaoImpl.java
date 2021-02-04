@@ -1,5 +1,6 @@
 package by.gaponenko.tools.model.dao.impl;
 
+import by.gaponenko.tools.builder.UserBuilder;
 import by.gaponenko.tools.entity.User;
 import by.gaponenko.tools.exception.DaoException;
 import by.gaponenko.tools.model.dao.AbstractDao;
@@ -20,6 +21,14 @@ import java.util.Base64;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * The User dao.
+ * {@code UserDao} interface implementation
+ *
+ * @author Haponenka Ihar
+ * @version 1.0
+ * @see UserDao
+ */
 public class UserDaoImpl extends AbstractDao implements UserDao {
     static Logger logger = LogManager.getLogger();
 
@@ -30,8 +39,10 @@ public class UserDaoImpl extends AbstractDao implements UserDao {
 
     private static final String FIND_USER_BY_ID = "SELECT user_id, login, name, surname, email, phone, " +
             "user_role_id, user_status_id, avatar FROM users WHERE user_id = ?";
-    private static final String FIND_ALL = "SELECT user_id, login, name, surname, email, phone, user_role_id, " +
-            "user_status_id, avatar FROM users";
+    private static final String FIND_CLIENTS = "SELECT user_id, login, name, surname, email, phone, user_role_id, " +
+            "user_status_id, avatar FROM users WHERE user_role_id = 2";
+    private static final String FIND_CLIENTS_BY_STATUS = "SELECT user_id, login, name, surname, email, phone, " +
+            "user_role_id, user_status_id, avatar FROM users WHERE user_role_id = 2 AND user_status_id = ?";
     private static final String FIND_USER_BY_LOGIN = "SELECT user_id, login, name, surname, email, phone, " +
             "user_role_id, user_status_id, avatar FROM users WHERE login = ?";
     private static final String FIND_USER_BY_EMAIL = "SELECT user_id, login, name, surname, email, phone, " +
@@ -40,8 +51,6 @@ public class UserDaoImpl extends AbstractDao implements UserDao {
             "user_role_id, user_status_id, avatar FROM users WHERE phone = ?";
     private static final String FIND_PASSWORD_BY_LOGIN = "SELECT password FROM USERS WHERE login = ? ";
     private static final String FIND_STATUS = "SELECT user_status_id FROM USERS WHERE login = ?";
-    private static final String FIND_USERS_BY_STATUS = "SELECT user_id, login, name, surname, email, phone, " +
-            "user_role_id, user_status_id, avatar FROM users WHERE user_status_id = ?";
     private static final String ADD_USER = "INSERT INTO users (login, password, name, surname, email, phone, avatar) " +
             "VALUES (?, ?, ?, ?, ?, ?, ?)";
     private static final String UPDATE_STATUS = "UPDATE users SET user_status_id = ? WHERE login = ?";
@@ -71,9 +80,33 @@ public class UserDaoImpl extends AbstractDao implements UserDao {
 
     @Override
     public List<User> findAll() throws DaoException {
+        throw new UnsupportedOperationException("Method is not supported");
+    }
+
+    @Override
+    public List<User> findClients() throws DaoException {
         List<User> users = new ArrayList<>();
         ResultSet resultSet = null;
-        try (PreparedStatement statement = connection.prepareStatement(FIND_ALL)) {
+        try (PreparedStatement statement = connection.prepareStatement(FIND_CLIENTS)) {
+            resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                User user = createFromResultSet(resultSet);
+                users.add(user);
+            }
+        } catch (SQLException e) {
+            throw new DaoException(e);
+        } finally {
+            closeResultSet(resultSet);
+        }
+        return users;
+    }
+
+    @Override
+    public List<User> findClientsByStatus(User.Status status) throws DaoException {
+        List<User> users = new ArrayList<>();
+        ResultSet resultSet = null;
+        try (PreparedStatement statement = connection.prepareStatement(FIND_CLIENTS_BY_STATUS)) {
+            statement.setInt(1, status.getStatusId());
             resultSet = statement.executeQuery();
             while (resultSet.next()) {
                 User user = createFromResultSet(resultSet);
@@ -181,25 +214,6 @@ public class UserDaoImpl extends AbstractDao implements UserDao {
     }
 
     @Override
-    public List<User> findByStatus(User.Status status) throws DaoException {
-        List<User> users = new ArrayList<>();
-        ResultSet resultSet = null;
-        try (PreparedStatement statement = connection.prepareStatement(FIND_USERS_BY_STATUS)) {
-            statement.setInt(1, status.getStatusId());
-            resultSet = statement.executeQuery();
-            while (resultSet.next()) {
-                User user = createFromResultSet(resultSet);
-                users.add(user);
-            }
-        } catch (SQLException e) {
-            throw new DaoException(e);
-        } finally {
-            closeResultSet(resultSet);
-        }
-        return users;
-    }
-
-    @Override
     public boolean add(User user, String password) throws DaoException {
         File file = new File(DEFAULT_USER_AVATAR_PATH);
         try (InputStream fileInputStream = new FileInputStream(file);
@@ -281,22 +295,22 @@ public class UserDaoImpl extends AbstractDao implements UserDao {
     }
 
     private User createFromResultSet(ResultSet resultSet) throws DaoException {
-        User user = new User();
         try {
-            user.setUserId(resultSet.getLong(ColumnName.USER_ID));
-            user.setLogin(resultSet.getString(ColumnName.USER_LOGIN));
-            user.setName(resultSet.getString(ColumnName.USER_NAME));
-            user.setSurname(resultSet.getString(ColumnName.USER_SURNAME));
-            user.setEmail(resultSet.getString(ColumnName.USER_EMAIL));
-            user.setPhone(resultSet.getString(ColumnName.USER_PHONE));
-            user.setRole(User.Role.getRoleById(resultSet.getInt(ColumnName.USER_ROLE_ID)));
-            user.setStatus(User.Status.getStatusById(resultSet.getInt(ColumnName.USER_STATUS_ID)));
             byte[] avatarBytes = resultSet.getBytes(ColumnName.USER_AVATAR);
             String avatarBase64 = Base64.getEncoder().encodeToString(avatarBytes);
-            user.setAvatar(avatarBase64);
+            UserBuilder userBuilder = new UserBuilder()
+                    .setUserId(resultSet.getLong(ColumnName.USER_ID))
+                    .setLogin(resultSet.getString(ColumnName.USER_LOGIN))
+                    .setName(resultSet.getString(ColumnName.USER_NAME))
+                    .setSurname(resultSet.getString(ColumnName.USER_SURNAME))
+                    .setEmail(resultSet.getString(ColumnName.USER_EMAIL))
+                    .setPhone(resultSet.getString(ColumnName.USER_PHONE))
+                    .setRole(User.Role.getRoleById(resultSet.getInt(ColumnName.USER_ROLE_ID)))
+                    .setStatus(User.Status.getStatusById(resultSet.getInt(ColumnName.USER_STATUS_ID)))
+                    .setAvatar(avatarBase64);
+            return new User(userBuilder);
         } catch (SQLException e) {
             throw new DaoException(e);
         }
-        return user;
     }
 }

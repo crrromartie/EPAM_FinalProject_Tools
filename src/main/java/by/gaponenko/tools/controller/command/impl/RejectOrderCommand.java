@@ -1,15 +1,12 @@
 package by.gaponenko.tools.controller.command.impl;
 
 import by.gaponenko.tools.controller.Router;
-import by.gaponenko.tools.controller.command.AttributeName;
-import by.gaponenko.tools.controller.command.Command;
-import by.gaponenko.tools.controller.command.PagePath;
+import by.gaponenko.tools.controller.command.*;
 import by.gaponenko.tools.entity.Order;
 import by.gaponenko.tools.entity.Tool;
 import by.gaponenko.tools.exception.ServiceException;
 import by.gaponenko.tools.model.service.OrderService;
 import by.gaponenko.tools.model.service.ServiceFactory;
-import by.gaponenko.tools.util.ParameterName;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -19,6 +16,14 @@ import javax.servlet.http.HttpSession;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * The Reject order command.
+ * <p>
+ * This command allows admin to reject a client order.
+ *
+ * @author Haponenka Ihar
+ * @version 1.0
+ */
 public class RejectOrderCommand implements Command {
     static Logger logger = LogManager.getLogger();
 
@@ -35,7 +40,8 @@ public class RejectOrderCommand implements Command {
                 Tool tool = optionalOrder.get().getTool();
                 if (orderService.rejectOrder(orderId, tool.getToolId())) {
                     List<Order> orders;
-                    if (ordersFilterStatus != null) {
+                    if (ordersFilterStatus != null
+                            && !ordersFilterStatus.equals(CommandConstant.ALL)) {
                         orders = orderService.findByStatus(Order.Status.valueOf(ordersFilterStatus));
                     } else {
                         orders = orderService.findAll();

@@ -8,12 +8,25 @@ import javax.mail.*;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
+/**
+ * Mail sender.
+ *
+ * @author Haponenka Ihar
+ * @version 1.0
+ */
 public class MailSender {
     static Logger logger = LogManager.getLogger();
 
     private MailSender() {
     }
 
+    /**
+     * Sends a message  via Email.
+     *
+     * @param subject the subject
+     * @param text    the text
+     * @param email   the email
+     */
     public static void sendMessage(String subject, String text, String email) {
         Session session = Session.getDefaultInstance(MailPropertiesManager.getProperties(), new Authenticator() {
             @Override

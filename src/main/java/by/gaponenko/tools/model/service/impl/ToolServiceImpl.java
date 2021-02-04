@@ -1,6 +1,7 @@
 package by.gaponenko.tools.model.service.impl;
 
-import by.gaponenko.tools.creator.ToolCreator;
+import by.gaponenko.tools.builder.ToolBuilder;
+import by.gaponenko.tools.controller.command.ParameterName;
 import by.gaponenko.tools.entity.Tool;
 import by.gaponenko.tools.exception.DaoException;
 import by.gaponenko.tools.exception.ServiceException;
@@ -13,9 +14,19 @@ import by.gaponenko.tools.util.comparator.ToolComparator;
 import by.gaponenko.tools.validator.ToolDataValidator;
 
 import java.io.InputStream;
+import java.math.BigDecimal;
 import java.util.*;
 import java.util.stream.Collectors;
 
+/**
+ * The Tool service.
+ * <p>
+ * Implements an interface ToolService for processing tool-related data.
+ *
+ * @author Haponenka Ihar
+ * @version 1.0
+ * @see ToolService
+ */
 public class ToolServiceImpl implements ToolService {
 
     @Override
@@ -71,7 +82,13 @@ public class ToolServiceImpl implements ToolService {
         ToolDao toolDao = new ToolDaoImpl();
         EntityTransaction transaction = new EntityTransaction();
         transaction.initSingleQuery(toolDao);
-        Tool tool = ToolCreator.createTool(toolParameters);
+        ToolBuilder toolBuilder = new ToolBuilder()
+                .setType(Tool.Type.valueOf(toolParameters.get(ParameterName.TOOL_TYPE).toUpperCase()))
+                .setModel(toolParameters.get(ParameterName.TOOL_MODEL))
+                .setDescriptionEng(toolParameters.get(ParameterName.TOOL_DESCRIPTION_ENG))
+                .setDescriptionRus(toolParameters.get(ParameterName.TOOL_DESCRIPTION_RUS))
+                .setRentPrice(BigDecimal.valueOf(Double.parseDouble(toolParameters.get(ParameterName.TOOL_RENT_PRICE))));
+        Tool tool = new Tool(toolBuilder);
         try {
             return toolDao.add(tool);
         } catch (DaoException e) {
@@ -91,7 +108,14 @@ public class ToolServiceImpl implements ToolService {
         ToolDao toolDao = new ToolDaoImpl();
         EntityTransaction transaction = new EntityTransaction();
         transaction.initSingleQuery(toolDao);
-        Tool tool = ToolCreator.createTool(toolEditParameters, isAvailable, id);
+        ToolBuilder toolBuilder = new ToolBuilder()
+                .setToolId(id)
+                .setDescriptionEng(toolEditParameters.get(ParameterName.TOOL_DESCRIPTION_ENG))
+                .setDescriptionRus(toolEditParameters.get(ParameterName.TOOL_DESCRIPTION_RUS))
+                .setRentPrice(BigDecimal.valueOf(Double.parseDouble(toolEditParameters
+                        .get(ParameterName.TOOL_RENT_PRICE))))
+                .setAvailable(isAvailable);
+        Tool tool = new Tool(toolBuilder);
         try {
             return toolDao.updateTool(tool);
         } catch (DaoException e) {

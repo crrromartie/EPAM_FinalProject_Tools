@@ -1,13 +1,26 @@
 package by.gaponenko.tools.entity;
 
+import by.gaponenko.tools.builder.OrderBuilder;
+
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.StringJoiner;
 
+/**
+ * The Order.
+ * <p>
+ * Describes the basic characteristics of a order.
+ * The main unit of the business logic of the application.
+ *
+ * @author Haponenka Ihar
+ * @version 1.0
+ */
 public class Order extends Entity {
-
+    /**
+     * The enum Status.
+     */
     public enum Status {
         NEW(1),
         APPROVED(2),
@@ -47,60 +60,45 @@ public class Order extends Entity {
     private User user;
     private Tool tool;
 
-    public long getOrderId() {
-        return orderId;
+    public Order() {
     }
 
-    public void setOrderId(long orderId) {
-        this.orderId = orderId;
+    public Order(OrderBuilder builder) {
+        this.orderId = builder.getOrderId();
+        this.orderDate = builder.getOrderDate();
+        this.returnDate = builder.getReturnDate();
+        this.totalCost = builder.getTotalCost();
+        this.status = builder.getStatus();
+        this.user = builder.getUser();
+        this.tool = builder.getTool();
+    }
+
+    public long getOrderId() {
+        return orderId;
     }
 
     public LocalDate getOrderDate() {
         return orderDate;
     }
 
-    public void setOrderDate(LocalDate orderDate) {
-        this.orderDate = orderDate;
-    }
-
     public LocalDate getReturnDate() {
         return returnDate;
-    }
-
-    public void setReturnDate(LocalDate returnDate) {
-        this.returnDate = returnDate;
     }
 
     public BigDecimal getTotalCost() {
         return totalCost;
     }
 
-    public void setTotalCost(BigDecimal totalCost) {
-        this.totalCost = totalCost;
-    }
-
     public Status getStatus() {
         return status;
-    }
-
-    public void setStatus(Status status) {
-        this.status = status;
     }
 
     public User getUser() {
         return user;
     }
 
-    public void setUser(User user) {
-        this.user = user;
-    }
-
     public Tool getTool() {
         return tool;
-    }
-
-    public void setTool(Tool tool) {
-        this.tool = tool;
     }
 
     @Override

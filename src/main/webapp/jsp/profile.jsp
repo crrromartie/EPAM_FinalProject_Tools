@@ -1,10 +1,3 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: IHOR
-  Date: 27.01.2021
-  Time: 14:07
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
@@ -28,11 +21,13 @@
                         <img id="avatar" src="data:image/jpeg;base64,${user.getAvatar()}" alt="..."/>
                     </div>
                     <div class="form-group">
-                        <a href="${pageContext.request.contextPath}/ToolRental?command=avatar_pass">
+                        <a class="form-link"
+                           href="${pageContext.request.contextPath}/ToolRental?command=avatar_pass">
                             <fmt:message key="profile_page.update_avatar"/></a>
                     </div>
                     <i class="fa fa-lock"></i>
-                    <a href="${pageContext.request.contextPath}/ToolRental?command=password_pass">
+                    <a class="form-link"
+                       href="${pageContext.request.contextPath}/ToolRental?command=password_pass">
                         <fmt:message key="profile_page.update_password"/></a>
                     <div class="form-group">
                         <input type="text" class="form-control" name="name"
@@ -88,17 +83,17 @@
                         </button>
                     </div>
                 </form>
-                <c:if test="${uniqueEmailError eq true}">
+                <c:if test="${uniqueEmailError}">
                     <div class="form-group">
                         <label class="text"><fmt:message key="profile_page.message.email_not_unique"/></label>
                     </div>
                 </c:if>
-                <c:if test="${uniquePhoneError eq true}">
+                <c:if test="${uniquePhoneError}">
                     <div class="form-group">
                         <label class="text"> <fmt:message key="profile_page.message.phone_not_unique"/></label>
                     </div>
                 </c:if>
-                <c:if test="${userEditIncorrectData eq true}">
+                <c:if test="${userEditIncorrectData}">
                     <div class="form-group">
                         <label class="text"><fmt:message key="profile_page.message.incorrect_data"/></label>
                     </div>

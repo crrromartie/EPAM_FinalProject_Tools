@@ -75,7 +75,7 @@
 .form-horizontal .btn {
     float: right;
     font-size: 14px;
-    color: #999DA0;
+    color: #f0f0f0;
     background: #343A40;
     border-radius: 30px;
     padding: 10px 25px;
@@ -97,12 +97,7 @@
     }
 }
 
-#payment-form {
-    background: #f0f0f0;
-    margin-top: 5%;
-}
-
-#register {
+.form-link {
     color: #00b4ef;
 }
 
@@ -112,4 +107,9 @@
 
 .tool_submit_form {
     padding-top: 50px;
+}
+
+#payment-form {
+    background: #f0f0f0;
+    margin-top: 5%;
 }

@@ -1,10 +1,3 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: IHOR
-  Date: 27.10.2020
-  Time: 22:31
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
@@ -45,13 +38,13 @@
                             <fmt:message key="login_page.submit"/>
                         </button>
                         <span class="text"><a
-                                id="register"
+                                class="form-link"
                                 href="${pageContext.request.contextPath}/ToolRental?command=registration_pass">
                             <fmt:message key="login_page.register"/></a>
                         </span>
                     </div>
                 </form>
-                <c:if test="${loginIncorrectData eq true}">
+                <c:if test="${loginIncorrectData}">
                     <div class="form-group">
                         <label class="text"><fmt:message key="login_page.message.incorrect_data"/></label>
                     </div>

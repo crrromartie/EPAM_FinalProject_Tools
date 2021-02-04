@@ -3,6 +3,15 @@ package by.gaponenko.tools.controller.command;
 import by.gaponenko.tools.controller.command.impl.*;
 import by.gaponenko.tools.controller.command.impl.navigation.*;
 
+/**
+ * The enum Command type.
+ * <p>
+ * Describes all commands available for processing by the application.
+ * Used by the {@code CommandProvider}.
+ *
+ * @author Haponenka Ihar
+ * @version 1.0
+ */
 public enum CommandType {
     NO_SUCH_COMMAND(new NoSuchCommand()),
     CHANGE_LOCALE(new ChangeLocaleCommand()),
@@ -13,7 +22,6 @@ public enum CommandType {
     CONFIRM_REGISTRATION(new ConfirmRegistrationCommand()),
     FILTER_TOOLS(new FilterToolsCommand()),
     SORT_TOOLS(new SortToolsCommand()),
-    CHANGE_TOOLS_DISPLAY(new ChangeToolsDisplayCommand()),
     ADD_TOOL(new AddToolCommand()),
     EDIT_TOOL(new EditToolCommand()),
     UPDATE_TOOL_PHOTO(new UpdateToolPhotoCommand()),
@@ -57,6 +65,11 @@ public enum CommandType {
         this.command = command;
     }
 
+    /**
+     * Returns the {@code Command} object corresponding to the enum object.
+     *
+     * @return the command
+     */
     public Command getCommand() {
         return command;
     }

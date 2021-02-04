@@ -3,15 +3,21 @@ package by.gaponenko.tools.controller.command.impl;
 import by.gaponenko.tools.controller.Router;
 import by.gaponenko.tools.controller.command.AttributeName;
 import by.gaponenko.tools.controller.command.Command;
-import by.gaponenko.tools.util.ParameterName;
+import by.gaponenko.tools.controller.command.CommandPath;
+import by.gaponenko.tools.controller.command.ParameterName;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+/**
+ * The Pagination command.
+ * <p>
+ * Use for pagination.
+ *
+ * @author Haponenko Ihar
+ * @version 1.0
+ */
 public class PaginationCommand implements Command {
-    private static final String CLIENTS_PASS_ONLY_COMMAND = "/ToolRental?command=clients_pass_only";
-    private static final String TOOLS_PASS_ONLY_COMMAND = "/ToolRental?command=tools_pass_only";
-    private static final String ORDERS_PASS_ONLY_COMMAND = "/ToolRental?command=orders_pass_only";
 
     @Override
     public Router execute(HttpServletRequest request) {
@@ -28,7 +34,7 @@ public class PaginationCommand implements Command {
             if (paginationDirection.equals(ParameterName.PREVIOUS_PAGE)) {
                 session.setAttribute(AttributeName.USERS_PAGE_NUMBER, --usersPageNumber);
             }
-            router.setPage(request.getContextPath() + CLIENTS_PASS_ONLY_COMMAND);
+            router.setPage(request.getContextPath() + CommandPath.CLIENTS_PASS_ONLY);
         }
 
         if (paginationSubject.equals(AttributeName.PAGINATION_TOOLS)) {
@@ -39,7 +45,7 @@ public class PaginationCommand implements Command {
             if (paginationDirection.equals(ParameterName.PREVIOUS_PAGE)) {
                 session.setAttribute(AttributeName.TOOLS_PAGE_NUMBER, --toolsPageNumber);
             }
-            router.setPage(request.getContextPath() + TOOLS_PASS_ONLY_COMMAND);
+            router.setPage(request.getContextPath() + CommandPath.TOOLS_PASS_ONLY);
         }
 
         if (paginationSubject.equals(AttributeName.PAGINATION_ORDERS)) {
@@ -50,7 +56,7 @@ public class PaginationCommand implements Command {
             if (paginationDirection.equals(ParameterName.PREVIOUS_PAGE)) {
                 session.setAttribute(AttributeName.ORDERS_PAGE_NUMBER, --ordersPageNumber);
             }
-            router.setPage(request.getContextPath() + ORDERS_PASS_ONLY_COMMAND);
+            router.setPage(request.getContextPath() + CommandPath.ORDERS_PASS_ONLY);
         }
         router.setRedirect();
         return router;

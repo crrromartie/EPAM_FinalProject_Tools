@@ -1,5 +1,11 @@
 package by.gaponenko.tools.util.mail;
 
+/**
+ * Mail Constructor.
+ *
+ * @author Ihar Haponenka
+ * @version 1.0
+ */
 public class MailConstructor {
     private static final String NEW_USER_TEXT =
             "Thanks for registration! Please confirm your email (Спасибо за регистрацию! " +
@@ -11,6 +17,12 @@ public class MailConstructor {
     private MailConstructor() {
     }
 
+    /**
+     * Make mail message.
+     *
+     * @param login the login.
+     * @return the String
+     */
     public static String newUserMail(String login) {
         StringBuilder builder = new StringBuilder();
         builder.append(NEW_USER_TEXT);
