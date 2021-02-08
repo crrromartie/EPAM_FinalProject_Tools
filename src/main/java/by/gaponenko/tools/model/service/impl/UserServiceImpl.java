@@ -110,8 +110,8 @@ public class UserServiceImpl implements UserService {
                 .setLogin(registrationParameters.get(ParameterName.USER_LOGIN))
                 .setName(registrationParameters.get(ParameterName.USER_NAME))
                 .setSurname(registrationParameters.get(ParameterName.USER_SURNAME))
-                .setPhone(registrationParameters.get(ParameterName.USER_PHONE))
-                .setEmail(registrationParameters.get(ParameterName.USER_EMAIL));
+                .setEmail(registrationParameters.get(ParameterName.USER_EMAIL))
+                .setPhone(registrationParameters.get(ParameterName.USER_PHONE));
         User user = new User(userBuilder);
         String encryptedPassword = PasswordEncryptor.encrypt(registrationParameters.get(ParameterName.USER_PASSWORD));
         try {
