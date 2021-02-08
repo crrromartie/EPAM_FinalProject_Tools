@@ -37,18 +37,19 @@ public class FilterOrdersCommand implements Command {
         List<Order> orders = Collections.EMPTY_LIST;
         try {
             if (user.getRole().equals(User.Role.ADMIN)) {
-                if (orderStatus.equals(CommandConstant.ALL)) {
+                if (orderStatus != null
+                        && orderStatus.equalsIgnoreCase(CommandConstant.ALL)) {
                     orders = orderService.findAll();
                 } else {
-                    orders = orderService.findByStatus(Order.Status.valueOf(orderStatus));
+                    orders = orderService.findByStatus(orderStatus);
                 }
             }
             if (user.getRole().equals(User.Role.CLIENT)) {
-                if (orderStatus.equals(CommandConstant.ALL)) {
+                if (orderStatus != null
+                        && orderStatus.equalsIgnoreCase(CommandConstant.ALL)) {
                     orders = orderService.findByUserId(user.getUserId());
                 } else {
-                    orders = orderService.findByUserIdAndOrderStatus(user.getUserId(),
-                            Order.Status.valueOf(orderStatus));
+                    orders = orderService.findByUserIdAndOrderStatus(user.getUserId(), orderStatus);
                 }
             }
             session.setAttribute(AttributeName.ORDERS, orders);

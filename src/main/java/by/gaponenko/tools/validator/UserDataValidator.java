@@ -6,7 +6,7 @@ import by.gaponenko.tools.entity.User;
 import java.util.Map;
 
 /**
- * User data validator.
+ * The User data validator.
  *
  * @author Haponenka Ihar
  * @version 1.0
@@ -14,9 +14,9 @@ import java.util.Map;
 public class UserDataValidator {
     private static final String LOGIN_REGEX = "^\\S{3,15}$";
     private static final String PASSWORD_REGEX = "^\\S{6,15}$";
-    private static final String NAME_REGEX = "^[a-zA-Zа-яА-я]{1,20}$";
-    private static final String SURNAME_REGEX = "^[a-zA-Zа-яА-я]{1,20}$";
-    private static final String EMAIL_REGEX = "\\w+([\\.-]?\\w+)*@\\w+([\\.-]?\\w+)*\\.\\w{2,4}";
+    private static final String NAME_REGEX = "^[a-zA-Zа-яА-Я]{1,20}$";
+    private static final String SURNAME_REGEX = "^[a-zA-Zа-яА-Я]{1,20}$";
+    private static final String EMAIL_REGEX = "^\\p{Alnum}+[._-]?\\p{Alnum}+@\\p{Alnum}+\\.\\p{Alpha}{2,4}$";
     private static final String PHONE_REGEX = "\\+375\\d{9}";
 
     private UserDataValidator() {
@@ -137,17 +137,21 @@ public class UserDataValidator {
     /**
      * Validates user status.
      *
-     * @param status the status
+     * @param userStatus the userStatus
      * @return the boolean
      */
-    public static boolean isValidUserStatus(User.Status status) {
-        int counter = 0;
+    public static boolean isValidUserStatus(String userStatus) {
+        if (userStatus == null || userStatus.isEmpty()) {
+            return false;
+        }
+        boolean isStatusValid = false;
         User.Status[] statuses = User.Status.values();
-        for (User.Status element : statuses) {
-            if (status == element) {
-                counter++;
+        for (User.Status status : statuses) {
+            if (userStatus.toUpperCase().equals(status.name())) {
+                isStatusValid = true;
+                break;
             }
         }
-        return (counter == 1);
+        return isStatusValid;
     }
 }

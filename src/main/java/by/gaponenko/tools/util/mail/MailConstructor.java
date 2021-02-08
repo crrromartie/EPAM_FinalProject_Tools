@@ -1,7 +1,7 @@
 package by.gaponenko.tools.util.mail;
 
 /**
- * Mail Constructor.
+ * The Mail constructor.
  *
  * @author Ihar Haponenka
  * @version 1.0
@@ -21,14 +21,14 @@ public class MailConstructor {
      * Make mail message.
      *
      * @param login the login.
-     * @return the String
+     * @return the string
      */
     public static String newUserMail(String login) {
-        StringBuilder builder = new StringBuilder();
-        builder.append(NEW_USER_TEXT);
-        builder.append(SPACE);
-        builder.append(NEW_USER_LINK);
-        builder.append(login);
+        StringBuilder builder = new StringBuilder()
+                .append(NEW_USER_TEXT)
+                .append(SPACE)
+                .append(NEW_USER_LINK)
+                .append(login);
         return builder.toString();
     }
 }

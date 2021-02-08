@@ -43,9 +43,8 @@ public class CancelOrderCommand implements Command {
                 if (orderService.cancelOrder(orderId, tool.getToolId())) {
                     List<Order> orders;
                     if (ordersFilterStatus != null
-                            && !ordersFilterStatus.equals(CommandConstant.ALL)) {
-                        orders = orderService.findByUserIdAndOrderStatus(user.getUserId(),
-                                Order.Status.valueOf(ordersFilterStatus));
+                            && !ordersFilterStatus.equalsIgnoreCase(CommandConstant.ALL)) {
+                        orders = orderService.findByUserIdAndOrderStatus(user.getUserId(), ordersFilterStatus);
                     } else {
                         orders = orderService.findByUserId(user.getUserId());
                     }

@@ -6,7 +6,8 @@ import java.util.Properties;
 import java.util.concurrent.Executor;
 
 /**
- * The type Proxy connection.
+ * The Proxy connection.
+ * <p>
  * It helps to protect connections from wrong using.
  *
  * @author Haponenka Ihar

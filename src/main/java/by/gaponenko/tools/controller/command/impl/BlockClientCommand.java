@@ -33,11 +33,11 @@ public class BlockClientCommand implements Command {
         String clientFilterStatus = (String) session.getAttribute(AttributeName.USERS_FILTER_STATUS);
         UserService userService = ServiceFactory.getINSTANCE().getUserService();
         try {
-            if (userService.updateStatus(login, User.Status.BLOCKED)) {
+            if (userService.updateStatus(login, CommandConstant.BLOCKED)) {
                 List<User> users;
                 if (clientFilterStatus != null
-                        && !clientFilterStatus.equals(CommandConstant.ALL)) {
-                    users = userService.findClientsByStatus(User.Status.valueOf(clientFilterStatus));
+                        && !clientFilterStatus.equalsIgnoreCase(CommandConstant.ALL)) {
+                    users = userService.findClientsByStatus(clientFilterStatus);
                 } else {
                     users = userService.findClients();
                 }

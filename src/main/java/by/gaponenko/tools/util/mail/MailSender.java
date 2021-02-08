@@ -9,7 +9,7 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
 /**
- * Mail sender.
+ * The Mail sender.
  *
  * @author Haponenka Ihar
  * @version 1.0

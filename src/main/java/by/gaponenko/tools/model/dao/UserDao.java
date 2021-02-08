@@ -13,8 +13,9 @@ import java.util.Optional;
  * Extends the interface of the {@code Dao}, supplementing it with specific
  * methods for the interaction of the application with User entities in the database.
  *
+ * @author Ihar Haponenka
  * @version 1.0
- * @see Dao * @author Ihar Haponenka
+ * @see Dao
  */
 public interface UserDao extends Dao<User> {
 
@@ -74,7 +75,7 @@ public interface UserDao extends Dao<User> {
      * Find user status by login.
      *
      * @param login the login
-     * @return the optional
+     * @return the string
      * @throws DaoException the dao exception
      */
     User.Status findStatus(String login) throws DaoException;

@@ -3,7 +3,7 @@ package by.gaponenko.tools.exception;
 /**
  * The Dao exception.
  * <p>
- * Sub class class Exceptions. It's checked, used when exceptions
+ * Sub class class Exception. It's checked, used when exceptions
  * occur in the DAO application layer.
  *
  * @author Haponenka Ihar

@@ -14,6 +14,7 @@ import by.gaponenko.tools.util.PasswordEncryptor;
 import by.gaponenko.tools.validator.UserDataValidator;
 
 import java.io.InputStream;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -58,12 +59,15 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<User> findClientsByStatus(User.Status status) throws ServiceException {
+    public List<User> findClientsByStatus(String clientStatus) throws ServiceException {
+        if (!UserDataValidator.isValidUserStatus(clientStatus)) {
+            return Collections.EMPTY_LIST;
+        }
         UserDao userDao = new UserDaoImpl();
         EntityTransaction transaction = new EntityTransaction();
         transaction.initSingleQuery(userDao);
         try {
-            return userDao.findClientsByStatus(status);
+            return userDao.findClientsByStatus(User.Status.valueOf(clientStatus.toUpperCase()));
         } catch (DaoException e) {
             throw new ServiceException(e);
         } finally {
@@ -141,15 +145,16 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public boolean updateStatus(String login, User.Status status) throws ServiceException {
-        if (!UserDataValidator.isValidLogin(login) || !UserDataValidator.isValidUserStatus(status)) {
+    public boolean updateStatus(String login, String userStatus) throws ServiceException {
+        if (!UserDataValidator.isValidLogin(login) ||
+                !UserDataValidator.isValidUserStatus(userStatus)) {
             return false;
         }
         UserDao userDao = new UserDaoImpl();
         EntityTransaction transaction = new EntityTransaction();
         transaction.initSingleQuery(userDao);
         try {
-            return userDao.updateStatus(login, status);
+            return userDao.updateStatus(login, User.Status.valueOf(userStatus.toUpperCase()));
         } catch (DaoException e) {
             throw new ServiceException(e);
         } finally {

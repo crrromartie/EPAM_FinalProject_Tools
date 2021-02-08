@@ -33,10 +33,11 @@ public class FilterClientsCommand implements Command {
         UserService userService = ServiceFactory.getINSTANCE().getUserService();
         try {
             List<User> users;
-            if (clientStatus.equals(CommandConstant.ALL)) {
+            if (clientStatus != null
+                    && clientStatus.equalsIgnoreCase(CommandConstant.ALL)) {
                 users = userService.findClients();
             } else {
-                users = userService.findClientsByStatus(User.Status.valueOf(clientStatus));
+                users = userService.findClientsByStatus(clientStatus);
             }
             session.setAttribute(AttributeName.USERS, users);
             session.setAttribute(AttributeName.USERS_PAGE_NUMBER, CommandConstant.FIRST_PAGE);

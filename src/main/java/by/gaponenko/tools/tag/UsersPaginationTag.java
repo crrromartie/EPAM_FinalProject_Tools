@@ -17,7 +17,7 @@ import java.util.Locale;
 import java.util.ResourceBundle;
 
 /**
- * The users pagination tag.
+ * The Users pagination tag.
  * <p>
  * Custom tag. Processes a list of clients for displaying them,
  * adds a pagination view for more convenient viewing of the list.
@@ -25,7 +25,6 @@ import java.util.ResourceBundle;
  * @author Haponenka Ihar
  * @version 1.0
  */
-@SuppressWarnings("serial")
 public class UsersPaginationTag extends TagSupport {
     static Logger logger = LogManager.getLogger();
 

@@ -5,6 +5,8 @@ import by.gaponenko.tools.entity.Tool;
 import java.math.BigDecimal;
 
 /**
+ * The Tool builder.
+ * <p>
  * The class represents tool builder.
  *
  * @author Haponenka Ihar

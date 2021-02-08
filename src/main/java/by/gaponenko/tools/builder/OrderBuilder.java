@@ -8,7 +8,9 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 
 /**
- * The class represents user builder.
+ * The Order builder.
+ * <p>
+ * The class represents order builder.
  *
  * @author Haponenka Ihar
  * @version 1.0

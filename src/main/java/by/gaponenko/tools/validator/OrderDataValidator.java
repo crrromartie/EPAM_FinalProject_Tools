@@ -6,7 +6,7 @@ import by.gaponenko.tools.entity.Order;
 import java.util.Map;
 
 /**
- * Order data validator.
+ * The Order data validator.
  *
  * @author Haponenka Ihar
  * @version 1.0
@@ -98,18 +98,22 @@ public class OrderDataValidator {
     /**
      * Validates order status.
      *
-     * @param status the status
+     * @param orderStatus the orderStatus
      * @return the boolean
      */
-    public static boolean isValidOrderStatus(Order.Status status) {
-        int counter = 0;
+    public static boolean isValidOrderStatus(String orderStatus) {
+        if (orderStatus == null || orderStatus.isEmpty()) {
+            return false;
+        }
+        boolean isOrderStatusValid = false;
         Order.Status[] statuses = Order.Status.values();
-        for (Order.Status element : statuses) {
-            if (status == element) {
-                counter++;
+        for (Order.Status status : statuses) {
+            if (orderStatus.toUpperCase().equals(status.name())) {
+                isOrderStatusValid = true;
+                break;
             }
         }
-        return (counter == 1);
+        return isOrderStatusValid;
     }
 
     /**

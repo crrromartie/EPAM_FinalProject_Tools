@@ -55,5 +55,4 @@
 </div>
 <jsp:include page="${pageContext.request.contextPath}/jsp/common/footer.jsp"/>
 </body>
-</body>
 </html>

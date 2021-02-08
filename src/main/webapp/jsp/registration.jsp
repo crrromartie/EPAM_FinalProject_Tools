@@ -70,7 +70,7 @@
                     <div class="form-group">
                         <input type="text" class="form-control" name="email"
                                title="<fmt:message key="registration_page.email"/>"
-                               pattern="\w+([\.-]?\w+)*@\w+([\.-]?\w+)*\.\w{2,4}"
+                               pattern="^[\w.+-]{3,30}@[\w.-]{2,15}\.[\p{Lower}]{2,4}$"
                                required
                                placeholder="<fmt:message key="registration_page.email"/>"
                                value="${registrationParameters.get("email")}"

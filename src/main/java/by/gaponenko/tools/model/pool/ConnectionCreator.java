@@ -9,6 +9,8 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 /**
+ * The Connection creator.
+ * <p>
  * Creates a connection to the database.
  *
  * @author Haponenka Ihar
@@ -24,6 +26,11 @@ class ConnectionCreator {
     private ConnectionCreator() {
     }
 
+    /**
+     * This method create a connection to the database.
+     *
+     * @return the ProxyConnection
+     */
     static ProxyConnection createConnection() {
         ProxyConnection proxyConnection;
         try {

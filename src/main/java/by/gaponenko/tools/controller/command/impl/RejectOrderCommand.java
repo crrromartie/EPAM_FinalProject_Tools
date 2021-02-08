@@ -41,8 +41,8 @@ public class RejectOrderCommand implements Command {
                 if (orderService.rejectOrder(orderId, tool.getToolId())) {
                     List<Order> orders;
                     if (ordersFilterStatus != null
-                            && !ordersFilterStatus.equals(CommandConstant.ALL)) {
-                        orders = orderService.findByStatus(Order.Status.valueOf(ordersFilterStatus));
+                            && !ordersFilterStatus.equalsIgnoreCase(CommandConstant.ALL)) {
+                        orders = orderService.findByStatus(ordersFilterStatus);
                     } else {
                         orders = orderService.findAll();
                     }

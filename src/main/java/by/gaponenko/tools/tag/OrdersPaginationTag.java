@@ -18,7 +18,7 @@ import java.util.Locale;
 import java.util.ResourceBundle;
 
 /**
- * The orders pagination tag.
+ * The Orders pagination tag.
  * <p>
  * Custom tag. Processes a list of orders for displaying them,
  * adds a pagination view for more convenient viewing of the list.
@@ -26,7 +26,6 @@ import java.util.ResourceBundle;
  * @author Haponenka Ihar
  * @version 1.0
  */
-@SuppressWarnings("serial")
 public class OrdersPaginationTag extends TagSupport {
     static Logger logger = LogManager.getLogger();
 

@@ -58,15 +58,15 @@ public class ToolServiceImpl implements ToolService {
     }
 
     @Override
-    public List<Tool> findByType(Tool.Type type) throws ServiceException {
-        if (!ToolDataValidator.isValidToolType(type)) {
+    public List<Tool> findByType(String toolType) throws ServiceException {
+        if (!ToolDataValidator.isValidToolType(toolType)) {
             return Collections.EMPTY_LIST;
         }
         ToolDao toolDao = new ToolDaoImpl();
         EntityTransaction transaction = new EntityTransaction();
         transaction.initSingleQuery(toolDao);
         try {
-            return toolDao.findByType(type);
+            return toolDao.findByType(Tool.Type.valueOf(toolType));
         } catch (DaoException e) {
             throw new ServiceException(e);
         } finally {

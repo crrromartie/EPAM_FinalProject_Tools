@@ -3,6 +3,8 @@ package by.gaponenko.tools.builder;
 import by.gaponenko.tools.entity.User;
 
 /**
+ * The User builder.
+ * <p>
  * The class represents user builder.
  *
  * @author Haponenka Ihar

@@ -43,7 +43,7 @@ public interface Dao<T extends Entity> {
     Optional<T> findById(long id) throws DaoException;
 
     /**
-     * Find all entities in database.
+     * Find all entities in the database.
      *
      * @return the list
      * @throws DaoException the dao exception

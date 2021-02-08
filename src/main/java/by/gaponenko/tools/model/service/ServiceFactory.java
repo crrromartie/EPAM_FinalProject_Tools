@@ -5,7 +5,8 @@ import by.gaponenko.tools.model.service.impl.ToolServiceImpl;
 import by.gaponenko.tools.model.service.impl.UserServiceImpl;
 
 /**
- * The type Service factory.
+ * The Service factory.
+ * <p>
  * Is used for storing  objects of services and provides an access to them.
  *
  * @author Haponenka Ihar

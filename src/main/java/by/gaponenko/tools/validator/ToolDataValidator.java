@@ -6,7 +6,7 @@ import by.gaponenko.tools.entity.Tool;
 import java.util.Map;
 
 /**
- * Toll data validator.
+ * The Tool data validator.
  *
  * @author Haponenka Ihar
  * @version 1.0
@@ -28,7 +28,7 @@ public class ToolDataValidator {
      */
     public static boolean isValidToolParameters(Map<String, String> toolParameters) {
         boolean isValid = true;
-        if (!isValidToolType(Tool.Type.valueOf(toolParameters.get(ParameterName.TOOL_TYPE)))) {
+        if (!isValidToolType(toolParameters.get(ParameterName.TOOL_TYPE))) {
             isValid = false;
         }
         if (!isValidModel(toolParameters.get(ParameterName.TOOL_MODEL))) {
@@ -49,18 +49,18 @@ public class ToolDataValidator {
     /**
      * Validates edit tool parameters.
      *
-     * @param toolParameters the toolParameters
+     * @param editToolParameters the editToolParameters
      * @return the boolean
      */
-    public static boolean isValidEditToolParameters(Map<String, String> toolParameters) {
+    public static boolean isValidEditToolParameters(Map<String, String> editToolParameters) {
         boolean isValid = true;
-        if (!isValidDescriptionEng(toolParameters.get(ParameterName.TOOL_DESCRIPTION_ENG))) {
+        if (!isValidDescriptionEng(editToolParameters.get(ParameterName.TOOL_DESCRIPTION_ENG))) {
             isValid = false;
         }
-        if (!isValidDescriptionRus(toolParameters.get(ParameterName.TOOL_DESCRIPTION_RUS))) {
+        if (!isValidDescriptionRus(editToolParameters.get(ParameterName.TOOL_DESCRIPTION_RUS))) {
             isValid = false;
         }
-        if (!isValidRentPrice(toolParameters.get(ParameterName.TOOL_RENT_PRICE))) {
+        if (!isValidRentPrice(editToolParameters.get(ParameterName.TOOL_RENT_PRICE))) {
             isValid = false;
         }
         return isValid;
@@ -69,18 +69,22 @@ public class ToolDataValidator {
     /**
      * Validates tool type.
      *
-     * @param type the type
+     * @param toolType the toolType
      * @return the boolean
      */
-    public static boolean isValidToolType(Tool.Type type) {
-        int counter = 0;
+    public static boolean isValidToolType(String toolType) {
+        if (toolType == null || toolType.isEmpty()) {
+            return false;
+        }
+        boolean isToolTypeValid = false;
         Tool.Type[] types = Tool.Type.values();
-        for (Tool.Type element : types) {
-            if (element == type) {
-                counter++;
+        for (Tool.Type type : types) {
+            if (toolType.toUpperCase().equals(type.name())) {
+                isToolTypeValid = true;
+                break;
             }
         }
-        return (counter == 1);
+        return isToolTypeValid;
     }
 
     /**

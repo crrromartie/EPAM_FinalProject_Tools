@@ -33,10 +33,11 @@ public class FilterToolsCommand implements Command {
         ToolService toolService = ServiceFactory.getINSTANCE().getToolService();
         try {
             List<Tool> tools;
-            if (toolType.equals(CommandConstant.ALL)) {
+            if (toolType != null
+                    && toolType.equalsIgnoreCase(CommandConstant.ALL)) {
                 tools = toolService.findAll();
             } else {
-                tools = toolService.findByType(Tool.Type.valueOf(toolType));
+                tools = toolService.findByType(toolType);
             }
             session.setAttribute(AttributeName.TOOLS, tools);
             session.setAttribute(AttributeName.TOOLS_PAGE_NUMBER, CommandConstant.FIRST_PAGE);

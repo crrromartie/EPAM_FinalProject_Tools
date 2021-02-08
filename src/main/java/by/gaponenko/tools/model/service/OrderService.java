@@ -40,11 +40,11 @@ public interface OrderService {
     /**
      * Find all orders by status.
      *
-     * @param status the status
+     * @param orderStatus the orderStatus
      * @return the list
      * @throws ServiceException the service exception
      */
-    List<Order> findByStatus(Order.Status status) throws ServiceException;
+    List<Order> findByStatus(String orderStatus) throws ServiceException;
 
     /**
      * Find all orders by user id.
@@ -59,11 +59,11 @@ public interface OrderService {
      * Find all orders by user id and order status.
      *
      * @param id     the id
-     * @param status the status
+     * @param orderStatus the orderStatus
      * @return the list
      * @throws ServiceException the service exception
      */
-    List<Order> findByUserIdAndOrderStatus(long id, Order.Status status) throws ServiceException;
+    List<Order> findByUserIdAndOrderStatus(long id, String orderStatus) throws ServiceException;
 
     /**
      * Add new order.
@@ -80,11 +80,11 @@ public interface OrderService {
      * Update order status.
      *
      * @param id     the id
-     * @param status the status
+     * @param orderStatus the orderStatus
      * @return the boolean
      * @throws ServiceException the service exception
      */
-    boolean updateStatus(long id, Order.Status status) throws ServiceException;
+    boolean updateStatus(long id, String orderStatus) throws ServiceException;
 
     /**
      * Order payment.

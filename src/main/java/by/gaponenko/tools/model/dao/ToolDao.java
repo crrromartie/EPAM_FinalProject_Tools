@@ -13,8 +13,9 @@ import java.util.Optional;
  * Extends the interface of the {@code Dao}, supplementing it with specific
  * methods for the interaction of the application with Tool entities in the database.
  *
+ * @author Ihar Haponenk
  * @version 1.0
- * @see Dao * @author Ihar Haponenka
+ * @see Dao
  */
 public interface ToolDao extends Dao<Tool> {
 

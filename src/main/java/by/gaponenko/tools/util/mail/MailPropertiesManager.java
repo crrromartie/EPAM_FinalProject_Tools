@@ -9,7 +9,7 @@ import java.io.InputStream;
 import java.util.Properties;
 
 /**
- * Mail properties manager.
+ * The Mail properties manager.
  *
  * @author Haponenka Ihar.
  * @version 1.0

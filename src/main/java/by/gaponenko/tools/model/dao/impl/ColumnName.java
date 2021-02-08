@@ -1,6 +1,8 @@
 package by.gaponenko.tools.model.dao.impl;
 
 /**
+ * The Column name.
+ * <p>
  * The class is used to store the names of the tables columns in the database.
  *
  * @author Haponenka Ihar

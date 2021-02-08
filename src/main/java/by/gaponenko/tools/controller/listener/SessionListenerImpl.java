@@ -15,6 +15,8 @@ import javax.servlet.http.HttpSessionEvent;
 import javax.servlet.http.HttpSessionListener;
 
 /**
+ * The Session listener impl.
+ * <p>
  * Session listener(create).
  * Used to set the locale, set the Guest role, update order statuses.
  *

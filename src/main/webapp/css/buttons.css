@@ -18,20 +18,6 @@
     background-color: #343A40;
 }
 
-#but-tool-find {
-    margin-top: 10px;
-    padding-left: 30px;
-    padding-right: 30px;
-    background-color: #343A40;
-}
-
-#but-order-find {
-    margin-top: 10px;
-    padding-left: 30px;
-    padding-right: 30px;
-    background-color: #343A40;
-}
-
 #but-sort-up {
     padding-left: 30px;
     padding-right: 30px;
@@ -39,18 +25,6 @@
 }
 
 #but-sort-down {
-    padding-left: 30px;
-    padding-right: 30px;
-    background-color: #343A40;
-}
-
-#but-view-list {
-    padding-left: 30px;
-    padding-right: 30px;
-    background-color: #343A40;
-}
-
-#but-view-cards {
     padding-left: 30px;
     padding-right: 30px;
     background-color: #343A40;

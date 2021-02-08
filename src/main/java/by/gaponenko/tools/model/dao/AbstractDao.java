@@ -3,7 +3,7 @@ package by.gaponenko.tools.model.dao;
 import java.sql.Connection;
 
 /**
- * The interface abstract Dao.
+ * The  Abstract dao.
  *
  * @author Haponenka Ihar
  * @version 1.0

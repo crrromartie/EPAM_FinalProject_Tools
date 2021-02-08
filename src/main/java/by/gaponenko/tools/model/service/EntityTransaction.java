@@ -10,6 +10,8 @@ import java.sql.Connection;
 import java.sql.SQLException;
 
 /**
+ * The Entity transaction.
+ * <p>
  * Transaction management.
  *
  * @author Haponenka Ihar

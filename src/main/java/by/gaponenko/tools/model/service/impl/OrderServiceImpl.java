@@ -66,15 +66,15 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public List<Order> findByStatus(Order.Status status) throws ServiceException {
-        if (!OrderDataValidator.isValidOrderStatus(status)) {
+    public List<Order> findByStatus(String orderStatus) throws ServiceException {
+        if (!OrderDataValidator.isValidOrderStatus(orderStatus)) {
             return Collections.EMPTY_LIST;
         }
         OrderDao orderDao = new OrderDaoImpl();
         EntityTransaction transaction = new EntityTransaction();
         transaction.initSingleQuery(orderDao);
         try {
-            return orderDao.findByStatus(status);
+            return orderDao.findByStatus(Order.Status.valueOf(orderStatus.toUpperCase()));
         } catch (DaoException e) {
             throw new ServiceException(e);
         } finally {
@@ -97,15 +97,15 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public List<Order> findByUserIdAndOrderStatus(long id, Order.Status status) throws ServiceException {
-        if (!OrderDataValidator.isValidOrderStatus(status)) {
+    public List<Order> findByUserIdAndOrderStatus(long id, String orderStatus) throws ServiceException {
+        if (!OrderDataValidator.isValidOrderStatus(orderStatus)) {
             return Collections.EMPTY_LIST;
         }
         OrderDao orderDao = new OrderDaoImpl();
         EntityTransaction transaction = new EntityTransaction();
         transaction.initSingleQuery(orderDao);
         try {
-            return orderDao.findByUserIdAndOrderStatus(id, status);
+            return orderDao.findByUserIdAndOrderStatus(id, Order.Status.valueOf(orderStatus.toUpperCase()));
         } catch (DaoException e) {
             throw new ServiceException(e);
         } finally {
@@ -144,15 +144,15 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public boolean updateStatus(long id, Order.Status status) throws ServiceException {
-        if (!OrderDataValidator.isValidOrderStatus(status)) {
+    public boolean updateStatus(long id, String orderStatus) throws ServiceException {
+        if (!OrderDataValidator.isValidOrderStatus(orderStatus)) {
             return false;
         }
         OrderDao orderDao = new OrderDaoImpl();
         EntityTransaction transaction = new EntityTransaction();
         transaction.initSingleQuery(orderDao);
         try {
-            return orderDao.updateStatus(id, status);
+            return orderDao.updateStatus(id, Order.Status.valueOf(orderStatus.toUpperCase()));
         } catch (DaoException e) {
             throw new ServiceException(e);
         } finally {
@@ -230,7 +230,7 @@ public class OrderServiceImpl implements OrderService {
                 if (order.getStatus().equals(Order.Status.ACTIVE)
                         && currentDay > DateConverter.convertToLong(order.getReturnDate())) {
                     toolDao.activateTool(order.getTool().getToolId());
-                    updateStatus(order.getOrderId(), Order.Status.COMPLETE);
+                    orderDao.updateStatus(order.getOrderId(), Order.Status.COMPLETE);
                 }
                 if ((order.getStatus().equals(Order.Status.NEW)
                         || order.getStatus().equals(Order.Status.APPROVED))

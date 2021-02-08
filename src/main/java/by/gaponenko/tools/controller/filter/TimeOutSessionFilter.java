@@ -10,7 +10,7 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 /**
- * Timeout session filter.
+ * The Timeout session filter.
  *
  * @author Haponenka Ihar
  * @version 1.0

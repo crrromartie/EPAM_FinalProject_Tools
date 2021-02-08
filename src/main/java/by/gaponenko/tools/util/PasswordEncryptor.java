@@ -15,7 +15,7 @@ public class PasswordEncryptor {
      * Encrypt password.
      *
      * @param password the password
-     * @return the String
+     * @return the string
      */
     public static String encrypt(String password) {
         return (DigestUtils.md5Hex(password));

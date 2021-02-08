@@ -38,11 +38,11 @@ public interface ToolService {
     /**
      * Find all tools by type.
      *
-     * @param type the type
+     * @param toolType the toolType
      * @return the list
      * @throws ServiceException the Service exception
      */
-    List<Tool> findByType(Tool.Type type) throws ServiceException;
+    List<Tool> findByType(String toolType) throws ServiceException;
 
     /**
      * Add new  tool.

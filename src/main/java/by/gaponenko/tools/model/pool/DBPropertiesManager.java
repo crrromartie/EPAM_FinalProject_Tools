@@ -9,6 +9,8 @@ import java.io.InputStream;
 import java.util.Properties;
 
 /**
+ * The DBPropertiesManager
+ * <p>
  * Uses for reading properties for creating connection with database.
  *
  * @author Haponenka Ihar

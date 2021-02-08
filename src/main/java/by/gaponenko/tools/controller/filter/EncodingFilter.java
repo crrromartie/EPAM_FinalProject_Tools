@@ -6,7 +6,8 @@ import javax.servlet.annotation.WebInitParam;
 import java.io.IOException;
 
 /**
- * Encoding filter.
+ * The Encoding filter.
+ * <p>
  * This filter changes encoding.
  *
  * @author Haponenka Ihar

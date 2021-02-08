@@ -33,11 +33,11 @@ public class UnblockClientCommand implements Command {
         String clientFilterStatus = (String) session.getAttribute(AttributeName.USERS_FILTER_STATUS);
         UserService userService = ServiceFactory.getINSTANCE().getUserService();
         try {
-            if (userService.updateStatus(login, User.Status.ACTIVE)) {
+            if (userService.updateStatus(login, CommandConstant.ACTIVE)) {
                 List<User> users;
                 if (clientFilterStatus != null
-                        && !clientFilterStatus.equals(CommandConstant.ALL)) {
-                    users = userService.findClientsByStatus(User.Status.valueOf(clientFilterStatus));
+                        && !clientFilterStatus.equalsIgnoreCase(CommandConstant.ALL)) {
+                    users = userService.findClientsByStatus(clientFilterStatus);
                 } else {
                     users = userService.findClients();
                 }

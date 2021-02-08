@@ -37,7 +37,7 @@ public class OrdersAdminPassCommand implements Command {
             List<Order> orders = orderService.findAll();
             session.setAttribute(AttributeName.ORDERS, orders);
             session.setAttribute(AttributeName.ORDERS_PAGE_NUMBER, CommandConstant.FIRST_PAGE);
-            session.removeAttribute(AttributeName.USERS_FILTER_STATUS);
+            session.removeAttribute(AttributeName.ORDERS_FILTER_STATUS);
         } catch (ServiceException e) {
             logger.log(Level.ERROR, e.getMessage());
             router.setPage(PagePath.ERROR_500);

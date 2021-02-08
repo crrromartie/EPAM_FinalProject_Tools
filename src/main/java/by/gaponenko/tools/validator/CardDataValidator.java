@@ -5,7 +5,7 @@ import by.gaponenko.tools.controller.command.ParameterName;
 import java.util.Map;
 
 /**
- * Card data validator.
+ * The Card data validator.
  *
  * @author Haponenka Ihar
  * @version 1.0
@@ -55,8 +55,8 @@ public class CardDataValidator {
     /**
      * Validates month card.
      *
-     * @param month
-     * @return
+     * @param month the month
+     * @return the boolean
      */
     public static boolean isValidMonthCard(String month) {
         if (month == null || month.isEmpty() || !month.matches(MONTH_CARD_REGEX)) {

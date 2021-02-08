@@ -6,6 +6,7 @@ import org.testng.annotations.Test;
 import java.time.LocalDate;
 
 public class DateConverterTest {
+
     @Test
     public void convertToLongPositiveTest() {
         LocalDate localDate = LocalDate.parse("2021-02-25");
@@ -21,7 +22,6 @@ public class DateConverterTest {
         long actual = DateConverter.convertToLong(localDate);
         Assert.assertNotEquals(actual, unexpected);
     }
-
 
     @Test
     public void convertToDatePositiveTest() {

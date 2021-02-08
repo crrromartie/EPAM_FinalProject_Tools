@@ -38,11 +38,11 @@ public interface UserService {
     /**
      * Find all clients by status.
      *
-     * @param status the status
+     * @param clientStatus the clientStatus
      * @return the list
      * @throws ServiceException the service exception
      */
-    List<User> findClientsByStatus(User.Status status) throws ServiceException;
+    List<User> findClientsByStatus(String clientStatus) throws ServiceException;
 
     /**
      * The method is used to log into the system.
@@ -75,12 +75,12 @@ public interface UserService {
     /**
      * Update client status.
      *
-     * @param login  the login.
-     * @param status the status
+     * @param login      the login.
+     * @param clientStatus the clientStatus
      * @return the boolean
      * @throws ServiceException the service exception
      */
-    boolean updateStatus(String login, User.Status status) throws ServiceException;
+    boolean updateStatus(String login, String clientStatus) throws ServiceException;
 
     /**
      * Update user status.

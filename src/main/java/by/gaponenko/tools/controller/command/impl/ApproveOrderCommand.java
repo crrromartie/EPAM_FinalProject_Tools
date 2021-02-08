@@ -33,11 +33,11 @@ public class ApproveOrderCommand implements Command {
         String ordersFilterStatus = (String) session.getAttribute(AttributeName.ORDERS_FILTER_STATUS);
         OrderService orderService = ServiceFactory.getINSTANCE().getOrderService();
         try {
-            if (orderService.updateStatus(orderId, Order.Status.APPROVED)) {
+            if (orderService.updateStatus(orderId, CommandConstant.APPROVED)) {
                 List<Order> orders;
                 if (ordersFilterStatus != null
-                        && !ordersFilterStatus.equals(CommandConstant.ALL)) {
-                    orders = orderService.findByStatus(Order.Status.valueOf(ordersFilterStatus));
+                        && !ordersFilterStatus.equalsIgnoreCase(CommandConstant.ALL)) {
+                    orders = orderService.findByStatus(ordersFilterStatus);
                 } else {
                     orders = orderService.findAll();
                 }

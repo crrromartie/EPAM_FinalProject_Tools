@@ -13,6 +13,10 @@ public class CommandConstant {
     public static final String EN_LANG = "en";
     public static final String TRUE = "true";
     public static final String ALL = "ALL";
+    public static final String BLOCKED = "BLOCKED";
+    public static final String ACTIVE = "ACTIVE";
+    public static final String APPROVED = "APPROVED";
+    public static final String REJECTED = "REJECTED";
     public static final int FIRST_PAGE = 1;
 
     private CommandConstant() {

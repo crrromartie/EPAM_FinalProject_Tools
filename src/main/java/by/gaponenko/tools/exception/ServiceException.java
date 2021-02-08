@@ -3,7 +3,7 @@ package by.gaponenko.tools.exception;
 /**
  * The type Service exception.
  * <p>
- * Sub class class Exceptions. It's checked, used when exceptions
+ * Sub class class Exception. It's checked, used when exceptions
  * occur in the Service application layer.
  *
  * @author Haponenka Ihar

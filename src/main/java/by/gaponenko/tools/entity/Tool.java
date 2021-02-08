@@ -11,7 +11,7 @@ import java.util.StringJoiner;
  * The Tool.
  * <p>
  * Is the subject area of the service.
- * Describes the tools rented by clients.
+ * Describes the tool rented by clients.
  *
  * @author Haponenka Ihar
  * @version 1.0
