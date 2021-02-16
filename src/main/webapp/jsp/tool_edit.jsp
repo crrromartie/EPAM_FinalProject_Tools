@@ -25,7 +25,7 @@
                            href="${pageContext.request.contextPath}/ToolRental?command=tool_photo_pass&toolId=${tool.getToolId()}">
                             <fmt:message key="tool_s_page.update_photo"/></a>
                     </div>
-                    <h5>${tool.getModel()}</h5>
+                    <h5><c:out value="${tool.getModel()}"/></h5>
                     <div class="form-group">
                         <textarea type="text" class="form-control" name="descriptionRus"
                                   title="<fmt:message key="tool_s_page.description_rus"/>"

@@ -50,12 +50,12 @@
                                 </c:when>
                             </c:choose>
                         </h5>
-                        <h5>${tool.getModel()}</h5>
-                        <h5>${tool.getRentPrice()}</h5>
+                        <h5><c:out value="${tool.getModel()}"/></h5>
+                        <h5><c:out value="${tool.getRentPrice()}"/></h5>
                     </div>
                     <ul class="list-group list-group-flush">
-                        <li class="list-group-item">${tool.getDescriptionRus()}</li>
-                        <li class="list-group-item">${tool.getDescriptionEng()}</li>
+                        <li class="list-group-item"><c:out value="${tool.getDescriptionRus()}"/></li>
+                        <li class="list-group-item"><c:out value="${tool.getDescriptionEng()}"/></li>
                     </ul>
                 </div>
             </div>
@@ -101,7 +101,7 @@
                         <input type="hidden" name="totalCost" value="${totalCost}">
                         <div class="form-row form-group">
                             <label class="col-form-label">
-                                <fmt:message key="tool_s_page.total"/><c:out value=" ${totalCost}"/>
+                                <fmt:message key="tool_s_page.total"/><c:out value="${totalCost}"/>
                             </label>
                         </div>
                         <div class="form-row form-group">

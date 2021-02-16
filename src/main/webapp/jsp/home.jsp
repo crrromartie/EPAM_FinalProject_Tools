@@ -44,7 +44,7 @@
                 <span class="carousel-control-next-icon" aria-hidden="true"></span>
             </a>
         </div>
-        </br>
+        <br>
         <label id="main-info"><fmt:message key="home_page.info_0"/></label>
         <div class="info">
             <label><fmt:message key="home_page.info_1"/></label>
@@ -52,7 +52,7 @@
             <label><fmt:message key="home_page.info_3"/></label>
             <label><fmt:message key="home_page.info_4"/></label>
         </div>
-        </br>
+        <br>
     </div>
 </div>
 <jsp:include page="${pageContext.request.contextPath}/jsp/common/footer.jsp"/>

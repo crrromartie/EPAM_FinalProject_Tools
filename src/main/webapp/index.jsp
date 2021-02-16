@@ -5,6 +5,6 @@
     <title>Index</title>
 </head>
 <body>
-<jsp:forward page="ToolRental?command=home_pass"></jsp:forward>
+<jsp:forward page="ToolRental?command=home_pass"/>
 </body>
 </html>
