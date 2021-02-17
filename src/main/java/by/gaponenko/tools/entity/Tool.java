@@ -110,6 +110,38 @@ public class Tool extends Entity {
         return photo;
     }
 
+    public void setToolId(long toolId) {
+        this.toolId = toolId;
+    }
+
+    public void setType(Type type) {
+        this.type = type;
+    }
+
+    public void setModel(String model) {
+        this.model = model;
+    }
+
+    public void setDescriptionEng(String descriptionEng) {
+        this.descriptionEng = descriptionEng;
+    }
+
+    public void setDescriptionRus(String descriptionRus) {
+        this.descriptionRus = descriptionRus;
+    }
+
+    public void setAvailable(boolean available) {
+        isAvailable = available;
+    }
+
+    public void setRentPrice(BigDecimal rentPrice) {
+        this.rentPrice = rentPrice;
+    }
+
+    public void setPhoto(String photo) {
+        this.photo = photo;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {

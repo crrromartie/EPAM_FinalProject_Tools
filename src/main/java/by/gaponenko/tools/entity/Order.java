@@ -101,6 +101,34 @@ public class Order extends Entity {
         return tool;
     }
 
+    public void setOrderId(long orderId) {
+        this.orderId = orderId;
+    }
+
+    public void setOrderDate(LocalDate orderDate) {
+        this.orderDate = orderDate;
+    }
+
+    public void setReturnDate(LocalDate returnDate) {
+        this.returnDate = returnDate;
+    }
+
+    public void setTotalCost(BigDecimal totalCost) {
+        this.totalCost = totalCost;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public void setTool(Tool tool) {
+        this.tool = tool;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
