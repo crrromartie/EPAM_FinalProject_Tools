@@ -4,7 +4,6 @@ import by.gaponenko.tools.controller.command.*;
 import by.gaponenko.tools.entity.User;
 
 import javax.servlet.*;
-import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -28,7 +27,6 @@ import java.util.Set;
  * @author Haponenka Ihar
  * @version 1.0
  */
-@WebFilter(urlPatterns = "/ToolRental")
 public class ClientStatusPermissionFilter implements Filter {
 
     @Override

@@ -3,7 +3,6 @@ package by.gaponenko.tools.controller.filter;
 import by.gaponenko.tools.controller.command.PagePath;
 
 import javax.servlet.*;
-import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -15,7 +14,6 @@ import java.io.IOException;
  * @author Haponenka Ihar
  * @version 1.0
  */
-@WebFilter(urlPatterns = {("/ToolRental")})
 public class TimeOutSessionFilter implements Filter {
 
     @Override

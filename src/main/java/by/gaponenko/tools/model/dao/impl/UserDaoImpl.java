@@ -15,7 +15,6 @@ import java.io.InputStream;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;
@@ -218,7 +217,6 @@ public class UserDaoImpl extends AbstractDao implements UserDao {
         File file = new File(DEFAULT_USER_AVATAR_PATH);
         try (InputStream fileInputStream = new FileInputStream(file);
              PreparedStatement statement = connection.prepareStatement(ADD_USER)) {
-            Statement statement1 = connection.createStatement();
             statement.setString(1, user.getLogin());
             statement.setString(2, password);
             statement.setString(3, user.getName());

@@ -232,8 +232,12 @@ public class OrderServiceImpl implements OrderService {
                     toolDao.activateTool(order.getTool().getToolId());
                     orderDao.updateStatus(order.getOrderId(), Order.Status.COMPLETE);
                 }
-                if ((order.getStatus().equals(Order.Status.NEW)
-                        || order.getStatus().equals(Order.Status.APPROVED))
+                if (order.getStatus().equals(Order.Status.NEW)
+                        && currentDay > DateConverter.convertToLong(order.getOrderDate())) {
+                    toolDao.activateTool(order.getTool().getToolId());
+                    orderDao.delete(order.getOrderId());
+                }
+                if (order.getStatus().equals(Order.Status.APPROVED)
                         && currentDay > DateConverter.convertToLong(order.getOrderDate())) {
                     toolDao.activateTool(order.getTool().getToolId());
                     orderDao.delete(order.getOrderId());

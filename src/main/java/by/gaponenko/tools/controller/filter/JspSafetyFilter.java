@@ -6,7 +6,6 @@ import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
-import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -20,7 +19,6 @@ import java.io.IOException;
  * @author Haponenka Ihar
  * @version 1.0
  */
-@WebFilter(urlPatterns = "/jsp/*")
 public class JspSafetyFilter implements Filter {
 
     @Override

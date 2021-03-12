@@ -71,8 +71,9 @@
                     <div class="form-group">
                         <input type="number" class="form-control" name="rentPrice"
                                title="<fmt:message key="tool_s_page.rent_price"/>"
-                               min="1"
-                               max="99"
+                               step="0.01"
+                               min="1.00"
+                               max="99.00"
                                required
                                placeholder="<fmt:message key="tool_s_page.rent_price"/>"
                                value="${toolParameters.get("rentPrice")}"
